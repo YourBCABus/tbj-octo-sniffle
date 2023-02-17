@@ -1,6 +1,6 @@
 import { View, Text, Pressable } from 'react-native'
 import Icon from 'react-native-vector-icons/Ionicons';
-import { TeacherEntryProps } from '../../lib/Types';
+import { TeacherEntryProps } from '../../lib/types';
 import { useCallback } from 'react';
 
 const STAR_SIZE = 25;
@@ -14,7 +14,7 @@ export default function TeacherEntry(props: TeacherEntryProps) {
     
     return (
         <View className="flex flex-row p-2 m-2 justify-between" id={id}>
-            <Pressable onPress={ toggle } >
+            <Pressable onPress={ toggle } hitSlop={2}>
                 {
                 starred ? 
                 (
@@ -35,7 +35,7 @@ export default function TeacherEntry(props: TeacherEntryProps) {
                         <Text className="text-white my-auto">{name}</Text>
                     )
                 }
-                <Text className="text-white my-auto">{id}</Text>
+                {/* <Text className="text-white my-auto">{id}</Text> */}
             </View>
         </View>
     )

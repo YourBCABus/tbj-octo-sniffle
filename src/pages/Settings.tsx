@@ -39,7 +39,7 @@ export default function Settings() {
             {
                 switchDescriptions.map((description, idx) => {
                     return (
-                        <View className="flex flex-row justify-around w-screen px-4">
+                        <View className="flex flex-row justify-around w-screen px-4" key={idx}>
                             <Switch
                                 trackColor={{false: 'gray', true: 'green'}}
                                 thumbColor={isEnabled(idx) ? 'lime' : 'gray'}
@@ -47,14 +47,14 @@ export default function Settings() {
                                 value={isEnabled(idx)}
                                 className="scale-7 my-auto"
                             />
-                            <Text className="text-white text-left my-auto text-md pl-12 w-1/2">
+                            <Text className="text-white text-center my-auto text-md pl-12 w-1/2">
                                 {description.description}
                             </Text>
                         </View>
                     )
                 })
             }
-            <Text className="text-gray-300 text-center">© Yenowa</Text>  
+            <Text className="text-gray-300 absolute bottom-10 text-center">© Yenowa</Text>  
         </View>
     )
 }

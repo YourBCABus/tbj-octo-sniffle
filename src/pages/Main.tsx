@@ -1,79 +1,91 @@
-import { Button, FlatList, SafeAreaView, TextInput, Text, View, Pressable, ScrollView } from "react-native";
+import { Button, ActivityIndicator, SafeAreaView, TextInput, Text, View, Pressable, ScrollView, RefreshControl } from "react-native";
 import TeacherEntry from "../components/TeacherEntry/TeacherEntry";
 import { useState, useCallback, useEffect } from "react";
 import Icon from 'react-native-vector-icons/Ionicons';
 
-import { Teacher } from '../lib/Types'
-import { initialLoad, update } from "../lib/storage";
+import { Teacher } from '../lib/types'
+import { initialLoad, update, validateIDs } from "../lib/storage";
 
-// should probably be a dictionary of some sorts
-const TEACHERS : Teacher[] = [
-    {
-        id: 'a',
-        name: 'Papaya Lemon',
-    },
-    {
-        id: 'b',
-        name: 'Skyler Calaman',
-    },
-    {
-        id: 'c',
-        name: 'Yusuf Sallam',
-    },
-    {
-        id: 'd',
-        name: 'Alice Zhang',
-    },
-    {
-        id: 'asdf',
-        name: 'Anthony Li',
-    },
-    {
-        id: 'zxcv',
-        name: 'Edward Feng',
-    },
-    {
-        id: 'ae',
-        name: 'Shahmeer Ali',
-    },
-    {
-        id: 'w',
-        name: 'Shahmeer Ali',
-    },
-    {
-        id: 'e',
-        name: 'Shahmeer Ali',
-    },
-    {
-        id: 'are',
-        name: 'Shahmeer Ali',
-    },
-    {
-        id: 'grg',
-        name: 'Shahmeer Ali',
-    }
-];
+import { useQuery } from '@apollo/client';
+import { GET_ALL_TEACHERS } from '../lib/graphql/Queries';
 
 const SUBHEADER = 'text-purple-300 italic pl-2 text-lg'
 
 export default function Main({navigation}: any) {
+    const [refreshing, setRefreshing] = useState(false);
+
+
+    const { data, loading, error, refetch } = useQuery( GET_ALL_TEACHERS, {
+        pollInterval: 30000,
+        
+        onError: (error) => {
+            console.log(error);
+        }    
+    } );
+
+    const refreshFn = useCallback(() => {
+        setRefreshing(true);
+        refetch()
+            .then(() => setRefreshing(false))
+            .catch((e) => {
+                console.log(e);
+                setRefreshing(false);
+            });
+    }, [setRefreshing, refetch]);
+
+
+    useEffect(() => {
+        if(data !== undefined) {
+            validateIDs(setStarredTeachers, data.teachers);
+        }
+    }, [data]);
+    
+    
     const [search, updateSearch] = useState('');
+
     const [starredTeachers, setStarredTeachers] = useState(new Set<string>());
-    const teachers = TEACHERS;
     useEffect(
         () => { initialLoad()
             .then((value) => setStarredTeachers(value)) },
         [setStarredTeachers]
     );
 
-    // console.log({ starredTeachers });
-
-    
     const toggleTeacherStarState = useCallback(
         (id: string) => update(setStarredTeachers, id),
         [setStarredTeachers],
     );
 
+    if(error) {
+        return (
+            <SafeAreaView className="flex-1 bg-ebony justify-center align-middle">
+                <ScrollView contentContainerStyle={{ flexGrow: 1, justifyContent: 'center' }}refreshControl={ <RefreshControl refreshing={ refreshing } onRefresh={ refreshFn } /> } >
+                    <View>
+                        <Text className="text-red-500 text-center text-lg mx-3 font-bold">
+                            Failed to load data :&#x28;
+                        </Text>
+                        <Text className="text-white text-center mx-3">
+                            Please check your internet connection.
+                        </Text>
+                    </View>
+                </ScrollView>
+            </SafeAreaView>
+        )
+    }
+
+    if(loading) {
+        return (
+            <SafeAreaView className="flex-1 bg-ebony justify-center align-middle">
+                <ActivityIndicator size="large" color="white" />
+            </SafeAreaView>
+        )
+    }
+
+    const teachers : Teacher[] = data.teachers.map( (teacher : Teacher) => {
+        return {
+            id: teacher.id,
+            name: teacher.name,
+        }
+    })
 
     return (
         <SafeAreaView className="flex-1 bg-ebony">
@@ -82,7 +94,7 @@ export default function Main({navigation}: any) {
                     TableJet
                 </Text>
                 <View>
-                    <Pressable onPressIn={ () => navigation.navigate('Settings') }>
+                    <Pressable onPressIn={ () => navigation.navigate('Settings') } hitSlop={3}>
                         <Icon name="cog" size={30} color="white" />
                     </Pressable>
                 </View>
@@ -100,7 +112,8 @@ export default function Main({navigation}: any) {
                     autoComplete="off"
                     keyboardType="default" />
             </View>
-            <ScrollView>
+            {/* TODO - add popup at bottom to indicate failed to load if request failed but there are already things in cache */}
+            <ScrollView refreshControl={ <RefreshControl refreshing={ refreshing } onRefresh={ refreshFn } /> }>
                 {
                     starredTeachers.size > 0 ? (
                         <View className="pt-2 border-t border-purple-500/30">

@@ -1,4 +1,5 @@
 import AsyncStorage from '@react-native-async-storage/async-storage'
+import { Teacher } from './types';
 
 export type StarredIds = Set<string>;
 
@@ -18,6 +19,19 @@ async function __getItem(isInitError: boolean): Promise<string | null> {
         return await AsyncStorage.getItem(STARRED_ID_KEY);
     } catch (e) {
         throw new StarError(e, isInitError);
+    }
+}
+
+export async function validateIDs(setTeacherIds: (ids: StarredIds) => void, teachers: Teacher[]): Promise<boolean> {
+    try {    
+        const currentIds = [...await initialLoad()];
+        const filteredIDs = currentIds.filter(id => teachers.some(teacher => teacher.id === id));
+
+        await AsyncStorage.setItem(STARRED_ID_KEY, JSON.stringify(filteredIDs));
+        setTeacherIds(new Set(filteredIDs));
+        return true;
+    } catch (e) {
+        return false;
     }
 }
 
