@@ -1,28 +1,28 @@
-import { Button, FlatList, SafeAreaView, TextInput, Text, View, Pressable } from "react-native";
+import { Button, FlatList, SafeAreaView, TextInput, Text, View, Pressable, ScrollView } from "react-native";
 import TeacherEntry from "../components/TeacherEntry/TeacherEntry";
-import { useState } from "react";
-
+import { useState, useCallback } from "react";
 import Icon from 'react-native-vector-icons/Ionicons';
 
-const STARRED_TEACHERS = [
-    {
-        id: 'fghj',
-        name: 'Papaya Lemon',
-    }
-]
+import { Teacher } from '../lib/Types'
+import { initialLoad, update } from "../lib/storage";
 
-const TEACHERS = [
+// should probably be a dictionary of some sorts
+const TEACHERS : Teacher[] = [
     {
-      id: 'fghj',
-      name: 'Skyler Calaman',
+        id: 'a',
+        name: 'Papaya Lemon',
     },
     {
-      id: 'rtyu',
-      name: 'Yusuf Sallam',
+        id: 'b',
+        name: 'Skyler Calaman',
     },
     {
-      id: 'qwer',
-      name: 'Alice Zhang',
+        id: 'c',
+        name: 'Yusuf Sallam',
+    },
+    {
+        id: 'd',
+        name: 'Alice Zhang',
     },
     {
         id: 'asdf',
@@ -54,16 +54,29 @@ const TEACHERS = [
     }
 ];
 
-
 const SUBHEADER = 'text-purple-300 italic pl-2 text-lg'
 
 export default function Main({navigation}: any) {
     const [search, updateSearch] = useState('');
+    const [starredTeachers, setStarredTeachers] = useState(new Set<string>());
+    const teachers = TEACHERS;
+
+    console.log({ starredTeachers });
+
+    initialLoad()
+        .then((value) => setStarredTeachers(value));
+
+    const toggleTeacherStarState = useCallback(
+        (id: string) => update(setStarredTeachers, id),
+        [setStarredTeachers],
+    );
+
+
     return (
-        <SafeAreaView className="flex-1 bg-ebony pt-3">
-            <View className="flex flex-row justify-between pb-4 px-3">
+        <SafeAreaView className="flex-1 bg-ebony">
+            <View className="flex flex-row justify-between pb-4 px-3 mt-3">
                 <Text className="text-white font-bold text-2xl">
-                    YourBCATeacher
+                    TableJet
                 </Text>
                 <View>
                     <Pressable onPressIn={ () => navigation.navigate('Settings') }>
@@ -84,43 +97,54 @@ export default function Main({navigation}: any) {
                     autoComplete="off"
                     keyboardType="default" />
             </View>
-            <View className="h-2/3">
+            <ScrollView>
                 {
-                    STARRED_TEACHERS.length > 0 ? (
+                    starredTeachers.size > 0 ? (
                         <View className="pt-2 border-t border-purple-500/30">
                             <Text className={SUBHEADER}> Starred Teachers </Text>
-                            <FlatList
-                                data={STARRED_TEACHERS}
-                                keyExtractor={teacher => teacher.id}
-                                renderItem={({item}) => <TeacherEntry name={item.name} id={item.id} starred={true} />}
-                            />
+                            {
+                                teachers
+                                    .filter((teacher) => starredTeachers.has(teacher.id))
+                                    .map((teacher, idx) => {
+                                        return (
+                                            <TeacherEntry
+                                                key={teacher.id}
+                                                teacher={ teacher }
+                                                starred={ true }
+                                                setStar={toggleTeacherStarState} idx={idx} />
+                                        )
+                                    })
+                            }
                         </View>
                     ) : null
                 }
                 <View className="mb-6 pt-2 border-t border-purple-500/30">
                     <Text className={SUBHEADER}> All Teachers </Text>
-                    <FlatList
-                        data={TEACHERS}
-                        keyExtractor={teacher => teacher.id}
-                        renderItem={({item}) => <TeacherEntry name={item.name} id={item.id} starred={false}/>}
-                    />
-
-                </View>
-            </View>
-            <View className="text-center absolute bottom-10 w-full">
-                <Button
-                    title="Go Back"
-                    onPress={() =>
-                        navigation.reset({
-                            index: 0,
-                            routes: [{ name: 'Landing' }],
-                        })
+                    {
+                        teachers
+                            .map((teacher, idx) => {
+                                return (
+                                    <TeacherEntry
+                                        key={ teacher.id }
+                                        teacher={ teacher }
+                                        starred={ starredTeachers.has(teacher.id) }
+                                        setStar={toggleTeacherStarState} idx={idx} />
+                                )
+                            })
                     }
-                />
-            </View>
-            <View className="absolute bottom-5 w-full">
-                <Text className="text-gray-300 text-center">© Yenowa</Text>
-            </View>
+                </View>
+                <View className="mb-5">
+                    <Button
+                        title="Go Back"
+                        onPress={() =>
+                            navigation.reset({
+                                index: 0,
+                                routes: [{ name: 'Landing' }],
+                            })
+                        }
+                    />
+                </View>
+            </ScrollView>
         </SafeAreaView>
     )
 }

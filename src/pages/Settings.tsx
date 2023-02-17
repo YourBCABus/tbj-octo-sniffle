@@ -53,7 +53,8 @@ export default function Settings() {
                         </View>
                     )
                 })
-            }  
+            }
+            <Text className="text-gray-300 text-center">© Yenowa</Text>  
         </View>
     )
 }

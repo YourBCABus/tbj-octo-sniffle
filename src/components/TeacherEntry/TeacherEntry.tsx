@@ -1,20 +1,22 @@
-import { View, Text } from 'react-native'
+import { View, Text, Pressable } from 'react-native'
 import Icon from 'react-native-vector-icons/Ionicons';
-
-interface TeacherEntryProps {
-    name: string
-    id: string
-    starred: boolean
-}
+import { TeacherEntryProps } from '../../lib/Types';
+import { useCallback } from 'react';
 
 const STAR_SIZE = 25;
 
 export default function TeacherEntry(props: TeacherEntryProps) {
+    const starred = props.starred;
+    const { id, name } = props.teacher;
+    const toggleStar = props.setStar;
+    
+    const toggle = useCallback(() => toggleStar(id), [id]);
+    
     return (
-        <View className="flex flex-row p-2 m-2 justify-between">
-            <View className="">
+        <View className="flex flex-row p-2 m-2 justify-between" id={id}>
+            <Pressable onPress={ toggle } >
                 {
-                props.starred ? 
+                starred ? 
                 (
                     <Icon name="star" size={STAR_SIZE} color="yellow" />
                 ) :
@@ -22,19 +24,18 @@ export default function TeacherEntry(props: TeacherEntryProps) {
                     <Icon name="star-outline" size={STAR_SIZE} color="gray" />
                 )
                 }
-            </View>
+            </Pressable>
             <View className="flex flex-row space-x-3 ">
                 {
-                    // TODO --> add star for starred teachers, make unstarred look nicer
-                    props.starred ? 
+                starred ? 
                     (
-                        <Text className="text-yellow-400 my-auto">* {props.name}</Text>
+                        <Text className="text-yellow-400 my-auto">* {name}</Text>
                     ) : 
                     (
-                        <Text className="text-white my-auto">{props.name}</Text>
+                        <Text className="text-white my-auto">{name}</Text>
                     )
                 }
-                <Text className="text-white my-auto">{props.id}</Text>
+                <Text className="text-white my-auto">{id}</Text>
             </View>
         </View>
     )
