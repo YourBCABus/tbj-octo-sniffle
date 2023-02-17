@@ -1,6 +1,6 @@
 import { Button, FlatList, SafeAreaView, TextInput, Text, View, Pressable, ScrollView } from "react-native";
 import TeacherEntry from "../components/TeacherEntry/TeacherEntry";
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
 import Icon from 'react-native-vector-icons/Ionicons';
 
 import { Teacher } from '../lib/Types'
@@ -60,12 +60,15 @@ export default function Main({navigation}: any) {
     const [search, updateSearch] = useState('');
     const [starredTeachers, setStarredTeachers] = useState(new Set<string>());
     const teachers = TEACHERS;
+    useEffect(
+        () => { initialLoad()
+            .then((value) => setStarredTeachers(value)) },
+        [setStarredTeachers]
+    );
 
-    console.log({ starredTeachers });
+    // console.log({ starredTeachers });
 
-    initialLoad()
-        .then((value) => setStarredTeachers(value));
-
+    
     const toggleTeacherStarState = useCallback(
         (id: string) => update(setStarredTeachers, id),
         [setStarredTeachers],
