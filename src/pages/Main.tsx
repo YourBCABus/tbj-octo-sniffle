@@ -1,23 +1,22 @@
 import { Button, ActivityIndicator, SafeAreaView, TextInput, Text, View, Pressable, ScrollView, RefreshControl } from "react-native";
 import TeacherEntry from "../components/TeacherEntry/TeacherEntry";
-import { useState, useCallback, useEffect } from "react";
+import { useState, useCallback, useEffect, useMemo } from "react";
 import Icon from 'react-native-vector-icons/Ionicons';
 
-import { Teacher } from '../lib/types'
+import { AbsenceState, Teacher } from '../lib/types'
 import { initialLoad, update, validateIDs } from "../lib/storage";
 
 import { useQuery } from '@apollo/client';
-import { GET_ALL_TEACHERS } from '../lib/graphql/Queries';
+import { GET_ALL_TEACHERS_PERIODS } from '../lib/graphql/Queries';
+import { getCurrentPeriod } from "../lib/time";
 
 const SUBHEADER = 'text-purple-300 italic pl-2 text-lg'
 
 export default function Main({navigation}: any) {
     const [refreshing, setRefreshing] = useState(false);
 
-
-    const { data, loading, error, refetch } = useQuery( GET_ALL_TEACHERS, {
+    const { data, loading, error, refetch } = useQuery( GET_ALL_TEACHERS_PERIODS, {
         pollInterval: 30000,
-        
         onError: (error) => {
             console.log(error);
         }    
@@ -54,11 +53,22 @@ export default function Main({navigation}: any) {
         (id: string) => update(setStarredTeachers, id),
         [setStarredTeachers],
     );
+    
+    const [curPeriod, setCurPeriod] = useState(getCurrentPeriod(data?.periods));
+    useEffect(() => {
+        setCurPeriod(getCurrentPeriod(data?.periods));
+        const interval = setInterval(() => {
+            setCurPeriod(getCurrentPeriod(data?.periods));
+        }, 10000);
+        return () => clearInterval(interval);
+    }, [data?.periods]);
+
+    console.log(curPeriod?.name);
 
     if(error) {
         return (
             <SafeAreaView className="flex-1 bg-ebony justify-center align-middle">
-                <ScrollView contentContainerStyle={{ flexGrow: 1, justifyContent: 'center' }}refreshControl={ <RefreshControl refreshing={ refreshing } onRefresh={ refreshFn } /> } >
+                <ScrollView contentContainerStyle={{ flexGrow: 1, justifyContent: 'center' }} refreshControl={ <RefreshControl refreshing={ refreshing } onRefresh={ refreshFn } /> } >
                     <View>
                         <Text className="text-red-500 text-center text-lg mx-3 font-bold">
                             Failed to load data :&#x28;
@@ -71,7 +81,7 @@ export default function Main({navigation}: any) {
             </SafeAreaView>
         )
     }
-
+    
     if(loading) {
         return (
             <SafeAreaView className="flex-1 bg-ebony justify-center align-middle">
@@ -79,14 +89,17 @@ export default function Main({navigation}: any) {
             </SafeAreaView>
         )
     }
-
+    
     const teachers : Teacher[] = data.teachers.map( (teacher : Teacher) => {
         return {
             id: teacher.id,
             name: teacher.name,
         }
     })
-
+    
+    const sortedTeachers = teachers.sort((a, b) => a.name.localeCompare(b.name));
+    console.log(curPeriod)
+    console.log(curPeriod?.name)
     return (
         <SafeAreaView className="flex-1 bg-ebony">
             <View className="flex flex-row justify-between pb-4 px-3 mt-3">
@@ -112,6 +125,13 @@ export default function Main({navigation}: any) {
                     autoComplete="off"
                     keyboardType="default" />
             </View>
+            <View>
+                <Text className="text-white text-center text-xl mx-3 my-3 font-bold">
+                    { 
+                        (curPeriod === undefined || curPeriod === null) ? "No Current Period" : curPeriod.name
+                    }
+                </Text>
+            </View>
             {/* TODO - add popup at bottom to indicate failed to load if request failed but there are already things in cache */}
             <ScrollView refreshControl={ <RefreshControl refreshing={ refreshing } onRefresh={ refreshFn } /> }>
                 {
@@ -119,15 +139,28 @@ export default function Main({navigation}: any) {
                         <View className="pt-2 border-t border-purple-500/30">
                             <Text className={SUBHEADER}> Starred Teachers </Text>
                             {
-                                teachers
+                                sortedTeachers
                                     .filter((teacher) => starredTeachers.has(teacher.id))
                                     .map((teacher, idx) => {
+                                        let isAbsentThisPeriod : AbsenceState;
+                                        let absentIds = curPeriod?.teachersAbsent.map((teacher) => teacher.id )
+                                    
+                                        if(curPeriod === null || curPeriod === undefined) {
+                                            isAbsentThisPeriod = AbsenceState.NO_PERIOD;
+                                        } else if ( absentIds?.includes( teacher.id ) ) {
+                                            isAbsentThisPeriod = AbsenceState.ABSENT;
+                                        } else {
+                                            isAbsentThisPeriod = AbsenceState.PRESENT;
+                                        }
+                                        
                                         return (
                                             <TeacherEntry
                                                 key={teacher.id}
                                                 teacher={ teacher }
                                                 starred={ true }
-                                                setStar={toggleTeacherStarState} idx={idx} />
+                                                setStar={toggleTeacherStarState} 
+                                                absent={ isAbsentThisPeriod }
+                                                idx={idx} />
                                         )
                                     })
                             }
@@ -137,14 +170,27 @@ export default function Main({navigation}: any) {
                 <View className="mb-6 pt-2 border-t border-purple-500/30">
                     <Text className={SUBHEADER}> All Teachers </Text>
                     {
-                        teachers
+                        sortedTeachers
                             .map((teacher, idx) => {
+                                let isAbsentThisPeriod : AbsenceState;
+                                let absentIds = curPeriod?.teachersAbsent.map((teacher) => teacher.id )
+                            
+                                if(curPeriod === null || curPeriod === undefined) {
+                                    isAbsentThisPeriod = AbsenceState.NO_PERIOD;
+                                } else if ( absentIds?.includes( teacher.id ) ) {
+                                    isAbsentThisPeriod = AbsenceState.ABSENT;
+                                } else {
+                                    isAbsentThisPeriod = AbsenceState.PRESENT;
+                                }
+
                                 return (
                                     <TeacherEntry
                                         key={ teacher.id }
                                         teacher={ teacher }
                                         starred={ starredTeachers.has(teacher.id) }
-                                        setStar={toggleTeacherStarState} idx={idx} />
+                                        setStar={ toggleTeacherStarState} 
+                                        absent={ isAbsentThisPeriod }
+                                        idx={idx} />
                                 )
                             })
                     }
