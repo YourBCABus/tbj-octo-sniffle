@@ -15,7 +15,6 @@ export function getSecondsSinceUtcMidnightNow() {
 export function getCurrentPeriod(periods: Period[] | null): Period | null {
     const cur_time = getSecondsSinceUtcMidnightNow();
     // const cur_time = getSecondsSinceUtcMidnight(new Date(2021, 3, 20, 15, 5, 0))
-    console.log(cur_time)
     if(periods === null || periods === undefined) {
         return null;
     }

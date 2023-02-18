@@ -10,6 +10,8 @@ import { useQuery } from '@apollo/client';
 import { GET_ALL_TEACHERS_PERIODS } from '../lib/graphql/Queries';
 import { getCurrentPeriod } from "../lib/time";
 
+import Fuse from 'fuse.js'
+
 const SUBHEADER = 'text-purple-300 italic pl-2 text-lg'
 
 export default function Main({navigation}: any) {
@@ -63,8 +65,6 @@ export default function Main({navigation}: any) {
         return () => clearInterval(interval);
     }, [data?.periods]);
 
-    console.log(curPeriod?.name);
-
     if(error) {
         return (
             <SafeAreaView className="flex-1 bg-ebony justify-center align-middle">
@@ -94,12 +94,26 @@ export default function Main({navigation}: any) {
         return {
             id: teacher.id,
             name: teacher.name,
+            absenceState: teacher.absenceState,
         }
     })
+
+    const fuse = new Fuse(teachers, {
+        keys: ['name'],
+        threshold: 0.4,
+    });
+
+    let resultedTeachers = search !== '' ? fuse.search(search).map((result) => {
+        return {
+            id: result.item.id,
+            name: result.item.name,
+            AbsenceState: result.item.absenceState,
+        }
+    }) : teachers;
     
-    const sortedTeachers = teachers.sort((a, b) => a.name.localeCompare(b.name));
-    console.log(curPeriod)
-    console.log(curPeriod?.name)
+    const sortedTeachers = resultedTeachers.sort((a, b) => a.name.localeCompare(b.name));
+    const starredInSearch = (sortedTeachers as Teacher[]).filter((teacher) => starredTeachers.has(teacher.id));
+
     return (
         <SafeAreaView className="flex-1 bg-ebony">
             <View className="flex flex-row justify-between pb-4 px-3 mt-3">
@@ -135,13 +149,13 @@ export default function Main({navigation}: any) {
             {/* TODO - add popup at bottom to indicate failed to load if request failed but there are already things in cache */}
             <ScrollView refreshControl={ <RefreshControl refreshing={ refreshing } onRefresh={ refreshFn } /> }>
                 {
-                    starredTeachers.size > 0 ? (
+                    (starredInSearch.length > 0)? (
                         <View className="pt-2 border-t border-purple-500/30">
                             <Text className={SUBHEADER}> Starred Teachers </Text>
                             {
-                                sortedTeachers
+                                (sortedTeachers as Teacher[])
                                     .filter((teacher) => starredTeachers.has(teacher.id))
-                                    .map((teacher, idx) => {
+                                    .map((teacher: Teacher, idx: Number) => {
                                         let isAbsentThisPeriod : AbsenceState;
                                         let absentIds = curPeriod?.teachersAbsent.map((teacher) => teacher.id )
                                     
@@ -167,34 +181,45 @@ export default function Main({navigation}: any) {
                         </View>
                     ) : null
                 }
-                <View className="mb-6 pt-2 border-t border-purple-500/30">
-                    <Text className={SUBHEADER}> All Teachers </Text>
-                    {
-                        sortedTeachers
-                            .map((teacher, idx) => {
-                                let isAbsentThisPeriod : AbsenceState;
-                                let absentIds = curPeriod?.teachersAbsent.map((teacher) => teacher.id )
-                            
-                                if(curPeriod === null || curPeriod === undefined) {
-                                    isAbsentThisPeriod = AbsenceState.NO_PERIOD;
-                                } else if ( absentIds?.includes( teacher.id ) ) {
-                                    isAbsentThisPeriod = AbsenceState.ABSENT;
-                                } else {
-                                    isAbsentThisPeriod = AbsenceState.PRESENT;
-                                }
+                {
+                sortedTeachers.length > 0 ? 
+                    (
+                    <View className="mb-6 pt-2 border-t border-purple-500/30">
+                        <Text className={SUBHEADER}> All Teachers </Text>
+                        {
+                            sortedTeachers
+                                .map((teacher, idx) => {
+                                    let isAbsentThisPeriod : AbsenceState;
+                                    let absentIds = curPeriod?.teachersAbsent.map((teacher) => teacher.id )
+                                
+                                    if(curPeriod === null || curPeriod === undefined) {
+                                        isAbsentThisPeriod = AbsenceState.NO_PERIOD;
+                                    } else if ( absentIds?.includes( teacher.id ) ) {
+                                        isAbsentThisPeriod = AbsenceState.ABSENT;
+                                    } else {
+                                        isAbsentThisPeriod = AbsenceState.PRESENT;
+                                    }
 
-                                return (
-                                    <TeacherEntry
-                                        key={ teacher.id }
-                                        teacher={ teacher }
-                                        starred={ starredTeachers.has(teacher.id) }
-                                        setStar={ toggleTeacherStarState} 
-                                        absent={ isAbsentThisPeriod }
-                                        idx={idx} />
-                                )
-                            })
-                    }
-                </View>
+                                    return (
+                                        <TeacherEntry
+                                            key={ teacher.id }
+                                            teacher={ teacher as Teacher }
+                                            starred={ starredTeachers.has(teacher.id) }
+                                            setStar={ toggleTeacherStarState} 
+                                            absent={ isAbsentThisPeriod }
+                                            idx={idx} />
+                                    )
+                                })
+                        }
+                    </View>
+                ) : (
+                    <View className="flex-1 justify-center align-middle">
+                        <Text className="text-white text-center text-xl mx-3 my-3 font-bold">
+                            No teachers found :&#x28;
+                        </Text>
+                    </View>
+                )
+                }
                 <View className="mb-5">
                     <Button
                         title="Go Back"

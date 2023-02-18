@@ -10,7 +10,7 @@ function getCorrectColor(status: AbsenceState): ColorValue {
         case AbsenceState.ABSENT:
             return "red"
         case AbsenceState.PRESENT:
-            return "green";
+            return "lime";
         default:
             return "gray";
     }

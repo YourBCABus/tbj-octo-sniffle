@@ -58,7 +58,6 @@ export class StarError extends Error {
 // TODO - add a way to alert users that update failed.
 // Return is whether or not the update was successful.
 export async function update(setTeacherIds: (ids: StarredIds) => void, id: string, value?: boolean): Promise<boolean> {
-    // console.log({ id, value });
     try {
         let old = await initialLoad();
 
