@@ -11,11 +11,21 @@ import { GET_ALL_TEACHERS_PERIODS } from '../lib/graphql/Queries';
 import { getCurrentPeriod } from "../lib/time";
 
 import Fuse from 'fuse.js'
+import { getSettingState, initialSettingsLoad } from "../lib/storage/SettingStorage";
 
 const SUBHEADER = 'text-purple-300 font-medium pl-2 text-lg'
 
 export default function Main({navigation}: any) {
     const [refreshing, setRefreshing] = useState(false);
+    const [ useMinimalistIcons, setUseMinimalistIcons ] = useState(false);
+
+    useEffect(() => {
+        getSettingState('minimalist').then((value) => {
+            console.log("got value");
+            console.log(value);
+            setUseMinimalistIcons(value)
+        });
+    }, [initialSettingsLoad()])
 
     const { data, loading, error, refetch } = useQuery( GET_ALL_TEACHERS_PERIODS, {
         pollInterval: 30000,
@@ -40,7 +50,6 @@ export default function Main({navigation}: any) {
             validateIDs(setStarredTeachers, data.teachers);
         }
     }, [data]);
-    
     
     const [search, updateSearch] = useState('');
 
@@ -176,7 +185,8 @@ export default function Main({navigation}: any) {
                                                 key={teacher.id}
                                                 teacher={ teacher }
                                                 starred={ true }
-                                                setStar={toggleTeacherStarState} 
+                                                setStar={toggleTeacherStarState}
+                                                minimalist={ useMinimalistIcons } 
                                                 absent={ isAbsentThisPeriod }
                                                 idx={idx} />
                                         )
@@ -210,6 +220,7 @@ export default function Main({navigation}: any) {
                                             teacher={ teacher as Teacher }
                                             starred={ starredTeachers.has(teacher.id) }
                                             setStar={ toggleTeacherStarState} 
+                                            minimalist={ useMinimalistIcons }
                                             absent={ isAbsentThisPeriod }
                                             idx={idx} />
                                     )

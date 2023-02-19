@@ -37,6 +37,7 @@ export interface TeacherEntryProps {
     setStar: (id: string) => void
     starred: boolean
     absent: AbsenceState
+    minimalist: boolean
 }
 
 export interface SettingEntryProps {

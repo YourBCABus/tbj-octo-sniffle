@@ -6,17 +6,17 @@ export const SETTINGS_KEY = "@settings";
 
 const DEFAULT_SETTINGS : Setting[] = [
     {
-        id: '0',
+        id: 'minimalist',
         description: 'Use Minimalist Icons',
         value: false,
     },
     {
-        id: '1',
+        id: 'notifications',
         description: 'Notifications Every Period',
         value: true,
     },
     {
-        id: '2',
+        id: 'darkmode',
         description: 'Use Dark Mode',
         value: true,
     },
@@ -45,8 +45,8 @@ async function __getSettingString(isInitError: boolean): Promise<string | null> 
 export async function validateSettings(setSettingValue: (settings: Setting[]) => void, settings: Setting[]): Promise<Boolean> {
     try {
         const currentSettings = [...await initialSettingsLoad()];
-        const filteredSettings = currentSettings.filter(setting => settings.some(setting => setting.id === setting.id));
-
+        const filteredSettings = currentSettings.filter(set => settings.some(setting => setting.id === set.id));
+        console.log(" is it validating");
         await AsyncStorage.setItem(SETTINGS_KEY, JSON.stringify(filteredSettings));
         setSettingValue(filteredSettings);
         return true;
@@ -58,7 +58,8 @@ export async function validateSettings(setSettingValue: (settings: Setting[]) =>
 export async function initialSettingsLoad(): Promise<Setting[]> {
     const settingsString = await __getSettingString(false);
 
-    if(settingsString === null) {
+    // had a weird issue where something deleted the settings key from storage, may have to investigate
+    if(settingsString === null || settingsString === '[]') {
         return initializeDefaults();
     } else {
         try {
@@ -69,6 +70,15 @@ export async function initialSettingsLoad(): Promise<Setting[]> {
     }
 }
 
+// Function to return the truth value of a given setting
+// Defaults to false if no data returned or if setting not found
+export async function getSettingState(id: string): Promise<boolean> {
+    const settings = await initialSettingsLoad();
+    const setting = settings.find((setting) => setting.id === id);
+    
+    if(setting === undefined) return false;
+    return setting.value;
+}
 
 export class SettingError extends Error {
     constructor(reason: unknown, public isInitError: boolean = false) {
