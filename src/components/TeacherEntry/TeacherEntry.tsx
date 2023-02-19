@@ -5,14 +5,14 @@ import { useCallback } from 'react';
 
 const STAR_SIZE = 25;
 
-function getCorrectColor(status: AbsenceState): ColorValue {
+function getAbsentIcon(status: AbsenceState): JSX.Element {
     switch (status) {
         case AbsenceState.ABSENT:
-            return "red"
+            return ( <Icon color="red" size={30} name="close-sharp"></Icon> )
         case AbsenceState.PRESENT:
-            return "lime";
+            return ( <Icon color="lime" size={30} name="checkmark-outline"></Icon> );
         default:
-            return "gray";
+            return ( <Icon color="gray" size={30} name="ellipse"></Icon> );
     }
 }
 
@@ -25,6 +25,23 @@ export default function TeacherEntry(props: TeacherEntryProps) {
 
     return (
         <View className="flex flex-row p-2 m-2 justify-between" id={id}>
+            <View className="flex flex-row space-x-3 my-auto">
+                <View className="my-auto">
+                    {
+                        getAbsentIcon(props.absent)
+                    }
+                </View>
+
+                {
+                starred ? 
+                    (
+                        <Text className="text-yellow-400 my-auto text-lg">{name}</Text>
+                    ) : 
+                    (
+                        <Text className="text-white my-auto text-lg">{name}</Text>
+                    )
+                }
+            </View>
             <Pressable onPress={ toggle } hitSlop={2}>
                 {
                 starred ? 
@@ -36,23 +53,6 @@ export default function TeacherEntry(props: TeacherEntryProps) {
                 )
                 }
             </Pressable>
-            <View className="flex flex-row space-x-3 my-auto">
-                {
-                starred ? 
-                    (
-                        <Text className="text-yellow-400 my-auto">* {name}</Text>
-                    ) : 
-                    (
-                        <Text className="text-white my-auto">{name}</Text>
-                    )
-                }
-
-                <View className="my-auto">
-                    {
-                        <Icon color={getCorrectColor(props.absent)} name="ellipse"></Icon>
-                    }
-                </View>
-            </View>
         </View>
     )
 

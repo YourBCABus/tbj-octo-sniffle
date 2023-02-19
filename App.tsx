@@ -11,12 +11,14 @@ const client = new ApolloClient({
 import Landing from './src/pages/Landing';
 import Main from './src/pages/Main';
 import Settings from './src/pages/Settings';
+import { StatusBar } from 'react-native';
 
 const Stack = createNativeStackNavigator();
 
 export default function App(): JSX.Element {
   return (
     <ApolloProvider client={client}>
+      <StatusBar barStyle="light-content" translucent={true} />
       <NavigationContainer>
         <Stack.Navigator screenOptions={{ headerShown: false }}>
           <Stack.Screen name="Landing" component={Landing} options={{title: 'Landing'}} />

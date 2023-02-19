@@ -10,8 +10,8 @@ export default function Landing({navigation} : {navigation: NativeStackNavigatio
                 colors={['#8a0d9e', 'purple', 'black']}
                 className="flex-1 items-center justify-center w-full"
             >
-                <Text className="text-2xl text-white font-bold">TableJet</Text>
-                <Text className="italic text-xs text-gray-200">Absences Simplified</Text>
+                <Text className="text-3xl text-white font-bold">TableJet</Text>
+                <Text className="italic text-md text-gray-200">Absences Simplified</Text>
 
                 <Pressable
                     onPress={() =>
@@ -20,10 +20,10 @@ export default function Landing({navigation} : {navigation: NativeStackNavigatio
                             routes: [{ name: 'Main' }],
                         })
                     }
-                    className="bg-gray-800 rounded-md p-2 mt-3 active:bg-gray-700"
+                    className="bg-gray-800 rounded-md p-2 mt-3 active:bg-gray-700 w-1/4"
                 >
                 
-                <Text className="text-md text-gray-200">Get Started</Text>
+                <Text className="text-md text-gray-200 text-center">Get Started</Text>
                 </Pressable>
                 <View className="absolute bottom-10">
                     <Text className="text-gray-300">© Yenowa</Text>

@@ -11,7 +11,7 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        'ebony': '#3D393B',
+        'ebony': '#1f1d1e',
         'orchid': '#7E1E80',
         'deep-purple': '#9505E3',
         'bright-violet': '#B637FB'

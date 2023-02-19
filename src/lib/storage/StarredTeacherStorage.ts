@@ -1,5 +1,5 @@
 import AsyncStorage from '@react-native-async-storage/async-storage'
-import { Teacher } from './types';
+import { Teacher } from '../types';
 
 export type StarredIds = Set<string>;
 
@@ -24,7 +24,7 @@ async function __getItem(isInitError: boolean): Promise<string | null> {
 
 export async function validateIDs(setTeacherIds: (ids: StarredIds) => void, teachers: Teacher[]): Promise<boolean> {
     try {    
-        const currentIds = [...await initialLoad()];
+        const currentIds = [...await initialIdLoad()];
         const filteredIDs = currentIds.filter(id => teachers.some(teacher => teacher.id === id));
 
         await AsyncStorage.setItem(STARRED_ID_KEY, JSON.stringify(filteredIDs));
@@ -35,7 +35,7 @@ export async function validateIDs(setTeacherIds: (ids: StarredIds) => void, teac
     }
 }
 
-export async function initialLoad(): Promise<StarredIds> {
+export async function initialIdLoad(): Promise<StarredIds> {
     const jsonIds = await __getItem(false);
 
     if (jsonIds === null) {
@@ -57,9 +57,9 @@ export class StarError extends Error {
 
 // TODO - add a way to alert users that update failed.
 // Return is whether or not the update was successful.
-export async function update(setTeacherIds: (ids: StarredIds) => void, id: string, value?: boolean): Promise<boolean> {
+export async function updateTeacherStarStorage(setTeacherIds: (ids: StarredIds) => void, id: string, value?: boolean): Promise<boolean> {
     try {
-        let old = await initialLoad();
+        let old = await initialIdLoad();
 
         if (value === undefined) {
             old.has(id) ? old.delete(id) : old.add(id);

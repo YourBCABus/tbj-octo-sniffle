@@ -1,56 +1,32 @@
-import { useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { Switch, Text, View } from "react-native";
-
-const switchDescriptions = [
-    {
-        description: 'Show Absences',
-        id: 0,
-    },
-    {
-        description: 'Show Tardies',
-        id: 1,
-    },
-    {
-        description: 'Show Subs',
-        id: 2,
-    },
-    {
-        description: 'Show Notes',
-        id: 3,
-    },
-    {
-        description: 'Show Teacher Notes',
-        id: 4,
-    }
-]
-
+import SettingEntry from "../components/SettingEntry/SettingEntry";
+import { Setting } from "../lib/types";
+import { initialSettingsLoad, updateSettingStorage } from "../lib/storage/SettingStorage";
 
 export default function Settings() {
-    const [switches, setToggleSwitch] = useState(Array(switchDescriptions.length).fill(false));
-
-    function toggleSwitch(idx : Number) {
-        return switches.map((curswitch, i) => { return i === idx ? !curswitch : curswitch })
-    }
+    const [settings, setSettingValue] = useState(new Array<Setting>);
+    useEffect(
+        () => {
+            initialSettingsLoad()
+                .then((userSettings) => setSettingValue(userSettings) )},
+        [setSettingValue]
+    );
     
-    const isEnabled = (idx: number) => { return switches[idx] };
+    const toggleSettingValue = useCallback(
+        (id: string) => updateSettingStorage(setSettingValue, id),
+        [setSettingValue],
+    );
     
     return (
         <View className="flex-1 items-center justify-center bg-ebony space-y-5">
             {
-                switchDescriptions.map((description, idx) => {
+                settings.map((setting) => {
                     return (
-                        <View className="flex flex-row justify-around w-screen px-4" key={idx}>
-                            <Switch
-                                trackColor={{false: 'gray', true: 'green'}}
-                                thumbColor={isEnabled(idx) ? 'lime' : 'gray'}
-                                onValueChange={ () => setToggleSwitch(toggleSwitch(idx)) }
-                                value={isEnabled(idx)}
-                                className="scale-7 my-auto"
-                            />
-                            <Text className="text-white text-center my-auto text-md pl-12 w-1/2">
-                                {description.description}
-                            </Text>
-                        </View>
+                        <SettingEntry 
+                            key={setting.id}
+                            setting={setting}
+                            setValue={ toggleSettingValue }  />
                     )
                 })
             }
