@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "251004294870",
+    "project_id": "tablejet-35006",
+    "storage_bucket": "tablejet-35006.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:251004294870:android:b392ed59fd1b4b6d87db77",
+        "android_client_info": {
+          "package_name": "com.tbjoctosniffle"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "251004294870-7r9v5elkc49n3jg28r5gbc3d95cf80m3.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.tbjoctosniffle",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "251004294870-0qn1m9h56nb8jdi1l3atnig5nvk1jf9b.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB-cgs3YX9gaQD3rOumbmM3ORSRJ5gPuBM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "251004294870-0qn1m9h56nb8jdi1l3atnig5nvk1jf9b.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "251004294870-k3stbgdh41fi7is2c26uj9p1lctuvvao.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "org.reactjs.native.example.tbjoctosniffle"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

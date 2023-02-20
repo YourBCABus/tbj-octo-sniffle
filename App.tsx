@@ -4,7 +4,7 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
 
 const client = new ApolloClient({
-  uri: 'http://localhost:8000/graphql',
+  uri: 'http://192.168.1.29:8000/graphql',
   cache: new InMemoryCache()
 });
 
@@ -20,7 +20,7 @@ export default function App(): JSX.Element {
     <ApolloProvider client={client}>
       <StatusBar barStyle="light-content" translucent={true} />
       <NavigationContainer>
-        <Stack.Navigator screenOptions={{ headerShown: false }}>
+        <Stack.Navigator screenOptions={{ headerShown: false, orientation: 'portrait' }}  >
           <Stack.Screen name="Landing" component={Landing} options={{title: 'Landing'}} />
           <Stack.Screen name="Main" component={Main} />
           <Stack.Screen name="Settings" component={Settings} 

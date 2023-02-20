@@ -11,6 +11,7 @@ const DEFAULT_SETTINGS : Setting[] = [
         value: false,
     },
     {
+        // for later, but make sure if users decline notifications, inform them that they need to go into settings to enable them
         id: 'notifications',
         description: 'Notifications Every Period',
         value: true,
@@ -46,7 +47,6 @@ export async function validateSettings(setSettingValue: (settings: Setting[]) =>
     try {
         const currentSettings = [...await initialSettingsLoad()];
         const filteredSettings = currentSettings.filter(set => settings.some(setting => setting.id === set.id));
-        console.log(" is it validating");
         await AsyncStorage.setItem(SETTINGS_KEY, JSON.stringify(filteredSettings));
         setSettingValue(filteredSettings);
         return true;

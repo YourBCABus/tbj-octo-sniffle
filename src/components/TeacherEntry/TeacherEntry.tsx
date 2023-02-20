@@ -9,11 +9,11 @@ function getAbsentIcon(status: AbsenceState, useMinimalistIcons: boolean): JSX.E
     if(useMinimalistIcons) {
         switch (status) {
             case AbsenceState.ABSENT:
-                return ( <Icon color="red" size={30} name="ellipse"></Icon> )
+                return ( <Icon color="red" size={30} name="ellipse-outline"></Icon> )
             case AbsenceState.PRESENT:
-                return ( <Icon color="lime" size={30} name="ellipse"></Icon> );
+                return ( <Icon color="lime" size={30} name="ellipse-outline"></Icon> );
             default:
-                return ( <Icon color="gray" size={30} name="ellipse"></Icon> );
+                return ( <Icon color="gray" size={30} name="ellipse-outline"></Icon> );
         }
     } else {
         switch (status) {

@@ -1,6 +1,6 @@
-import { Button, ActivityIndicator, SafeAreaView, TextInput, Text, View, Pressable, ScrollView, RefreshControl } from "react-native";
+import { Platform, ActivityIndicator, SafeAreaView, TextInput, Text, View, Pressable, ScrollView, RefreshControl } from "react-native";
 import TeacherEntry from "../components/TeacherEntry/TeacherEntry";
-import { useState, useCallback, useEffect, useMemo } from "react";
+import { useState, useCallback, useEffect } from "react";
 import Icon from 'react-native-vector-icons/Ionicons';
 
 import { AbsenceState, Teacher } from '../lib/types'
@@ -12,20 +12,54 @@ import { getCurrentPeriod } from "../lib/time";
 
 import Fuse from 'fuse.js'
 import { getSettingState, initialSettingsLoad } from "../lib/storage/SettingStorage";
+import { useFocusEffect } from "@react-navigation/native";
 
 const SUBHEADER = 'text-purple-300 font-medium pl-2 text-lg'
+
+// need to do this because of weird stuff on android devices with notches unfortunately
+const SUCCESSFUL_SAFE_AREA_VIEW_STYLE = Platform.OS === 'android' ? 
+    "flex-1 bg-ebony pt-8" :
+    "flex-1 bg-ebony"
 
 export default function Main({navigation}: any) {
     const [refreshing, setRefreshing] = useState(false);
     const [ useMinimalistIcons, setUseMinimalistIcons ] = useState(false);
 
-    useEffect(() => {
-        getSettingState('minimalist').then((value) => {
-            console.log("got value");
-            console.log(value);
-            setUseMinimalistIcons(value)
-        });
-    }, [initialSettingsLoad()])
+    // useFocusEffect(() => {
+    //     useCallback(() => {
+    //         getSettingState('minimalist').then((value) => {
+    //             setUseMinimalistIcons(value)
+    //         });
+    //     }, [initialSettingsLoad()])
+    // })
+
+    useFocusEffect(
+        useCallback(() => {
+          let isActive = true;
+      
+          const getState = async () => {
+            try {
+                const state = await getSettingState('minimalist');
+              
+                if (isActive) {
+                    setUseMinimalistIcons(state);
+                }
+                } catch (e) {
+                    console.log(e);
+                }
+          };
+      
+          getState();
+      
+          return () => {
+            isActive = false;
+          };
+        }, [useMinimalistIcons])
+      );
+
+    // useEffect(() => {
+        
+    // }, [initialSettingsLoad()])
 
     const { data, loading, error, refetch } = useQuery( GET_ALL_TEACHERS_PERIODS, {
         pollInterval: 30000,
@@ -126,7 +160,7 @@ export default function Main({navigation}: any) {
     const starredInSearch = (sortedTeachers as Teacher[]).filter((teacher) => starredTeachers.has(teacher.id));
 
     return (
-        <SafeAreaView className="flex-1 bg-ebony">
+        <SafeAreaView className={SUCCESSFUL_SAFE_AREA_VIEW_STYLE}>
             <View className="flex flex-row justify-between pb-4 px-3 mt-2">
                 <Text className="text-white font-bold text-2xl">
                     TableJet
