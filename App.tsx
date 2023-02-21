@@ -3,8 +3,12 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
 
+import { GRAPHQL_API_ENDPOINT } from "@env";
+
+
+
 const client = new ApolloClient({
-  uri: 'http://192.168.1.29:8000/graphql',
+  uri: GRAPHQL_API_ENDPOINT,
   cache: new InMemoryCache()
 });
 

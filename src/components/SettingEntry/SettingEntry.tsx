@@ -1,6 +1,6 @@
 import { Switch, Text, View } from "react-native";
 
-import { SettingEntryProps } from "../../lib/types";
+import { SettingEntryProps } from "../../lib/types/types";
 import { useCallback } from "react";
 
 export default function SettingEntry(props: SettingEntryProps): JSX.Element {

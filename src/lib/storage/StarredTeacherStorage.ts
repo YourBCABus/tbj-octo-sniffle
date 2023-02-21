@@ -1,5 +1,5 @@
 import AsyncStorage from '@react-native-async-storage/async-storage'
-import { Teacher } from '../types';
+import { Teacher } from '../types/types';
 
 export type StarredIds = Set<string>;
 

@@ -1,5 +1,5 @@
 import AsyncStorage from '@react-native-async-storage/async-storage'
-import { Setting } from '../types';
+import { Setting } from '../types/types';
 
 export type SettingsCollection = string;
 export const SETTINGS_KEY = "@settings";
@@ -7,7 +7,7 @@ export const SETTINGS_KEY = "@settings";
 const DEFAULT_SETTINGS : Setting[] = [
     {
         id: 'minimalist',
-        description: 'Use Minimalist Icons',
+        description: 'Minimalist Mode',
         value: false,
     },
     {
@@ -17,8 +17,8 @@ const DEFAULT_SETTINGS : Setting[] = [
         value: true,
     },
     {
-        id: 'darkmode',
-        description: 'Use Dark Mode',
+        id: 'hapticfeedback',
+        description: 'Use Haptic Feedback',
         value: true,
     },
 ]
@@ -43,12 +43,25 @@ async function __getSettingString(isInitError: boolean): Promise<string | null> 
     }
 }
 
-export async function validateSettings(setSettingValue: (settings: Setting[]) => void, settings: Setting[]): Promise<Boolean> {
+export async function validateSettings(): Promise<Boolean> {
     try {
         const currentSettings = [...await initialSettingsLoad()];
-        const filteredSettings = currentSettings.filter(set => settings.some(setting => setting.id === set.id));
-        await AsyncStorage.setItem(SETTINGS_KEY, JSON.stringify(filteredSettings));
-        setSettingValue(filteredSettings);
+        const defaultSettings = [...DEFAULT_SETTINGS];
+
+        const matchedSettings = currentSettings.filter((setting) => {
+            return defaultSettings.some((defaultSetting) => defaultSetting.id === setting.id);
+        });
+
+        if(matchedSettings.length !== defaultSettings.length) {
+            // if the settings are not the same length, we have a problem
+            // basically, if we updated, we are just gonna reset user settings to default for now, not ideal, but if theres a setting mismatch this is easiest for now
+            await initializeDefaults();
+        } else {
+            // if the settings are the same length, we can just set the settings to the matched settings
+            // this is because the settings are the same length, so we know that the settings are the same
+            await AsyncStorage.setItem(SETTINGS_KEY, JSON.stringify(currentSettings));
+        }
+
         return true;
     } catch (e) {
         return false;

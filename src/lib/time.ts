@@ -1,4 +1,4 @@
-import { Period } from "./types";
+import { Period } from "./types/types";
 
 export function getSecondsSinceUtcMidnight(d: Date) {
     let secHours = d.getUTCHours() * 3600;

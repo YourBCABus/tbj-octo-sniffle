@@ -1,8 +1,8 @@
 import { useCallback, useEffect, useState } from "react";
-import { Switch, Text, View } from "react-native";
+import { Text, View } from "react-native";
 import SettingEntry from "../components/SettingEntry/SettingEntry";
-import { Setting } from "../lib/types";
-import { initialSettingsLoad, updateSettingStorage, validateSettings, } from "../lib/storage/SettingStorage";
+import { Setting } from "../lib/types/types";
+import { initialSettingsLoad, updateSettingStorage, } from "../lib/storage/SettingStorage";
 
 export default function Settings() {
     const [settings, setSettingValue] = useState(new Array<Setting>);

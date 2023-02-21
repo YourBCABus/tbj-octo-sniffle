@@ -6,6 +6,7 @@ export const GET_ALL_TEACHERS_PERIODS = gql`
       name
       id
       absenceState {
+        isFullyAbsent
         absentPeriods {
           name
           id

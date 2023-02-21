@@ -3,7 +3,7 @@ import TeacherEntry from "../components/TeacherEntry/TeacherEntry";
 import { useState, useCallback, useEffect } from "react";
 import Icon from 'react-native-vector-icons/Ionicons';
 
-import { AbsenceState, Teacher } from '../lib/types'
+import { AbsenceState, Period, Teacher } from '../lib/types/types'
 import { initialIdLoad, updateTeacherStarStorage, validateIDs } from "../lib/storage/StarredTeacherStorage";
 
 import { useQuery } from '@apollo/client';
@@ -11,56 +11,75 @@ import { GET_ALL_TEACHERS_PERIODS } from '../lib/graphql/Queries';
 import { getCurrentPeriod } from "../lib/time";
 
 import Fuse from 'fuse.js'
-import { getSettingState, initialSettingsLoad } from "../lib/storage/SettingStorage";
+import { getSettingState, validateSettings } from "../lib/storage/SettingStorage";
 import { useFocusEffect } from "@react-navigation/native";
 
 const SUBHEADER = 'text-purple-300 font-medium pl-2 text-lg'
 
 // need to do this because of weird stuff on android devices with notches unfortunately
-const SUCCESSFUL_SAFE_AREA_VIEW_STYLE = Platform.OS === 'android' ? 
-    "flex-1 bg-ebony pt-8" :
-    "flex-1 bg-ebony"
+const SUCCESSFUL_SAFE_AREA_VIEW_STYLE = Platform.OS === 'android' ? "flex-1 bg-ebony pt-8" : "flex-1 bg-ebony"
+
+function getAbsenceState(teacher: Teacher, curPeriod: Period | null): AbsenceState {
+    let absentIds = curPeriod?.teachersAbsent.map((teacher) => teacher.id )
+    
+    if(curPeriod === null || curPeriod === undefined) return AbsenceState.NO_PERIOD;
+    if(teacher.absenceState && teacher.absenceState.isFullyAbsent) return AbsenceState.ABSENT_ALL_DAY;
+    if(absentIds?.includes(teacher.id)) return AbsenceState.ABSENT
+    
+    return AbsenceState.PRESENT;
+}
 
 export default function Main({navigation}: any) {
     const [refreshing, setRefreshing] = useState(false);
     const [ useMinimalistIcons, setUseMinimalistIcons ] = useState(false);
-
-    // useFocusEffect(() => {
-    //     useCallback(() => {
-    //         getSettingState('minimalist').then((value) => {
-    //             setUseMinimalistIcons(value)
-    //         });
-    //     }, [initialSettingsLoad()])
-    // })
+    const [ useHapticFeedback, setUseHapticFeedback ] = useState(true);
 
     useFocusEffect(
         useCallback(() => {
-          let isActive = true;
-      
-          const getState = async () => {
+            let isActive = true;
+            const validate = async () => {
+                try {
+                    if(isActive) {
+                        validateSettings();
+                    }
+                } catch (e) {
+                    console.log(e);
+                }
+            }
+
+            validate();
+
+            return () => {
+                isActive = false;
+            }
+        }, []));
+
+    useFocusEffect(
+        useCallback(() => {
+            let isActive = true;
+
+            const getTeacherSettings = async () => {
             try {
                 const state = await getSettingState('minimalist');
-              
+                const hapticState = await getSettingState('hapticfeedback');
+
                 if (isActive) {
                     setUseMinimalistIcons(state);
+                    setUseHapticFeedback(hapticState);
                 }
                 } catch (e) {
                     console.log(e);
                 }
-          };
-      
-          getState();
-      
-          return () => {
-            isActive = false;
-          };
-        }, [useMinimalistIcons])
-      );
-
-    // useEffect(() => {
+            };
         
-    // }, [initialSettingsLoad()])
-
+            getTeacherSettings();
+        
+            return () => {
+                isActive = false;
+            };
+        }, [useMinimalistIcons, useHapticFeedback])
+      );
+    
     const { data, loading, error, refetch } = useQuery( GET_ALL_TEACHERS_PERIODS, {
         pollInterval: 30000,
         onError: (error) => {
@@ -152,7 +171,7 @@ export default function Main({navigation}: any) {
         return {
             id: result.item.id,
             name: result.item.name,
-            AbsenceState: result.item.absenceState,
+            absenceState: result.item.absenceState,
         }
     }) : teachers;
     
@@ -162,12 +181,12 @@ export default function Main({navigation}: any) {
     return (
         <SafeAreaView className={SUCCESSFUL_SAFE_AREA_VIEW_STYLE}>
             <View className="flex flex-row justify-between pb-4 px-3 mt-2">
-                <Text className="text-white font-bold text-2xl">
+                <Text className="text-white font-bold text-3xl">
                     TableJet
                 </Text>
                 <View>
                     <Pressable onPressIn={ () => navigation.navigate('Settings') } hitSlop={3}>
-                        <Icon name="cog" size={30} color="white" />
+                        <Icon name="cog" size={35} color="white" />
                     </Pressable>
                 </View>
             </View>
@@ -179,12 +198,12 @@ export default function Main({navigation}: any) {
                         <Icon name="search" size={25} color="gray" />
                     </View>
                     <TextInput 
-                        className="ml-2 mr-5 my-2 p-2 pr-8 "
+                        className="ml-2 mr-5 my-2 p-2 pr-8"
                         onChangeText={text => updateSearch(text)}
                         value={search}
-                        placeholderTextColor={"white"}
+                        placeholderTextColor={"gray"}
                         style={{ color: 'white'}}
-                        placeholder="Search for a teacher..."
+                        placeholder="Search for a teacher"
                         autoComplete="off"
                         keyboardType="default" />
                 </View>
@@ -200,29 +219,19 @@ export default function Main({navigation}: any) {
                         <View className="pt-2 border-t border-purple-500/30">
                             <Text className={SUBHEADER}> Starred Teachers </Text>
                             {
-                                (sortedTeachers as Teacher[])
+                                sortedTeachers
                                     .filter((teacher) => starredTeachers.has(teacher.id))
-                                    .map((teacher: Teacher, idx: Number) => {
-                                        let isAbsentThisPeriod : AbsenceState;
-                                        let absentIds = curPeriod?.teachersAbsent.map((teacher) => teacher.id )
-                                    
-                                        if(curPeriod === null || curPeriod === undefined) {
-                                            isAbsentThisPeriod = AbsenceState.NO_PERIOD;
-                                        } else if ( absentIds?.includes( teacher.id ) ) {
-                                            isAbsentThisPeriod = AbsenceState.ABSENT;
-                                        } else {
-                                            isAbsentThisPeriod = AbsenceState.PRESENT;
-                                        }
-                                        
+                                    .map((teacher, idx) => {
                                         return (
                                             <TeacherEntry
-                                                key={teacher.id}
+                                                key={ teacher.id }
                                                 teacher={ teacher }
                                                 starred={ true }
-                                                setStar={toggleTeacherStarState}
+                                                setStar={ toggleTeacherStarState }
                                                 minimalist={ useMinimalistIcons } 
-                                                absent={ isAbsentThisPeriod }
-                                                idx={idx} />
+                                                absent={ getAbsenceState(teacher, curPeriod) }
+                                                hapticfeedback={ useHapticFeedback }
+                                                idx={ idx } />
                                         )
                                     })
                             }
@@ -237,34 +246,27 @@ export default function Main({navigation}: any) {
                         {
                             sortedTeachers
                                 .map((teacher, idx) => {
-                                    let isAbsentThisPeriod : AbsenceState;
-                                    let absentIds = curPeriod?.teachersAbsent.map((teacher) => teacher.id )
-                                
-                                    if(curPeriod === null || curPeriod === undefined) {
-                                        isAbsentThisPeriod = AbsenceState.NO_PERIOD;
-                                    } else if ( absentIds?.includes( teacher.id ) ) {
-                                        isAbsentThisPeriod = AbsenceState.ABSENT;
-                                    } else {
-                                        isAbsentThisPeriod = AbsenceState.PRESENT;
-                                    }
-
                                     return (
                                         <TeacherEntry
                                             key={ teacher.id }
-                                            teacher={ teacher as Teacher }
+                                            teacher={ teacher }
                                             starred={ starredTeachers.has(teacher.id) }
                                             setStar={ toggleTeacherStarState} 
                                             minimalist={ useMinimalistIcons }
-                                            absent={ isAbsentThisPeriod }
-                                            idx={idx} />
+                                            absent={ getAbsenceState(teacher, curPeriod) }
+                                            hapticfeedback={ useHapticFeedback }
+                                            idx={ idx } />
                                     )
                                 })
                         }
                     </View>
                 ) : (
                     <View className="flex-1 justify-center align-middle">
-                        <Text className="text-white text-center text-xl mx-3 my-3 font-bold">
-                            No teachers found :&#x28;
+                        <Text className="text-red-400 text-center text-xl mx-3 mt-6 mb-3 font-bold">
+                            No Teachers Found :&#x28;
+                        </Text>
+                        <Text className="text-white text-center text-md mx-3">
+                            Double Check Your Search
                         </Text>
                     </View>
                 )

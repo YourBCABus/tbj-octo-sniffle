@@ -2,6 +2,7 @@ export interface Teacher {
     id: string
     name: string
     absenceState: {
+        isFullyAbsent: boolean
         absentPeriods: {
             id: string
             name: string,
@@ -11,6 +12,7 @@ export interface Teacher {
 
 export enum AbsenceState {
     ABSENT = "ABSENT",
+    ABSENT_ALL_DAY = "ABSENTALLDAY",
     PRESENT = "PRESENT",
     NO_PERIOD = "NO_PERIOD",
 }
@@ -38,6 +40,7 @@ export interface TeacherEntryProps {
     starred: boolean
     absent: AbsenceState
     minimalist: boolean
+    hapticfeedback: boolean
 }
 
 export interface SettingEntryProps {
