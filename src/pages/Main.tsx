@@ -14,6 +14,12 @@ import Fuse from 'fuse.js'
 import { getSettingState, validateSettings } from "../lib/storage/SettingStorage";
 import { useFocusEffect } from "@react-navigation/native";
 
+
+import {
+    BottomSheetModalProvider,
+  } from '@gorhom/bottom-sheet';
+
+
 const SUBHEADER = 'text-purple-300 font-medium pl-2 text-lg'
 
 // need to do this because of weird stuff on android devices with notches unfortunately
@@ -157,12 +163,13 @@ export default function Main({navigation}: any) {
         return {
             id: teacher.id,
             name: teacher.name,
+            honorific: teacher.honorific,
             absenceState: teacher.absenceState,
         }
     })
 
     const fuse = new Fuse(teachers, {
-        keys: ['name'],
+        keys: ['honorific', 'name'],
         threshold: 0.4,
         findAllMatches: true,
     });
@@ -175,60 +182,85 @@ export default function Main({navigation}: any) {
         }
     }) : teachers;
     
-    const sortedTeachers = resultedTeachers.sort((a, b) => a.name.localeCompare(b.name));
-    const starredInSearch = (sortedTeachers as Teacher[]).filter((teacher) => starredTeachers.has(teacher.id));
+    const sortedTeachers = (resultedTeachers as Teacher[]).sort((a, b) => a.name.localeCompare(b.name));
+    const starredInSearch = (sortedTeachers).filter((teacher) => starredTeachers.has(teacher.id));
 
     return (
-        <SafeAreaView className={SUCCESSFUL_SAFE_AREA_VIEW_STYLE}>
-            <View className="flex flex-row justify-between pb-4 px-3 mt-2">
-                <Text className="text-white font-bold text-3xl">
-                    TableJet
-                </Text>
-                <View>
-                    <Pressable onPressIn={ () => navigation.navigate('Settings') } hitSlop={3}>
-                        <Icon name="cog" size={35} color="white" />
-                    </Pressable>
-                </View>
-            </View>
-
-            {/* TODO - add popup at bottom to indicate failed to load if request failed but there are already things in cache */}
-            <ScrollView refreshControl={ <RefreshControl colors={["white"]} tintColor={"white"} refreshing={ refreshing } onRefresh={ refreshFn } /> }>
-                <View className="flex flex-row  mx-2 border-w border-b border-gray-300">
-                    <View className="text-center my-auto ml-3">
-                        <Icon name="search" size={25} color="gray" />
-                    </View>
-                    <TextInput 
-                        className="ml-2 mr-5 my-2 p-2 pr-8"
-                        onChangeText={text => updateSearch(text)}
-                        value={search}
-                        placeholderTextColor={"gray"}
-                        style={{ color: 'white'}}
-                        placeholder="Search for a teacher"
-                        autoComplete="off"
-                        keyboardType="default" />
-                </View>
-                <View>
-                    <Text className="text-white text-center text-xl mx-3 my-5 font-bold">
-                        { 
-                            (curPeriod === undefined || curPeriod === null) ? "No Current Period" : curPeriod.name
-                        }
+        <BottomSheetModalProvider>
+            <SafeAreaView className={SUCCESSFUL_SAFE_AREA_VIEW_STYLE}>
+                <View className="flex flex-row justify-between pb-4 px-3 mt-2">
+                    <Text className="text-white font-bold text-3xl">
+                        TableJet
                     </Text>
+                    <View>
+                        <Pressable onPressIn={ () => navigation.navigate('Settings') } hitSlop={3}>
+                            <Icon name="cog" size={35} color="white" />
+                        </Pressable>
+                    </View>
                 </View>
-                {
-                    (starredInSearch.length > 0)? (
-                        <View className="pt-2 border-t border-purple-500/30">
-                            <Text className={SUBHEADER}> Starred Teachers </Text>
+
+                {/* TODO - add popup at bottom to indicate failed to load if request failed but there are already things in cache */}
+                <ScrollView refreshControl={ <RefreshControl colors={["white"]} tintColor={"white"} refreshing={ refreshing } onRefresh={ refreshFn } /> }>
+                    <View className="flex flex-row  mx-2 border-w border-b border-gray-300">
+                        <View className="text-center my-auto ml-3">
+                            <Icon name="search" size={25} color="gray" />
+                        </View>
+                        <TextInput 
+                            className="ml-2 mr-5 my-2 p-2 pr-8"
+                            onChangeText={text => updateSearch(text)}
+                            value={search}
+                            placeholderTextColor={"gray"}
+                            style={{ color: 'white'}}
+                            placeholder="Search for a teacher"
+                            autoComplete="off"
+                            keyboardType="default" />
+                    </View>
+                    <View>
+                        <Text className="text-white text-center text-xl mx-3 my-5 font-bold">
+                            { 
+                                (curPeriod === undefined || curPeriod === null) ? "No Current Period" : curPeriod.name
+                            }
+                        </Text>
+                    </View>
+                    {
+                        (starredInSearch.length > 0)? (
+                            <View className="pt-2 border-t border-purple-500/30">
+                                <Text className={SUBHEADER}> Starred Teachers </Text>
+                                {
+                                    sortedTeachers
+                                        .filter((teacher) => starredTeachers.has(teacher.id))
+                                        .map((teacher, idx) => {
+                                            return (
+                                                <TeacherEntry
+                                                    key={ teacher.id }
+                                                    teacher={ teacher }
+                                                    starred={ true }
+                                                    setStar={ toggleTeacherStarState }
+                                                    minimalist={ useMinimalistIcons } 
+                                                    absent={ getAbsenceState(teacher, curPeriod) }
+                                                    hapticfeedback={ useHapticFeedback }
+                                                    idx={ idx } />
+                                            )
+                                        })
+                                }
+                            </View>
+                        ) : null
+                    }
+                    {
+                    sortedTeachers.length > 0 ? 
+                        (
+                        <View className="mb-6 pt-2 border-t border-purple-500/30">
+                            <Text className={SUBHEADER}> All Teachers </Text>
                             {
                                 sortedTeachers
-                                    .filter((teacher) => starredTeachers.has(teacher.id))
                                     .map((teacher, idx) => {
                                         return (
                                             <TeacherEntry
                                                 key={ teacher.id }
-                                                teacher={ teacher }
-                                                starred={ true }
-                                                setStar={ toggleTeacherStarState }
-                                                minimalist={ useMinimalistIcons } 
+                                                teacher={ teacher}
+                                                starred={ starredTeachers.has(teacher.id) }
+                                                setStar={ toggleTeacherStarState} 
+                                                minimalist={ useMinimalistIcons }
                                                 absent={ getAbsenceState(teacher, curPeriod) }
                                                 hapticfeedback={ useHapticFeedback }
                                                 idx={ idx } />
@@ -236,42 +268,19 @@ export default function Main({navigation}: any) {
                                     })
                             }
                         </View>
-                    ) : null
-                }
-                {
-                sortedTeachers.length > 0 ? 
-                    (
-                    <View className="mb-6 pt-2 border-t border-purple-500/30">
-                        <Text className={SUBHEADER}> All Teachers </Text>
-                        {
-                            sortedTeachers
-                                .map((teacher, idx) => {
-                                    return (
-                                        <TeacherEntry
-                                            key={ teacher.id }
-                                            teacher={ teacher }
-                                            starred={ starredTeachers.has(teacher.id) }
-                                            setStar={ toggleTeacherStarState} 
-                                            minimalist={ useMinimalistIcons }
-                                            absent={ getAbsenceState(teacher, curPeriod) }
-                                            hapticfeedback={ useHapticFeedback }
-                                            idx={ idx } />
-                                    )
-                                })
-                        }
-                    </View>
-                ) : (
-                    <View className="flex-1 justify-center align-middle">
-                        <Text className="text-red-400 text-center text-xl mx-3 mt-6 mb-3 font-bold">
-                            No Teachers Found :&#x28;
-                        </Text>
-                        <Text className="text-white text-center text-md mx-3">
-                            Double Check Your Search
-                        </Text>
-                    </View>
-                )
-                }
-            </ScrollView>
-        </SafeAreaView>
+                    ) : (
+                        <View className="flex-1 justify-center align-middle">
+                            <Text className="text-red-400 text-center text-xl mx-3 mt-6 mb-3 font-bold">
+                                No Teachers Found :&#x28;
+                            </Text>
+                            <Text className="text-white text-center text-md mx-3">
+                                Double Check Your Search
+                            </Text>
+                        </View>
+                    )
+                    }
+                </ScrollView>
+            </SafeAreaView>
+        </BottomSheetModalProvider>
     )
 }

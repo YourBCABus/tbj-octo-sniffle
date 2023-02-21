@@ -1,6 +1,7 @@
 export interface Teacher {
     id: string
     name: string
+    honorific: string
     absenceState: {
         isFullyAbsent: boolean
         absentPeriods: {

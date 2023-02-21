@@ -5,6 +5,7 @@ export const GET_ALL_TEACHERS_PERIODS = gql`
     teachers: allTeachers {
       name
       id
+      honorific
       absenceState {
         isFullyAbsent
         absentPeriods {
