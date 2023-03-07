@@ -93,6 +93,8 @@ export default function Main({navigation}: any) {
         }    
     } );
 
+    const [search, updateSearch] = useState('');
+
     const refreshFn = useCallback(() => {
         setRefreshing(true);
         refetch()
@@ -109,10 +111,12 @@ export default function Main({navigation}: any) {
             validateIDs(setStarredTeachers, data.teachers);
         }
     }, [data]);
-    
-    const [search, updateSearch] = useState('');
 
     const [starredTeachers, setStarredTeachers] = useState(new Set<string>());
+    const [teachers, setTeachers] = useState<Teacher[]>([]);
+    const [starredInSearch, setStarredInSearch] = useState(teachers);
+    const [sortedTeachers, setSortedTeachers] = useState(teachers);
+    
     useEffect(
         () => { initialIdLoad()
             .then((value) => setStarredTeachers(value)) },
@@ -133,6 +137,46 @@ export default function Main({navigation}: any) {
         return () => clearInterval(interval);
     }, [data?.periods]);
 
+
+    useEffect(() => {
+        let teachers : Teacher[] = [];
+        if(data) {
+            teachers = data.teachers.map( (teacher : Teacher) => {
+                return {
+                    id: teacher.id,
+                    name: teacher.name,
+                    honorific: teacher.honorific,
+                    absenceState: teacher.absenceState,
+                }
+            })
+        }
+        setTeachers(teachers);
+    }, [data])
+
+    const fuse = new Fuse(teachers, {
+        keys: ['honorific', 'name'],
+        threshold: 0.4,
+        findAllMatches: true,
+    });
+
+    useEffect(() => {
+        if(data) {
+            let resultedTeachers = search !== '' ? fuse.search(search).map((result) => {
+                return {
+                    id: result.item.id,
+                    name: result.item.name,
+                    absenceState: result.item.absenceState,
+                }
+            }) : teachers;
+            
+
+            let sortedTeachers = new Array<Teacher>();
+            sortedTeachers = (resultedTeachers as Teacher[]).sort((a, b) => a.name.localeCompare(b.name)).map((teacher) => teacher);
+            setSortedTeachers(sortedTeachers);
+            setStarredInSearch((sortedTeachers).filter((teacher) => starredTeachers.has(teacher.id)));    
+        }
+    }, [data, search, starredTeachers])
+    
     // as of right now, if it ever fails fetching the data, this gets rendered until data successfully is returned
     if(error) {
         return (
@@ -158,36 +202,10 @@ export default function Main({navigation}: any) {
             </SafeAreaView>
         )
     }
-    
-    const teachers : Teacher[] = data.teachers.map( (teacher : Teacher) => {
-        return {
-            id: teacher.id,
-            name: teacher.name,
-            honorific: teacher.honorific,
-            absenceState: teacher.absenceState,
-        }
-    })
-
-    const fuse = new Fuse(teachers, {
-        keys: ['honorific', 'name'],
-        threshold: 0.4,
-        findAllMatches: true,
-    });
-
-    let resultedTeachers = search !== '' ? fuse.search(search).map((result) => {
-        return {
-            id: result.item.id,
-            name: result.item.name,
-            absenceState: result.item.absenceState,
-        }
-    }) : teachers;
-    
-    const sortedTeachers = (resultedTeachers as Teacher[]).sort((a, b) => a.name.localeCompare(b.name));
-    const starredInSearch = (sortedTeachers).filter((teacher) => starredTeachers.has(teacher.id));
-
+   
     return (
-        <BottomSheetModalProvider>
-            <SafeAreaView className={SUCCESSFUL_SAFE_AREA_VIEW_STYLE}>
+        <SafeAreaView className={SUCCESSFUL_SAFE_AREA_VIEW_STYLE}>
+                <BottomSheetModalProvider>
                 <View className="flex flex-row justify-between pb-4 px-3 mt-2">
                     <Text className="text-white font-bold text-3xl">
                         TableJet
@@ -223,13 +241,13 @@ export default function Main({navigation}: any) {
                         </Text>
                     </View>
                     {
-                        (starredInSearch.length > 0)? (
+                        (starredInSearch.length > 0) ? (
                             <View className="pt-2 border-t border-purple-500/30">
                                 <Text className={SUBHEADER}> Starred Teachers </Text>
                                 {
-                                    sortedTeachers
-                                        .filter((teacher) => starredTeachers.has(teacher.id))
+                                    starredInSearch
                                         .map((teacher, idx) => {
+                                            console.log("STARRED: " + teacher.name)
                                             return (
                                                 <TeacherEntry
                                                     key={ teacher.id }
@@ -254,6 +272,7 @@ export default function Main({navigation}: any) {
                             {
                                 sortedTeachers
                                     .map((teacher, idx) => {
+                                        console.log("SORTED: " + teacher.name)
                                         return (
                                             <TeacherEntry
                                                 key={ teacher.id }
@@ -280,7 +299,7 @@ export default function Main({navigation}: any) {
                     )
                     }
                 </ScrollView>
-            </SafeAreaView>
-        </BottomSheetModalProvider>
+            </BottomSheetModalProvider>
+        </SafeAreaView>
     )
 }
