@@ -1,6 +1,6 @@
 import { Platform, ActivityIndicator, SafeAreaView, TextInput, Text, View, Pressable, ScrollView, RefreshControl } from "react-native";
 import TeacherEntry from "../components/TeacherEntry/TeacherEntry";
-import { useState, useCallback, useEffect } from "react";
+import { useState, useCallback, useEffect, useMemo } from "react";
 import Icon from 'react-native-vector-icons/Ionicons';
 
 import { AbsenceState, Period, Teacher } from '../lib/types/types'
@@ -114,7 +114,6 @@ export default function Main({navigation}: any) {
 
     const [starredTeachers, setStarredTeachers] = useState(new Set<string>());
     const [teachers, setTeachers] = useState<Teacher[]>([]);
-    const [starredInSearch, setStarredInSearch] = useState(teachers);
     const [sortedTeachers, setSortedTeachers] = useState(teachers);
     
     useEffect(
@@ -166,16 +165,20 @@ export default function Main({navigation}: any) {
                     id: result.item.id,
                     name: result.item.name,
                     absenceState: result.item.absenceState,
+                    honorific: result.item.honorific,
                 }
             }) : teachers;
             
-
-            let sortedTeachers = new Array<Teacher>();
-            sortedTeachers = (resultedTeachers as Teacher[]).sort((a, b) => a.name.localeCompare(b.name)).map((teacher) => teacher);
-            setSortedTeachers(sortedTeachers);
-            setStarredInSearch((sortedTeachers).filter((teacher) => starredTeachers.has(teacher.id)));    
+            const newSorted = (resultedTeachers).sort((a, b) => a.name.localeCompare(b.name)).map((teacher) => teacher);
+            setSortedTeachers(newSorted);
         }
     }, [data, search, starredTeachers])
+
+    console.log("\n\n-------------")
+    console.log("Starred")
+    console.log(sortedTeachers.filter((teacher) => starredTeachers.has(teacher.id)).map((teacher) => teacher.name))
+    console.log("all")
+    console.log(sortedTeachers.map((teacher) => teacher.name));
     
     // as of right now, if it ever fails fetching the data, this gets rendered until data successfully is returned
     if(error) {
@@ -240,63 +243,63 @@ export default function Main({navigation}: any) {
                             }
                         </Text>
                     </View>
+                    
                     {
-                        (starredInSearch.length > 0) ? (
+                        sortedTeachers.filter((teacher) => starredTeachers.has(teacher.id)).length > 0 ? (
                             <View className="pt-2 border-t border-purple-500/30">
                                 <Text className={SUBHEADER}> Starred Teachers </Text>
-                                {
-                                    starredInSearch
-                                        .map((teacher, idx) => {
-                                            console.log("STARRED: " + teacher.name)
-                                            return (
-                                                <TeacherEntry
-                                                    key={ teacher.id }
-                                                    teacher={ teacher }
-                                                    starred={ true }
-                                                    setStar={ toggleTeacherStarState }
-                                                    minimalist={ useMinimalistIcons } 
-                                                    absent={ getAbsenceState(teacher, curPeriod) }
-                                                    hapticfeedback={ useHapticFeedback }
-                                                    idx={ idx } />
-                                            )
-                                        })
-                                }
                             </View>
                         ) : null
                     }
                     {
-                    sortedTeachers.length > 0 ? 
-                        (
-                        <View className="mb-6 pt-2 border-t border-purple-500/30">
-                            <Text className={SUBHEADER}> All Teachers </Text>
-                            {
-                                sortedTeachers
-                                    .map((teacher, idx) => {
-                                        console.log("SORTED: " + teacher.name)
-                                        return (
-                                            <TeacherEntry
-                                                key={ teacher.id }
-                                                teacher={ teacher}
-                                                starred={ starredTeachers.has(teacher.id) }
-                                                setStar={ toggleTeacherStarState} 
-                                                minimalist={ useMinimalistIcons }
-                                                absent={ getAbsenceState(teacher, curPeriod) }
-                                                hapticfeedback={ useHapticFeedback }
-                                                idx={ idx } />
-                                        )
-                                    })
-                            }
-                        </View>
-                    ) : (
-                        <View className="flex-1 justify-center align-middle">
-                            <Text className="text-red-400 text-center text-xl mx-3 mt-6 mb-3 font-bold">
-                                No Teachers Found :&#x28;
-                            </Text>
-                            <Text className="text-white text-center text-md mx-3">
-                                Double Check Your Search
-                            </Text>
-                        </View>
-                    )
+                        sortedTeachers.filter((teacher) => starredTeachers.has(teacher.id))
+                            .map((teacher, idx) => {
+                                return (
+                                    <TeacherEntry
+                                        key={ teacher.id }
+                                        teacher={ teacher }
+                                        starred={ true }
+                                        setStar={ toggleTeacherStarState }
+                                        minimalist={ useMinimalistIcons } 
+                                        absent={ getAbsenceState(teacher, curPeriod) }
+                                        hapticfeedback={ useHapticFeedback }
+                                        idx={ idx } />
+                                )
+                            })
+                    }
+
+                    {
+                        sortedTeachers.length > 0 ? (
+                            <View className="mb-6 pt-2 border-t border-purple-500/30">
+                                <Text className={SUBHEADER}> All Teachers </Text>
+                            </View>
+                        ) : (
+                            <View className="flex-1 justify-center align-middle">
+                                <Text className="text-red-400 text-center text-xl mx-3 mt-6 mb-3 font-bold">
+                                    No Teachers Found :&#x28;
+                                </Text>
+                                <Text className="text-white text-center text-md mx-3">
+                                    Double Check Your Search
+                                </Text>
+                            </View>
+                        )
+                    }
+
+                    {
+                        sortedTeachers
+                            .map((teacher, idx) => {
+                                return (
+                                    <TeacherEntry
+                                        key={ teacher.id }
+                                        teacher={ teacher}
+                                        starred={ starredTeachers.has(teacher.id) }
+                                        setStar={ toggleTeacherStarState} 
+                                        minimalist={ useMinimalistIcons }
+                                        absent={ getAbsenceState(teacher, curPeriod) }
+                                        hapticfeedback={ useHapticFeedback }
+                                        idx={ idx } />
+                                )
+                            })
                     }
                 </ScrollView>
             </BottomSheetModalProvider>
