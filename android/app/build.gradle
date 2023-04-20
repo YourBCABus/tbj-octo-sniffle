@@ -167,7 +167,7 @@ dependencies {
         implementation jscFlavor
     }
 
-    compile project(':react-native-haptic-feedback')
+    implementation project(':react-native-haptic-feedback')
 }
 
 apply from: file("../../node_modules/@react-native-community/cli-platform-android/native_modules.gradle"); applyNativeModulesAppBuildGradle(project)
