@@ -95,8 +95,8 @@ export default function TeacherEntry(props: TeacherEntryProps) {
     );
 
     const starred = props.starred;
-    const { id, name } = props.teacher;
-
+    const { id } = props.teacher;
+    let name = props.teacher.honorific + " " + props.teacher.name.split(" ")[1];
     const toggleStar = props.setStar;
     
     // could make haptics a little less powerful if it's too much

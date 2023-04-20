@@ -11,10 +11,14 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        'ebony': '#0A0A0A',
+        'ebony': '#101010', 
+        // #101010
+        // 
+        // #171717
         'orchid': '#7E1E80',
         'deep-purple': '#9505E3',
         'bright-violet': '#B637FB',
+        'subheader-purple': '#9c52b3',
         'starred-yellow': '#FFE205',
         'absent-red': '#F50202',
         'present-green': '#05FA19',

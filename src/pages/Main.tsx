@@ -20,7 +20,7 @@ import {
   } from '@gorhom/bottom-sheet';
 
 
-const SUBHEADER = 'text-purple-300 font-medium pl-2 text-lg'
+const SUBHEADER = 'text-subheader-purple font-medium pl-2 text-lg'
 
 // need to do this because of weird stuff on android devices with notches unfortunately
 const SUCCESSFUL_SAFE_AREA_VIEW_STYLE = Platform.OS === 'android' ? "flex-1 bg-ebony pt-8" : "flex-1 bg-ebony"
@@ -152,6 +152,7 @@ export default function Main({navigation}: any) {
         setTeachers(teachers);
     }, [data])
 
+    // to improve search with honorifics in the future, could potentially prepend the honorific to name
     const fuse = new Fuse(teachers, {
         keys: ['honorific', 'name'],
         threshold: 0.4,
@@ -161,7 +162,7 @@ export default function Main({navigation}: any) {
     useEffect(() => {
         if(data) {
             let resultedTeachers = search !== '' ? fuse.search(search).map((result) => {
-                return {
+                return { 
                     id: result.item.id,
                     name: result.item.name,
                     absenceState: result.item.absenceState,
@@ -169,17 +170,20 @@ export default function Main({navigation}: any) {
                 }
             }) : teachers;
             
-            const newSorted = (resultedTeachers).sort((a, b) => a.name.localeCompare(b.name)).map((teacher) => teacher);
+            // returns names sorted last, first
+            const newSorted = (resultedTeachers).sort((a, b) => {
+                const splitnamea = a.name.split(' ');
+                const splitnameb = b.name.split(' ');
+
+                const namea = splitnamea[1] + "_" + splitnamea[0];
+                const nameb = splitnameb[1] + "_" + splitnameb[0];
+
+                return namea.localeCompare(nameb)
+            }).map((teacher) => teacher);
             setSortedTeachers(newSorted);
         }
     }, [data, search, starredTeachers])
 
-    console.log("\n\n-------------")
-    console.log("Starred")
-    console.log(sortedTeachers.filter((teacher) => starredTeachers.has(teacher.id)).map((teacher) => teacher.name))
-    console.log("all")
-    console.log(sortedTeachers.map((teacher) => teacher.name));
-    
     // as of right now, if it ever fails fetching the data, this gets rendered until data successfully is returned
     if(error) {
         return (
@@ -246,7 +250,7 @@ export default function Main({navigation}: any) {
                     
                     {
                         sortedTeachers.filter((teacher) => starredTeachers.has(teacher.id)).length > 0 ? (
-                            <View className="pt-2 border-t border-purple-500/30">
+                            <View className="mt-1 pt-2 border-t border-subheader-purple">
                                 <Text className={SUBHEADER}> Starred Teachers </Text>
                             </View>
                         ) : null
@@ -270,7 +274,7 @@ export default function Main({navigation}: any) {
 
                     {
                         sortedTeachers.length > 0 ? (
-                            <View className="mb-6 pt-2 border-t border-purple-500/30">
+                            <View className="mt-1 pt-2 border-t border-subheader-purple">
                                 <Text className={SUBHEADER}> All Teachers </Text>
                             </View>
                         ) : (
@@ -291,7 +295,7 @@ export default function Main({navigation}: any) {
                                 return (
                                     <TeacherEntry
                                         key={ teacher.id }
-                                        teacher={ teacher}
+                                        teacher={ teacher }
                                         starred={ starredTeachers.has(teacher.id) }
                                         setStar={ toggleTeacherStarState} 
                                         minimalist={ useMinimalistIcons }
