@@ -4,6 +4,8 @@ import { Setting } from '../types/types';
 export type SettingsCollection = string;
 export const SETTINGS_KEY = "@settings";
 
+
+// Add https://rnfirebase.io/messaging/ios-permissions#handle-button-for-in-app-notifications-settings?
 const DEFAULT_SETTINGS : Setting[] = [
     {
         id: 'minimalist',

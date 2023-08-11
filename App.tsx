@@ -8,7 +8,7 @@ import { GRAPHQL_API_ENDPOINT } from "@env";
 
 
 
-const client = new ApolloClient({
+export const client = new ApolloClient({
   uri: GRAPHQL_API_ENDPOINT,
   cache: new InMemoryCache()
 });

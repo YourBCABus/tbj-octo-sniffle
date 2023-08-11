@@ -1,4 +1,4 @@
-import { Platform, ActivityIndicator, SafeAreaView, TextInput, Text, View, Pressable, ScrollView, RefreshControl } from "react-native";
+import { Platform, ActivityIndicator, SafeAreaView, TextInput, Text, View, Pressable, ScrollView, RefreshControl, Alert } from "react-native";
 import TeacherEntry from "../components/TeacherEntry/TeacherEntry";
 import { useState, useCallback, useEffect, useMemo } from "react";
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -14,11 +14,13 @@ import Fuse from 'fuse.js'
 import { getSettingState, validateSettings } from "../lib/storage/SettingStorage";
 import { useFocusEffect } from "@react-navigation/native";
 
+import messaging from '@react-native-firebase/messaging';
+
+import { onCreateTriggerNotification, requestUserPermission } from "../lib/notifications/Notification";
 
 import {
     BottomSheetModalProvider,
   } from '@gorhom/bottom-sheet';
-
 
 const SUBHEADER = 'text-subheader-purple font-medium pl-2 text-lg'
 
@@ -36,7 +38,7 @@ function getAbsenceState(teacher: Teacher, curPeriod: Period | null): AbsenceSta
 }
 
 export default function Main({navigation}: any) {
-    const [refreshing, setRefreshing] = useState(false);
+    const [ refreshing, setRefreshing ] = useState(false);
     const [ useMinimalistIcons, setUseMinimalistIcons ] = useState(false);
     const [ useHapticFeedback, setUseHapticFeedback ] = useState(true);
 
@@ -85,6 +87,33 @@ export default function Main({navigation}: any) {
             };
         }, [useMinimalistIcons, useHapticFeedback])
       );
+    
+    useFocusEffect(
+        useCallback(() => {
+
+            const reqUserPerms = async () => {
+                try {
+                    await requestUserPermission();
+                    console.log("creating trigger notification...")
+                    await onCreateTriggerNotification();
+                    console.log("makes it past this")
+                } catch (e) {
+                    console.log(e);
+                }
+            }
+
+            reqUserPerms();
+        }, [])
+    )
+
+    // TODO --> Potentially tell users to keep Background App Refresh mode on for best performance on iOS
+    useEffect(() => {
+        const unsubscribe = messaging().onMessage(async remoteMessage => {
+          Alert.alert('A new FCM message arrived!', JSON.stringify(remoteMessage));
+        });
+    
+        return unsubscribe;
+      }, []);
     
     const { data, loading, error, refetch } = useQuery( GET_ALL_TEACHERS_PERIODS, {
         pollInterval: 30000,

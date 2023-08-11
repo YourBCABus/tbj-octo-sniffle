@@ -110,7 +110,7 @@ export default function TeacherEntry(props: TeacherEntryProps) {
     return (
         <GestureHandlerRootView className="flex-1" id={id}>
             <View className="flex flex-row p-2 m-2 pl-0 justify-between">
-                <View className="flex flex-row space-x-3 my-auto">
+                <View className="flex flex-row space-x-3 my-auto h-10">
                     <View className="my-auto">
                         {
                             getAbsentIcon(props.absent, useMinimalistMode)
@@ -189,15 +189,18 @@ export default function TeacherEntry(props: TeacherEntryProps) {
                 >
                 <View className="flex h-full bg-ebony align-middle">
                     <View className="flex flex-row mt-2">
-                        {
-                            starred ?
-                            (
-                                <Text className="text-starred-yellow text-center w-full text-xl">{name}</Text>
-                            ) :
-                            (
-                                <Text className="text-white text-center w-full text-xl">{name}</Text>
-                            )
-                        }
+                        {/* <> */}
+                            {
+                                starred ?
+                                (
+                                        <Text className="text-starred-yellow text-center w-full text-xl">{name}</Text>
+                                ) :
+                                (
+                                    <Text className="text-white text-center w-full text-xl">{name}</Text>
+                                )
+                            }
+                            {/* <Text className="text-white text-center w-full text-xl">asdf</Text> */}
+                        {/* </> */}
                     </View>
                 </View>
             </BottomSheetModal>
