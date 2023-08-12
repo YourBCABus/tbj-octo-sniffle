@@ -1,5 +1,6 @@
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { Teacher } from '../types/types';
+import { subscribeToNotification, unsubscribeToNotification } from '../notifications/Notification';
 
 export type StarredIds = Set<string>;
 
@@ -62,10 +63,19 @@ export async function updateTeacherStarStorage(setTeacherIds: (ids: StarredIds) 
         let old = await initialIdLoad();
 
         if (value === undefined) {
-            old.has(id) ? old.delete(id) : old.add(id);
+            // old.has(id) ? old.delete(id) : old.add(id);
+            if(old.has(id)) {
+                unsubscribeToNotification(id);
+                old.delete(id);
+            } else {
+                subscribeToNotification(id);
+                old.add(id);
+            }
         } else if (value) {
+            subscribeToNotification(id);
             old.add(id);
         } else {
+            unsubscribeToNotification(id);
             old.delete(id);
         }
 

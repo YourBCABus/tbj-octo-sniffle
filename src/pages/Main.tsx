@@ -16,7 +16,7 @@ import { useFocusEffect } from "@react-navigation/native";
 
 import messaging from '@react-native-firebase/messaging';
 
-import { onCreateTriggerNotification, requestUserPermission } from "../lib/notifications/Notification";
+import { requestUserPermission } from "../lib/notifications/Notification";
 
 import {
     BottomSheetModalProvider,
@@ -90,13 +90,9 @@ export default function Main({navigation}: any) {
     
     useFocusEffect(
         useCallback(() => {
-
             const reqUserPerms = async () => {
                 try {
                     await requestUserPermission();
-                    console.log("creating trigger notification...")
-                    await onCreateTriggerNotification();
-                    console.log("makes it past this")
                 } catch (e) {
                     console.log(e);
                 }
