@@ -11,7 +11,7 @@ export default function SettingEntry(props: SettingEntryProps): JSX.Element {
     return (
         // could maybe make it so if enabled, the text is a brighter white or something
         <View className="flex flex-row justify-around py-2 my-3 bg-white/5 w-11/12 rounded-2xl" key={id}>
-            <Text className="text-white text-left my-auto text-md w-2/3">
+            <Text className="text-zinc-100 text-left my-auto text-md w-2/3">
                 { description }
             </Text>
             <Switch

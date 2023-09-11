@@ -9,7 +9,7 @@ export const SETTINGS_KEY = "@settings";
 const DEFAULT_SETTINGS : Setting[] = [
     {
         id: 'minimalist',
-        description: 'Minimalist Mode',
+        description: 'Use Alternate Icons',
         value: false,
     },
     {
@@ -30,7 +30,7 @@ export async function initializeDefaults(): Promise<Setting[]> {
     try {
         const stringifiedSettings = JSON.stringify(DEFAULT_SETTINGS);
         await AsyncStorage.setItem(SETTINGS_KEY, stringifiedSettings);
-        // we are guaranteed that the parse is successful since the defaults will always be the same
+        // We are guaranteed that the parse is successful since the defaults will always be the same
         return DEFAULT_SETTINGS;
     } catch(e) {
         throw new SettingError(e, true);

@@ -22,17 +22,17 @@ import {
     BottomSheetModalProvider,
   } from '@gorhom/bottom-sheet';
 
-const SUBHEADER = 'text-subheader-purple font-medium pl-2 text-lg'
+const SUBHEADER = 'text-zinc-600 font-medium pl-2 text-sm'
 
 // need to do this because of weird stuff on android devices with notches unfortunately
-const SUCCESSFUL_SAFE_AREA_VIEW_STYLE = Platform.OS === 'android' ? "flex-1 bg-ebony pt-8" : "flex-1 bg-ebony"
+const SUCCESSFUL_SAFE_AREA_VIEW_STYLE = Platform.OS === 'android' ? "flex-1 bg-[#0b0b0e] pt-8" : "flex-1 bg-[#0b0b0e]"
 
 function getAbsenceState(teacher: Teacher, curPeriod: Period | null): AbsenceState {
-    let absentIds = curPeriod?.teachersAbsent.map((teacher) => teacher.id )
-    
+    // console.log("Teacher: ", teacher);
+    // console.log("Period: ", curPeriod);
+    if(teacher.fullyAbsent) return AbsenceState.ABSENT_ALL_DAY;
+    if(teacher.absence.some((periodId) => periodId === curPeriod?.id)) return AbsenceState.ABSENT;
     if(curPeriod === null || curPeriod === undefined) return AbsenceState.NO_PERIOD;
-    if(teacher.absenceState && teacher.absenceState.isFullyAbsent) return AbsenceState.ABSENT_ALL_DAY;
-    if(absentIds?.includes(teacher.id)) return AbsenceState.ABSENT
     
     return AbsenceState.PRESENT;
 }
@@ -165,46 +165,56 @@ export default function Main({navigation}: any) {
     useEffect(() => {
         let teachers : Teacher[] = [];
         if(data) {
-            teachers = data.teachers.map( (teacher : Teacher) => {
+            teachers = data.teachers.map( (teacher: Teacher) => {
                 return {
                     id: teacher.id,
-                    name: teacher.name,
-                    honorific: teacher.honorific,
-                    absenceState: teacher.absenceState,
+                    displayName: teacher.name.normal,
+                    name: {
+                        honorific: teacher.name.honorific,
+                        first: teacher.name.first,
+                        middles: teacher.name.middles,
+                        last: teacher.name.last,
+                        full: teacher.name.full,
+                        firstLast: teacher.name.firstLast,
+                        normal: teacher.name.normal
+                    },
+                    pronouns: {
+                        sub: teacher.pronouns.sub,
+                        subject: teacher.pronouns.subject,
+                        obj: teacher.pronouns.obj,
+                        object: teacher.pronouns.object,
+                        posAdj: teacher.pronouns.posAdj,
+                        possAdjective: teacher.pronouns.possAdjective,
+                        posPro: teacher.pronouns.posPro,
+                        possPronoun: teacher.pronouns.possPronoun,
+                        refx: teacher.pronouns.refx,
+                        reflexive: teacher.pronouns.reflexive,
+                        grammPlu: teacher.pronouns.grammPlu,
+                        grammaticallyPlural: teacher.pronouns.grammaticallyPlural,
+                        setStr: teacher.pronouns.setStr,
+                    },
+                    absence: teacher.absence.map((absenceResult: any) => absenceResult.id) ?? [],
+                    fullyAbsent: teacher.fullyAbsent,
                 }
             })
         }
         setTeachers(teachers);
     }, [data])
 
-    // to improve search with honorifics in the future, could potentially prepend the honorific to name
     const fuse = new Fuse(teachers, {
-        keys: ['honorific', 'name'],
+        keys: ['displayName'],
         threshold: 0.4,
         findAllMatches: true,
     });
 
     useEffect(() => {
         if(data) {
-            let resultedTeachers = search !== '' ? fuse.search(search).map((result) => {
-                return { 
-                    id: result.item.id,
-                    name: result.item.name,
-                    absenceState: result.item.absenceState,
-                    honorific: result.item.honorific,
-                }
-            }) : teachers;
+            let resultedTeachers = search !== '' ? fuse.search(search).map((result) => result.item) : teachers;
             
-            // returns names sorted last, first
-            const newSorted = (resultedTeachers).sort((a, b) => {
-                const splitnamea = a.name.split(' ');
-                const splitnameb = b.name.split(' ');
-
-                const namea = splitnamea[1] + "_" + splitnamea[0];
-                const nameb = splitnameb[1] + "_" + splitnameb[0];
-
-                return namea.localeCompare(nameb)
-            }).map((teacher) => teacher);
+            // names are sorted only by last name
+            const newSorted = resultedTeachers.sort((a, b) => {
+                return a.name.last.localeCompare(b.name.last)
+            });
             setSortedTeachers(newSorted);
         }
     }, [data, search, starredTeachers])
@@ -212,7 +222,7 @@ export default function Main({navigation}: any) {
     // as of right now, if it ever fails fetching the data, this gets rendered until data successfully is returned
     if(error) {
         return (
-            <SafeAreaView className="flex-1 bg-ebony justify-center align-middle">
+            <SafeAreaView className="flex-1 bg-zinc-950 justify-center align-middle">
                 <ScrollView contentContainerStyle={{ flexGrow: 1, justifyContent: 'center' }} refreshControl={ <RefreshControl colors={["white"]} tintColor={"white"} refreshing={ refreshing } onRefresh={ refreshFn } /> } >
                     <View>
                         <Text className="text-red-500 text-center text-lg mx-3 font-bold">
@@ -229,7 +239,7 @@ export default function Main({navigation}: any) {
     
     if(loading) {
         return (
-            <SafeAreaView className="flex-1 bg-ebony justify-center align-middle">
+            <SafeAreaView className="flex-1 bg-zinc-950 justify-center align-middle">
                 <ActivityIndicator size="large" color="white" />
             </SafeAreaView>
         )
@@ -239,34 +249,34 @@ export default function Main({navigation}: any) {
         <SafeAreaView className={SUCCESSFUL_SAFE_AREA_VIEW_STYLE}>
                 <BottomSheetModalProvider>
                 <View className="flex flex-row justify-between pb-4 px-3 mt-2">
-                    <Text className="text-white font-bold text-3xl">
+                    <Text className="text-[#9898f5] font-bold text-3xl">
                         TableJet
                     </Text>
                     <View>
                         <Pressable onPressIn={ () => navigation.navigate('Settings') } hitSlop={3}>
-                            <Icon name="cog" size={35} color="white" />
+                            <Icon name="cog" size={35} color="rgb(250 250 250)" />
                         </Pressable>
                     </View>
                 </View>
 
                 {/* TODO - add popup at bottom to indicate failed to load if request failed but there are already things in cache */}
-                <ScrollView refreshControl={ <RefreshControl colors={["white"]} tintColor={"white"} refreshing={ refreshing } onRefresh={ refreshFn } /> }>
-                    <View className="flex flex-row  mx-2 border-w border-b border-gray-300">
+                <ScrollView refreshControl={ <RefreshControl colors={["rgb(250 250 250)"]} tintColor={"rgb(250 250 250)"} refreshing={ refreshing } onRefresh={ refreshFn } /> }>
+                    <View className="flex flex-row  mx-2 border-w border-b border-zinc-600">
                         <View className="text-center my-auto ml-3">
-                            <Icon name="search" size={25} color="gray" />
+                            <Icon name="search" size={25} color="rgb(82 82 91)" />
                         </View>
                         <TextInput 
                             className="ml-2 mr-5 my-2 p-2 pr-8"
                             onChangeText={text => updateSearch(text)}
                             value={search}
-                            placeholderTextColor={"gray"}
-                            style={{ color: 'white'}}
+                            placeholderTextColor={"rgb(82 82 91)"}
+                            style={{ color: 'rgb(228 228 231)'}}
                             placeholder="Search for a teacher"
                             autoComplete="off"
                             keyboardType="default" />
                     </View>
                     <View>
-                        <Text className="text-white text-center text-xl mx-3 my-5 font-bold">
+                        <Text className="text-zinc-100 text-center text-xl mx-3 my-5 font-bold">
                             { 
                                 (curPeriod === undefined || curPeriod === null) ? "No Current Period" : curPeriod.name
                             }
@@ -275,7 +285,7 @@ export default function Main({navigation}: any) {
                     
                     {
                         sortedTeachers.filter((teacher) => starredTeachers.has(teacher.id)).length > 0 ? (
-                            <View className="mt-1 pt-2 border-t border-subheader-purple">
+                            <View className="mt-1 pt-2 border-t border-zinc-600">
                                 <Text className={SUBHEADER}> Starred Teachers </Text>
                             </View>
                         ) : null
@@ -299,16 +309,16 @@ export default function Main({navigation}: any) {
 
                     {
                         sortedTeachers.length > 0 ? (
-                            <View className="mt-1 pt-2 border-t border-subheader-purple">
+                            <View className="mt-1 pt-2 border-t border-zinc-600">
                                 <Text className={SUBHEADER}> All Teachers </Text>
                             </View>
                         ) : (
-                            <View className="flex-1 justify-center align-middle">
-                                <Text className="text-red-400 text-center text-xl mx-3 mt-6 mb-3 font-bold">
+                            <View className="flex-1 justify-center align-middle mt-44">
+                                <Text className="text-red-500 text-center text-xl mx-3 mt-6 mb-3 font-bold">
                                     No Teachers Found :&#x28;
                                 </Text>
-                                <Text className="text-white text-center text-md mx-3">
-                                    Double Check Your Search
+                                <Text className="text-white font-semibold text-center text-sm mx-3">
+                                    Tip: Search by full name
                                 </Text>
                             </View>
                         )

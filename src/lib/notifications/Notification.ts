@@ -1,4 +1,4 @@
-import notifee, { AuthorizationStatus, RepeatFrequency, TimestampTrigger, TriggerType } from '@notifee/react-native';
+import notifee, { AuthorizationStatus } from '@notifee/react-native';
 import messaging from '@react-native-firebase/messaging';
 import { Platform } from 'react-native';
 import { GET_ALL_TEACHERS_PERIODS } from '../graphql/Queries';
@@ -21,20 +21,18 @@ export async function requestUserPermission() {
     }
 
     if(authStatus.authorizationStatus === AuthorizationStatus.AUTHORIZED) {
-        console.log("Authorized");        
+        console.log("Authorized");      
+        console.log("Token: ", await messaging().getToken());  
     } else {
         console.log("Not Authorized; status: ", authStatus.authorizationStatus)
     }
 }
 
 async function coalescePeriods(periods: Period[] | undefined | null): Promise<Period[]> {
-  console.log(123);
   if(periods == null || typeof(periods) === 'undefined') {
     const { data } = await client.query({query: GET_ALL_TEACHERS_PERIODS});
-    console.log("data returned: ", data);
     return data.periods;
   } else {
-    console.log(345);
     return periods
   }
 }
@@ -55,7 +53,7 @@ export async function subscribeToNotification(teacherId: string, periods?: Perio
 }
 
 // Unsubscribes to a topic with the format of `period-id.teacher-id`
-// If no period is provided, it will unsubscribe to all periods.
+// If no period is provided, it will unsubscribe from all periods.
 export async function unsubscribeToNotification(teacherId: string, periods?: Period[]) {
   periods = await coalescePeriods(periods);
   console.log(periods);
@@ -65,45 +63,6 @@ export async function unsubscribeToNotification(teacherId: string, periods?: Per
     messaging().unsubscribeFromTopic(topic);
   })
 }
-
-// export async function onCreateTriggerNotification(){
-//     const date = new Date(Date.now());
-//     date.setHours(date.getHours());
-//     date.setMinutes(date.getMinutes());
-//     date.setSeconds(date.getSeconds() + 15);
-  
-//     console.log("if this triggers: " + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds());
-//     const trigger: TimestampTrigger = {
-//       type: TriggerType.TIMESTAMP,
-//       timestamp: date.getTime(),
-//       repeatFrequency: RepeatFrequency.NONE,
-//     };
-
-//     // const trigger: IntervalTrigger = {
-//     //   type: TriggerType.INTERVAL,
-//     //   interval: 5
-//     // }
-
-//     // const teachers = await getStarredTeachers();
-//     const teachers = await getStarredAbsentTeachers();
-
-//     const teacherNames = teachers.map((teacher: Teacher) => { return teacher.name });
-
-//     await notifee.createTriggerNotification(
-//       {
-//         id: "1235456",
-//         title: 'Test notification with teachers',
-//         body: "Starred Absent: " + teacherNames.join(", "),
-//         android: {
-//           channelId: 'default',
-//         },
-//       },
-//       trigger,
-//     );
-//     // return teachers;
-//   }
-
-
 
 // Maybe this should return a set instead?
 async function getStarredTeachers(): Promise<Teacher[]> {
@@ -129,7 +88,7 @@ async function getStarredAbsentTeachers(): Promise<Teacher[]> {
     
     if(currentPeriod === null) return [];
     return (await getStarredTeachers()).filter((teacher: Teacher) => {
-        if (teacher.absenceState.isFullyAbsent) return true;
+        if (teacher.fullyAbsent) return true;
         return currentPeriod.teachersAbsent.some((absentTeacher: {id: string}) => teacher.id === absentTeacher.id);
     });  
   }

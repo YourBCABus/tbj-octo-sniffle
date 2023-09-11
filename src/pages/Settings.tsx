@@ -19,7 +19,7 @@ export default function Settings() {
     );
 
     return (
-        <View className="flex-1 items-center justify-center bg-ebony space-y-5">
+        <View className="flex-1 items-center justify-center bg-zinc-950 space-y-5">
             {
                 settings.map((setting) => {
                     return (

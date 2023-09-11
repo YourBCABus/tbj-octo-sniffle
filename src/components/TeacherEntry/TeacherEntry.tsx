@@ -1,7 +1,7 @@
 import { View, Text, Pressable, ColorValue } from 'react-native'
 import Icon from 'react-native-vector-icons/Ionicons';
 import { AbsenceState, TeacherEntryProps } from '../../lib/types/types';
-import { useCallback, useMemo, useRef } from 'react';
+import React, { useCallback, useMemo, useRef } from 'react';
 import ReactNativeHapticFeedback from 'react-native-haptic-feedback'; 
 
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
@@ -71,6 +71,19 @@ function getAbsentIcon(status: AbsenceState, useMinimalistIcons: boolean): JSX.E
     }
 }
 
+function renderAbsenceStatus(status: AbsenceState): React.ReactNode {
+    switch (status) {
+        case AbsenceState.ABSENT:
+            return ( <Text className="text-white">asdhfjashfjks</Text> );
+        case AbsenceState.ABSENT_ALL_DAY:
+            return ( <Icon color={colors[0]} size={30} name="close"></Icon> );
+        case AbsenceState.PRESENT:
+            return ( <Icon color={colors[1]} size={30} name="checkmark-outline"></Icon> );
+        default:
+            return ( <Icon color={colors[2]} size={30} name="ellipse"></Icon> );
+    }
+}
+
 export default function TeacherEntry(props: TeacherEntryProps) {
     let useMinimalistMode = props.minimalist
     
@@ -96,7 +109,8 @@ export default function TeacherEntry(props: TeacherEntryProps) {
 
     const starred = props.starred;
     const { id } = props.teacher;
-    let name = props.teacher.honorific + " " + props.teacher.name.split(" ")[1];
+    const teacher = props.teacher; 
+    let name = props.teacher.displayName;
     const toggleStar = props.setStar;
     
     // could make haptics a little less powerful if it's too much
@@ -120,40 +134,51 @@ export default function TeacherEntry(props: TeacherEntryProps) {
                         {
                         starred ? 
                             (
-                                useMinimalistMode ?
-                                    (
-                                        <Text className="text-starred-yellow my-auto text-lg font-light">{name}</Text>
-                                    ) :
-                                    (
-                                        <Text className="text-starred-yellow my-auto text-lg">{name}</Text>
-                                    )
+                                // useMinimalistMode ?
+                                //     (
+                                //         <Text className="text-zinc-100 my-auto text-lg font-light">{name}</Text>
+                                //     ) :
+                                    // (
+                                        <Text className="text-zinc-100 font-normal my-auto text-lg">{name}</Text>
+                                    // )
                             ) : 
                             (
-                                useMinimalistMode ? 
-                                    (
-                                        <Text className="text-white my-auto text-lg font-light">{name}</Text>
-                                    ) :
-                                    (
-                                        <Text className="text-white my-auto text-lg">{name}</Text>
-                                    )
+                                // useMinimalistMode ? 
+                                //     (
+                                //         <Text className="text-zinc-100 my-auto text-lg font-light">{name}</Text>
+                                //     ) :
+                                //     (
+                                        <Text className="text-zinc-100 font-normal my-auto text-lg">{name}</Text>
+                                    // )
                             )
                         }
                         <View className="flex flex-row">
                         {
                             props.absent === AbsenceState.ABSENT_ALL_DAY ?
-                                useMinimalistMode ?
-                                    (
-                                        <Text className="text-default-gray my-auto font-extralight">Out All Day</Text>
-                                    ) :
-                                    (
-                                        <Text className="text-default-gray my-auto">Out All Day</Text>
-                                    )
+                                // useMinimalistMode ?
+                                //     (
+                                //         <Text className="text-zinc-700 my-auto font-extralight">Out All Day</Text>
+                                //     ) :
+                                    // (
+                                        <Text className="text-zinc-600 my-auto">Out All Day</Text>
+                                    // )
                             : null
                         }
                         </View>
                     </View>
                 </View>
-                <View className="flex flex-row space-x-3">
+                <View className="flex flex-row space-x-2">
+                    <Pressable onPress={ toggle } hitSlop={2} className="my-auto">
+                        {
+                        starred ? 
+                        (
+                            <Icon name="star" size={STAR_SIZE} color={ "#9898f5"}/>
+                        ) :
+                        (
+                            <Icon name="star-outline" size={STAR_SIZE} color={"#9898f5"} />
+                        )
+                        }
+                    </Pressable>
                     <Pressable className="my-auto" hitSlop={1} onPress={() => {
                         handlePresentModalPress()
                         if(props.hapticfeedback) {
@@ -161,20 +186,9 @@ export default function TeacherEntry(props: TeacherEntryProps) {
                         }
                     }}>
                     <View className="pt-1">
-                        <Icon name="information-circle-outline" size={33} color={colors[2]} />
+                        <Icon name="chevron-forward-outline" size={21} color={"rgb(63 63 70)"} />
                     </View>
                     
-                    </Pressable>
-                    <Pressable onPress={ toggle } hitSlop={2} className="my-auto">
-                        {
-                        starred ? 
-                        (
-                            <Icon name="star" size={STAR_SIZE} color={ colors[4] } />
-                        ) :
-                        (
-                            <Icon name="star-outline" size={STAR_SIZE} color={colors[2]} />
-                        )
-                        }
                     </Pressable>
                 </View>
             </View>
@@ -182,26 +196,29 @@ export default function TeacherEntry(props: TeacherEntryProps) {
                 ref={bottomSheetModalRef}
                 index={0}
                 snapPoints={snapPoints}
-                backgroundStyle={{ backgroundColor: colors[3] }}
+                backgroundStyle={{ backgroundColor: "rgb(9 9 11)" }}
                 handleIndicatorStyle={{ backgroundColor: 'white' }}
                 enableOverDrag={true}
                 backdropComponent={renderBackdrop}
                 >
-                <View className="flex h-full bg-ebony align-middle">
+                <View className="flex h-full bg-zinc-950 align-middle">
                     <View className="flex flex-row mt-2">
-                        {/* <> */}
+                            
                             {
-                                starred ?
-                                (
-                                        <Text className="text-starred-yellow text-center w-full text-xl">{name}</Text>
-                                ) :
-                                (
-                                    <Text className="text-white text-center w-full text-xl">{name}</Text>
-                                )
+                                // starred ?
+                                // (
+                                //         <Text className="text-yellow-400 text-center w-full text-xl">{name}</Text>
+                                // ) :
+                                // (
+                                //     <Text className="text-zinc-100 text-center w-full text-xl">{name}</Text>
+                                // )
+                                <Text className="text-[#9898f5] text-center w-full text-xl">{name}</Text>
                             }
-                            {/* <Text className="text-white text-center w-full text-xl">asdf</Text> */}
-                        {/* </> */}
+
+
                     </View>
+                    {/* <Text className="text-white">13lkfjdaf</Text> */}
+                    {/* { renderModalBody(props) } */}
                 </View>
             </BottomSheetModal>
         </GestureHandlerRootView>

@@ -6,8 +6,6 @@ import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
 
 import { GRAPHQL_API_ENDPOINT } from "@env";
 
-
-
 export const client = new ApolloClient({
   uri: GRAPHQL_API_ENDPOINT,
   cache: new InMemoryCache()
