@@ -1,76 +1,76 @@
 export interface Teacher {
-    id: string
-    displayName: string
-    name: TeacherName
-    pronouns: PronounSet
-    absence: string[] // will be an array of period ids
-    fullyAbsent: boolean
+    id: string;
+    displayName: string;
+    name: TeacherName;
+    pronouns: PronounSet;
+    absence: string[]; // will be an array of period ids
+    fullyAbsent: boolean;
 }
 
 export interface PronounSet {
-    sub: string
-    subject: string
-    obj: string
-    object: string
-    posAdj: string
-    possAdjective: string 
-    posPro: string
-    possPronoun: string
-    refx: string
-    reflexive: string
-    grammPlu: boolean
-    grammaticallyPlural: boolean
-    setStr: string
+    sub: string;
+    subject: string;
+    obj: string;
+    object: string;
+    posAdj: string;
+    possAdjective: string;
+    posPro: string;
+    possPronoun: string;
+    refx: string;
+    reflexive: string;
+    grammPlu: boolean;
+    grammaticallyPlural: boolean;
+    setStr: string;
 }
 
 export interface TeacherName {
-    honorific: string
-    first: string
-    middles: string[]
-    last: string
+    honorific: string;
+    first: string;
+    middles: string[];
+    last: string;
     // formatted: string
-    full: string
-    firstLast: string
-    normal: string
+    full: string;
+    firstLast: string;
+    normal: string;
 }
 
 export enum AbsenceState {
-    ABSENT = "ABSENT",
-    ABSENT_ALL_DAY = "ABSENTALLDAY",
-    PRESENT = "PRESENT",
-    NO_PERIOD = "NO_PERIOD",
+    ABSENT = 'ABSENT',
+    ABSENT_ALL_DAY = 'ABSENTALLDAY',
+    PRESENT = 'PRESENT',
+    NO_PERIOD = 'NO_PERIOD',
 }
 
 export interface Period {
-    id: string
-    name: string
-    defaultTimeRange: TimeRange
-    timeRange: TimeRange
-    teachersAbsent: Teacher[]
+    id: string;
+    name: string;
+    defaultTimeRange: TimeRange;
+    timeRange: TimeRange;
+    teachersAbsent: Teacher[];
 }
 
 export interface TimeRange {
-    start: number
-    end: number
+    start: number;
+    end: number;
 }
 
 export interface Setting {
-    id: string,
-    description: string,
-    value: boolean
+    id: string;
+    description: string;
+    value: boolean;
 }
 
 export interface TeacherEntryProps {
-    teacher: Teacher
-    idx: Number
-    setStar: (id: string) => void
-    starred: boolean
-    absent: AbsenceState
-    minimalist: boolean
-    hapticfeedback: boolean
+    teacher: Teacher;
+    idx: Number;
+    setStar: (id: string) => void;
+    starred: boolean;
+    absent: AbsenceState;
+    minimalist: boolean;
+    hapticfeedback: boolean;
 }
 
 export interface SettingEntryProps {
-    setting: Setting
-    setValue: (id: string) => void
+    setting: Setting;
+    setValue: (id: string) => void;
 }
