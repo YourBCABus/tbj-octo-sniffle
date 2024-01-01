@@ -78,6 +78,7 @@
 		907CC4EF50D63A9F5F10408C /* Pods-tbjoctosniffle.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-tbjoctosniffle.debug.xcconfig"; path = "Target Support Files/Pods-tbjoctosniffle/Pods-tbjoctosniffle.debug.xcconfig"; sourceTree = "<group>"; };
 		A80320B82153880F02DD8425 /* Pods_tbjoctosniffle_tbjoctosniffleTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_tbjoctosniffle_tbjoctosniffleTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B82F253B16265A6F298D9A6D /* Pods-tbjoctosniffle.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-tbjoctosniffle.release.xcconfig"; path = "Target Support Files/Pods-tbjoctosniffle/Pods-tbjoctosniffle.release.xcconfig"; sourceTree = "<group>"; };
+		BF8499042B437B67001CD175 /* tbjoctosniffleDebug.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = tbjoctosniffleDebug.entitlements; path = tbjoctosniffle/tbjoctosniffleDebug.entitlements; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -121,6 +122,7 @@
 		13B07FAE1A68108700A75B9A /* tbjoctosniffle */ = {
 			isa = PBXGroup;
 			children = (
+				BF8499042B437B67001CD175 /* tbjoctosniffleDebug.entitlements */,
 				886986722A82E5F1006342AE /* tbjoctosniffle.entitlements */,
 				889A8BBB299D73C4001AED00 /* Fonts */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
@@ -526,7 +528,7 @@
 			baseConfigurationReference = 78D2CC4E2474503532B4BD58 /* Pods-tbjoctosniffle-tbjoctosniffleTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
-				DEVELOPMENT_TEAM = PUCJX3B9YK;
+				DEVELOPMENT_TEAM = YCJWM9D793;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
@@ -543,7 +545,7 @@
 					"-lc++",
 					"$(inherited)",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.yourbcabus.tbj.octosniffleTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/tbjoctosniffle.app/tbjoctosniffle";
 			};
@@ -555,7 +557,7 @@
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
-				DEVELOPMENT_TEAM = PUCJX3B9YK;
+				DEVELOPMENT_TEAM = YCJWM9D793;
 				INFOPLIST_FILE = tbjoctosniffleTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -568,7 +570,7 @@
 					"-lc++",
 					"$(inherited)",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.yourbcabus.tbj.octosniffleTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/tbjoctosniffle.app/tbjoctosniffle";
 			};
@@ -580,9 +582,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_ENTITLEMENTS = tbjoctosniffle/tbjoctosniffle.entitlements;
+				CODE_SIGN_ENTITLEMENTS = tbjoctosniffle/tbjoctosniffleDebug.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 3GJ7WSYX77;
+				DEVELOPMENT_TEAM = "";
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = YCJWM9D793;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = tbjoctosniffle/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = TableJet;
@@ -596,8 +602,10 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.yourbcabus.tbj.ios-app";
 				PRODUCT_NAME = tbjoctosniffle;
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "TableJet iOS App";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -611,8 +619,12 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = tbjoctosniffle/tbjoctosniffle.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 3GJ7WSYX77;
+				DEVELOPMENT_TEAM = "";
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = YCJWM9D793;
 				INFOPLIST_FILE = tbjoctosniffle/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = TableJet;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -625,8 +637,10 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.yourbcabus.tbj.ios-app";
 				PRODUCT_NAME = tbjoctosniffle;
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "TableJet iOS App";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 			};

@@ -68,3 +68,6 @@ ios/Podfile.lock
 .env
 
 **/testserverdelay
+
+
+ios/tbjoctosniffle/Images.xcassets/AppIcon.appiconset/*.png
