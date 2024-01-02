@@ -13,7 +13,6 @@
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		30B9FDC9AA2BB44111B80134 /* Pods_tbjoctosniffle_tbjoctosniffleTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A80320B82153880F02DD8425 /* Pods_tbjoctosniffle_tbjoctosniffleTests.framework */; };
 		85E9EE643212006DB9D1683D /* Pods_tbjoctosniffle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0B1723B0A13132BB5618CB09 /* Pods_tbjoctosniffle.framework */; };
-		883A016E29A2D44300A811C6 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 883A016D29A2D44300A811C6 /* GoogleService-Info.plist */; };
 		88656D4A2A8601E90077E426 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 88656D492A8601E90077E426 /* LaunchScreen.storyboard */; };
 		889A8BCC299D7402001AED00 /* MaterialCommunityIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 889A8BBC299D7401001AED00 /* MaterialCommunityIcons.ttf */; };
 		889A8BCD299D7402001AED00 /* Zocial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 889A8BBD299D7401001AED00 /* Zocial.ttf */; };
@@ -31,6 +30,7 @@
 		889A8BD9299D7402001AED00 /* FontAwesome5_Brands.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 889A8BC9299D7402001AED00 /* FontAwesome5_Brands.ttf */; };
 		889A8BDA299D7402001AED00 /* Ionicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 889A8BCA299D7402001AED00 /* Ionicons.ttf */; };
 		889A8BDB299D7402001AED00 /* FontAwesome5_Solid.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 889A8BCB299D7402001AED00 /* FontAwesome5_Solid.ttf */; };
+		BFBCC72F2B445B9300233588 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = BFBCC72E2B445B9300233588 /* GoogleService-Info.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,11 +44,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		00E356EE1AD99517003FC87E /* tbjoctosniffleTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = tbjoctosniffleTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		00E356EE1AD99517003FC87E /* TableJetTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TableJetTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00E356F21AD99517003FC87E /* tbjoctosniffleTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = tbjoctosniffleTests.m; sourceTree = "<group>"; };
 		0B1723B0A13132BB5618CB09 /* Pods_tbjoctosniffle.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_tbjoctosniffle.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		13B07F961A680F5B00A75B9A /* tbjoctosniffle.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = tbjoctosniffle.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		13B07F961A680F5B00A75B9A /* TableJet.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TableJet.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = tbjoctosniffle/AppDelegate.h; sourceTree = "<group>"; };
 		13B07FB01A68108700A75B9A /* AppDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = AppDelegate.mm; path = tbjoctosniffle/AppDelegate.mm; sourceTree = "<group>"; };
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = tbjoctosniffle/Images.xcassets; sourceTree = "<group>"; };
@@ -56,7 +56,6 @@
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = tbjoctosniffle/main.m; sourceTree = "<group>"; };
 		3B2A137788833C9BCF989E7C /* Pods-tbjoctosniffle-tbjoctosniffleTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-tbjoctosniffle-tbjoctosniffleTests.release.xcconfig"; path = "Target Support Files/Pods-tbjoctosniffle-tbjoctosniffleTests/Pods-tbjoctosniffle-tbjoctosniffleTests.release.xcconfig"; sourceTree = "<group>"; };
 		78D2CC4E2474503532B4BD58 /* Pods-tbjoctosniffle-tbjoctosniffleTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-tbjoctosniffle-tbjoctosniffleTests.debug.xcconfig"; path = "Target Support Files/Pods-tbjoctosniffle-tbjoctosniffleTests/Pods-tbjoctosniffle-tbjoctosniffleTests.debug.xcconfig"; sourceTree = "<group>"; };
-		883A016D29A2D44300A811C6 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		88656D492A8601E90077E426 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		886986722A82E5F1006342AE /* tbjoctosniffle.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = tbjoctosniffle.entitlements; path = tbjoctosniffle/tbjoctosniffle.entitlements; sourceTree = "<group>"; };
 		889A8BBC299D7401001AED00 /* MaterialCommunityIcons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = MaterialCommunityIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialCommunityIcons.ttf"; sourceTree = "<group>"; };
@@ -79,6 +78,8 @@
 		A80320B82153880F02DD8425 /* Pods_tbjoctosniffle_tbjoctosniffleTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_tbjoctosniffle_tbjoctosniffleTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B82F253B16265A6F298D9A6D /* Pods-tbjoctosniffle.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-tbjoctosniffle.release.xcconfig"; path = "Target Support Files/Pods-tbjoctosniffle/Pods-tbjoctosniffle.release.xcconfig"; sourceTree = "<group>"; };
 		BF8499042B437B67001CD175 /* tbjoctosniffleDebug.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = tbjoctosniffleDebug.entitlements; path = tbjoctosniffle/tbjoctosniffleDebug.entitlements; sourceTree = "<group>"; };
+		BFBCC72E2B445B9300233588 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
+		BFBCC7302B445BA000233588 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -119,9 +120,10 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		13B07FAE1A68108700A75B9A /* tbjoctosniffle */ = {
+		13B07FAE1A68108700A75B9A /* TableJet */ = {
 			isa = PBXGroup;
 			children = (
+				BFBCC72E2B445B9300233588 /* GoogleService-Info.plist */,
 				BF8499042B437B67001CD175 /* tbjoctosniffleDebug.entitlements */,
 				886986722A82E5F1006342AE /* tbjoctosniffle.entitlements */,
 				889A8BBB299D73C4001AED00 /* Fonts */,
@@ -132,7 +134,7 @@
 				88656D492A8601E90077E426 /* LaunchScreen.storyboard */,
 				13B07FB71A68108700A75B9A /* main.m */,
 			);
-			name = tbjoctosniffle;
+			name = TableJet;
 			sourceTree = "<group>";
 		};
 		2D16E6871FA4F8E400B85C8A /* Frameworks */ = {
@@ -155,8 +157,8 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
-				883A016D29A2D44300A811C6 /* GoogleService-Info.plist */,
-				13B07FAE1A68108700A75B9A /* tbjoctosniffle */,
+				BFBCC7302B445BA000233588 /* GoogleService-Info.plist */,
+				13B07FAE1A68108700A75B9A /* TableJet */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				00E356EF1AD99517003FC87E /* tbjoctosniffleTests */,
 				83CBBA001A601CBA00E9B192 /* Products */,
@@ -171,8 +173,8 @@
 		83CBBA001A601CBA00E9B192 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				13B07F961A680F5B00A75B9A /* tbjoctosniffle.app */,
-				00E356EE1AD99517003FC87E /* tbjoctosniffleTests.xctest */,
+				13B07F961A680F5B00A75B9A /* TableJet.app */,
+				00E356EE1AD99517003FC87E /* TableJetTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -214,9 +216,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		00E356ED1AD99517003FC87E /* tbjoctosniffleTests */ = {
+		00E356ED1AD99517003FC87E /* TableJetTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "tbjoctosniffleTests" */;
+			buildConfigurationList = 00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "TableJetTests" */;
 			buildPhases = (
 				7935BB2CBDC81E1B7885542B /* [CP] Check Pods Manifest.lock */,
 				00E356EA1AD99517003FC87E /* Sources */,
@@ -230,14 +232,14 @@
 			dependencies = (
 				00E356F51AD99517003FC87E /* PBXTargetDependency */,
 			);
-			name = tbjoctosniffleTests;
+			name = TableJetTests;
 			productName = tbjoctosniffleTests;
-			productReference = 00E356EE1AD99517003FC87E /* tbjoctosniffleTests.xctest */;
+			productReference = 00E356EE1AD99517003FC87E /* TableJetTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		13B07F861A680F5B00A75B9A /* tbjoctosniffle */ = {
+		13B07F861A680F5B00A75B9A /* TableJet */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "tbjoctosniffle" */;
+			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "TableJet" */;
 			buildPhases = (
 				82B6218B0400C0F5C0D0104B /* [CP] Check Pods Manifest.lock */,
 				FD10A7F022414F080027D42C /* Start Packager */,
@@ -253,9 +255,9 @@
 			);
 			dependencies = (
 			);
-			name = tbjoctosniffle;
+			name = TableJet;
 			productName = tbjoctosniffle;
-			productReference = 13B07F961A680F5B00A75B9A /* tbjoctosniffle.app */;
+			productReference = 13B07F961A680F5B00A75B9A /* TableJet.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -264,6 +266,7 @@
 		83CBB9F71A601CBA00E9B192 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				BuildIndependentTargetsInParallel = YES;
 				LastSwiftUpdateCheck = 1420;
 				LastUpgradeCheck = 1210;
 				TargetAttributes = {
@@ -276,7 +279,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "tbjoctosniffle" */;
+			buildConfigurationList = 83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "TableJet" */;
 			compatibilityVersion = "Xcode 12.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -289,8 +292,8 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				13B07F861A680F5B00A75B9A /* tbjoctosniffle */,
-				00E356ED1AD99517003FC87E /* tbjoctosniffleTests */,
+				13B07F861A680F5B00A75B9A /* TableJet */,
+				00E356ED1AD99517003FC87E /* TableJetTests */,
 			);
 		};
 /* End PBXProject section */
@@ -318,7 +321,7 @@
 				889A8BCE299D7402001AED00 /* FontAwesome5_Regular.ttf in Resources */,
 				889A8BCC299D7402001AED00 /* MaterialCommunityIcons.ttf in Resources */,
 				889A8BD9299D7402001AED00 /* FontAwesome5_Brands.ttf in Resources */,
-				883A016E29A2D44300A811C6 /* GoogleService-Info.plist in Resources */,
+				BFBCC72F2B445B9300233588 /* GoogleService-Info.plist in Resources */,
 				889A8BD8299D7402001AED00 /* AntDesign.ttf in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				889A8BD7299D7402001AED00 /* Octicons.ttf in Resources */,
@@ -517,7 +520,7 @@
 /* Begin PBXTargetDependency section */
 		00E356F51AD99517003FC87E /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 13B07F861A680F5B00A75B9A /* tbjoctosniffle */;
+			target = 13B07F861A680F5B00A75B9A /* TableJet */;
 			targetProxy = 00E356F41AD99517003FC87E /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -547,7 +550,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.yourbcabus.tbj.octosniffleTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/tbjoctosniffle.app/tbjoctosniffle";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TableJet.app/TableJet";
 			};
 			name = Debug;
 		};
@@ -572,7 +575,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.yourbcabus.tbj.octosniffleTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/tbjoctosniffle.app/tbjoctosniffle";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TableJet.app/TableJet";
 			};
 			name = Release;
 		};
@@ -584,7 +587,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = tbjoctosniffle/tbjoctosniffleDebug.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = "";
@@ -603,9 +606,9 @@
 					"-lc++",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.yourbcabus.tbj.ios-app";
-				PRODUCT_NAME = tbjoctosniffle;
+				PRODUCT_NAME = TableJet;
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "TableJet iOS App";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "Ad Hoc Signing";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -620,7 +623,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = tbjoctosniffle/tbjoctosniffle.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = "";
@@ -638,9 +641,9 @@
 					"-lc++",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.yourbcabus.tbj.ios-app";
-				PRODUCT_NAME = tbjoctosniffle;
+				PRODUCT_NAME = TableJet;
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "TableJet iOS App";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "Ad Hoc Signing";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -822,7 +825,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "tbjoctosniffleTests" */ = {
+		00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "TableJetTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				00E356F61AD99517003FC87E /* Debug */,
@@ -831,7 +834,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "tbjoctosniffle" */ = {
+		13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "TableJet" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				13B07F941A680F5B00A75B9A /* Debug */,
@@ -840,7 +843,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "tbjoctosniffle" */ = {
+		83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "TableJet" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				83CBBA201A601CBA00E9B192 /* Debug */,

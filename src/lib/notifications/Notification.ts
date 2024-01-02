@@ -49,7 +49,6 @@ export async function subscribeToNotification(
 ) {
     periods = await coalescePeriods(periods);
 
-    const topics: string[] = [];
     console.log(
         'Periods:',
         periods.map(p => p.name),
@@ -57,9 +56,13 @@ export async function subscribeToNotification(
     periods.forEach((period: Period) => {
         const topic = `${period.id}.${teacherId}`;
         console.log(`Subscribing to topic: ${topic}`);
-        topics.push(topic);
         messaging().subscribeToTopic(topic);
     });
+
+    // Subscribing to blank period for blast notifs
+    const topic = `00000000-0000-0000-0000-000000000000.${teacherId}`;
+    console.log(`Subscribing to topic: ${topic}`);
+    messaging().subscribeToTopic(topic);
 }
 
 // Unsubscribes to a topic with the format of `period-id.teacher-id`
@@ -75,6 +78,11 @@ export async function unsubscribeToNotification(
         console.log(`Unsubscribing from topic: ${topic}`);
         messaging().unsubscribeFromTopic(topic);
     });
+
+    // Subscribing to blank period for blast notifs
+    const topic = `00000000-0000-0000-0000-000000000000.${teacherId}`;
+    console.log(`Subscribing to topic: ${topic}`);
+    messaging().unsubscribeFromTopic(topic);
 }
 
 // Maybe this should return a set instead?
