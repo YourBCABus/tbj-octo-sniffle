@@ -2,22 +2,18 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>CLIENT_ID</key>
-	<string>251004294870-k3stbgdh41fi7is2c26uj9p1lctuvvao.apps.googleusercontent.com</string>
-	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.251004294870-k3stbgdh41fi7is2c26uj9p1lctuvvao</string>
 	<key>API_KEY</key>
-	<string>AIzaSyANx3Rm90PlPKP84dKA47VFVXi4vkCoQA8</string>
+	<string>AIzaSyBC6uAHEPdIi8slY3lSzCq2au6iwpyIrxA</string>
 	<key>GCM_SENDER_ID</key>
-	<string>251004294870</string>
+	<string>272982920556</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>org.reactjs.native.example.tbjoctosniffle</string>
+	<string>com.yourbcabus.tbj.ios-app</string>
 	<key>PROJECT_ID</key>
-	<string>tablejet-35006</string>
+	<string>yourbcabus</string>
 	<key>STORAGE_BUCKET</key>
-	<string>tablejet-35006.appspot.com</string>
+	<string>yourbcabus.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -29,6 +25,8 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:251004294870:ios:d56288e9d66e13f587db77</string>
+	<string>1:272982920556:ios:38673c9d2b79f437ce7749</string>
+	<key>DATABASE_URL</key>
+	<string>https://yourbcabus.firebaseio.com</string>
 </dict>
 </plist>
