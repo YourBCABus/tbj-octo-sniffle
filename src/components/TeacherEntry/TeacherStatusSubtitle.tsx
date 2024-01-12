@@ -8,6 +8,7 @@ interface TeacherStatusSubtitleProps {
     status: AbsenceState;
     teacher: Teacher;
     periods: Period[];
+    alwaysShow?: boolean;
 }
 
 export default function TeacherStatusSubtitle(
@@ -17,7 +18,7 @@ export default function TeacherStatusSubtitle(
         return formatPeriodRanges(
             props.periods.map(period => [
                 period,
-                props.teacher.absence.includes(period.id)
+                props.teacher.absence.includes(period.id),
             ]),
         );
     }, [props.periods, props.teacher.absence]);
@@ -25,13 +26,17 @@ export default function TeacherStatusSubtitle(
     switch (props.status) {
         case AbsenceState.ABSENT:
             return (
-                <Text className="text-red-500 text-sm">
+                <Text className="text-orange-500 text-sm">
                     Absent Periods {periodRangeString}
                 </Text>
             );
         case AbsenceState.ABSENT_ALL_DAY:
             return <Text className="text-red-500 text-sm">Absent All Day</Text>;
-        default:
-            return <></>;
+        case AbsenceState.PRESENT:
+            if (!props.alwaysShow) return <></>;
+            return <Text className="text-lime-500 text-sm">Present All Day</Text>;
+        case AbsenceState.NO_PERIOD:
+            if (!props.alwaysShow) return <></>;
+            return <Text className="text-zinc-100 text-sm">Unknown</Text>;
     }
 }

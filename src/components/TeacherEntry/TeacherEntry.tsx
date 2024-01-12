@@ -19,6 +19,7 @@ import tailwindConfig from '../../../tailwind.config';
 import { Camelize, camelize } from '../../lib/utils';
 import AbsentIcon from './AbsentIcon';
 import TeacherStatusSubtitle from './TeacherStatusSubtitle';
+import TeacherBottomModal from '../TeacherBottomModal/TeacherBottomModal';
 
 const fullConfig = resolveConfig(tailwindConfig);
 
@@ -69,30 +70,15 @@ export const colors = validateColors([
     'starred-yellow',
 ]);
 
-type BackdropProps = JSX.IntrinsicAttributes & BottomSheetDefaultBackdropProps;
-
 export default function TeacherEntry(props: TeacherEntryProps) {
     let useMinimalistMode = props.minimalist;
 
     const { dismissAll } = useBottomSheetModal();
     const bottomSheetModalRef = useRef<BottomSheetModal>(null);
-    const snapPoints = useMemo(() => ['45%'], []);
-
     const handlePresentModalPress = useCallback(() => {
         dismissAll();
         bottomSheetModalRef.current?.present();
     }, [dismissAll]);
-
-    const renderBackdrop = useCallback(
-        (backdropProps: BackdropProps) => (
-            <BottomSheetBackdrop
-                {...backdropProps}
-                disappearsOnIndex={-1}
-                appearsOnIndex={0}
-            />
-        ),
-        [],
-    );
 
     const starred = props.starred;
     const { id } = props.teacher;
@@ -167,25 +153,14 @@ export default function TeacherEntry(props: TeacherEntryProps) {
                     </Pressable>
                 </View>
             </View>
-            <BottomSheetModal
-                ref={bottomSheetModalRef}
-                index={0}
-                snapPoints={snapPoints}
-                backgroundStyle={{ backgroundColor: 'rgb(9 9 11)' }}
-                handleIndicatorStyle={{ backgroundColor: 'white' }}
-                enableOverDrag={true}
-                backdropComponent={renderBackdrop}>
-                <View className="flex h-full bg-zinc-950 align-middle">
-                    <View className="flex flex-row mt-2">
-                        <Text className="text-[#9898f5] text-center w-full text-xl">
-                            {name}
-                        </Text>
-                    </View>
-                    {/* <Text className="text-white">13lkfjdaf</Text> */}
-                    {/* { renderModalBody(props) } */}
-                </View>
-            </BottomSheetModal>
+            <TeacherBottomModal
+                modalRef={bottomSheetModalRef}
+                teacher={props.teacher}
+                status={props.absent}
+                periods={props.periods}
+                starred={props.starred}
+                toggleStar={toggle}
+            />
         </GestureHandlerRootView>
-    )
-
+    );
 }

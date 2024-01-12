@@ -10,7 +10,6 @@ interface IconProps {
 }
 
 export function DefaultIcon({ status }: IconProps) {
-    console.log(colors.defaultGray);
     switch (status) {
         case AbsenceState.ABSENT:
             return <Icon color={colors.absentRed} size={30} name="close-sharp" />;
