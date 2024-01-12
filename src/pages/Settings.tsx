@@ -8,11 +8,10 @@ import {
 } from '../lib/storage/SettingStorage';
 
 export default function Settings() {
-    const [settings, setSettingValue] = useState(new Array<Setting>);
-    useEffect(
-        () => initialSettingsLoad().then(userSettings => setSettingValue(userSettings)),
-        [setSettingValue],
-    );
+    const [settings, setSettingValue] = useState<Setting[]>([]);
+    useEffect(() => {
+        initialSettingsLoad().then(setSettingValue);
+    }, [setSettingValue]);
 
     const toggleSettingValue = useCallback(
         (id: string) => updateSettingStorage(setSettingValue, id),

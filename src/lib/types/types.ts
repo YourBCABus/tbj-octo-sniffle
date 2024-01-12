@@ -68,6 +68,8 @@ export interface TeacherEntryProps {
     absent: AbsenceState;
     minimalist: boolean;
     hapticfeedback: boolean;
+
+    periods: Period[];
 }
 
 export interface SettingEntryProps {

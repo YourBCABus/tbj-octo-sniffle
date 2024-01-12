@@ -24,7 +24,7 @@ async function __getItem(isInitError: boolean): Promise<string | null> {
 }
 
 export async function validateIDs(setTeacherIds: (ids: StarredIds) => void, teachers: Teacher[]): Promise<boolean> {
-    try {    
+    try {
         const currentIds = [...await initialIdLoad()];
         const filteredIDs = currentIds.filter(id => teachers.some(teacher => teacher.id === id));
 
