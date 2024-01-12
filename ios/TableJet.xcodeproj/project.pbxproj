@@ -7,12 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		00E356F31AD99517003FC87E /* tbjoctosniffleTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* tbjoctosniffleTests.m */; };
+		00E356F31AD99517003FC87E /* TableJetTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* TableJetTests.m */; };
 		13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.mm */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
-		30B9FDC9AA2BB44111B80134 /* Pods_tbjoctosniffle_tbjoctosniffleTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A80320B82153880F02DD8425 /* Pods_tbjoctosniffle_tbjoctosniffleTests.framework */; };
-		85E9EE643212006DB9D1683D /* Pods_tbjoctosniffle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0B1723B0A13132BB5618CB09 /* Pods_tbjoctosniffle.framework */; };
+		30B9FDC9AA2BB44111B80134 /* Pods_TableJet_TableJetTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A80320B82153880F02DD8425 /* Pods_TableJet_TableJetTests.framework */; };
+		85E9EE643212006DB9D1683D /* Pods_TableJet.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0B1723B0A13132BB5618CB09 /* Pods_TableJet.framework */; };
 		88656D4A2A8601E90077E426 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 88656D492A8601E90077E426 /* LaunchScreen.storyboard */; };
 		889A8BCC299D7402001AED00 /* MaterialCommunityIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 889A8BBC299D7401001AED00 /* MaterialCommunityIcons.ttf */; };
 		889A8BCD299D7402001AED00 /* Zocial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 889A8BBD299D7401001AED00 /* Zocial.ttf */; };
@@ -39,25 +39,25 @@
 			containerPortal = 83CBB9F71A601CBA00E9B192 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = 13B07F861A680F5B00A75B9A;
-			remoteInfo = tbjoctosniffle;
+			remoteInfo = TableJet;
 		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		00E356EE1AD99517003FC87E /* TableJetTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TableJetTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		00E356F21AD99517003FC87E /* tbjoctosniffleTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = tbjoctosniffleTests.m; sourceTree = "<group>"; };
-		0B1723B0A13132BB5618CB09 /* Pods_tbjoctosniffle.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_tbjoctosniffle.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		00E356F21AD99517003FC87E /* TableJetTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TableJetTests.m; sourceTree = "<group>"; };
+		0B1723B0A13132BB5618CB09 /* Pods_TableJet.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TableJet.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07F961A680F5B00A75B9A /* TableJet.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TableJet.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = tbjoctosniffle/AppDelegate.h; sourceTree = "<group>"; };
-		13B07FB01A68108700A75B9A /* AppDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = AppDelegate.mm; path = tbjoctosniffle/AppDelegate.mm; sourceTree = "<group>"; };
-		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = tbjoctosniffle/Images.xcassets; sourceTree = "<group>"; };
-		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = tbjoctosniffle/Info.plist; sourceTree = "<group>"; };
-		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = tbjoctosniffle/main.m; sourceTree = "<group>"; };
-		3B2A137788833C9BCF989E7C /* Pods-tbjoctosniffle-tbjoctosniffleTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-tbjoctosniffle-tbjoctosniffleTests.release.xcconfig"; path = "Target Support Files/Pods-tbjoctosniffle-tbjoctosniffleTests/Pods-tbjoctosniffle-tbjoctosniffleTests.release.xcconfig"; sourceTree = "<group>"; };
-		78D2CC4E2474503532B4BD58 /* Pods-tbjoctosniffle-tbjoctosniffleTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-tbjoctosniffle-tbjoctosniffleTests.debug.xcconfig"; path = "Target Support Files/Pods-tbjoctosniffle-tbjoctosniffleTests/Pods-tbjoctosniffle-tbjoctosniffleTests.debug.xcconfig"; sourceTree = "<group>"; };
+		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = TableJet/AppDelegate.h; sourceTree = "<group>"; };
+		13B07FB01A68108700A75B9A /* AppDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = AppDelegate.mm; path = TableJet/AppDelegate.mm; sourceTree = "<group>"; };
+		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = TableJet/Images.xcassets; sourceTree = "<group>"; };
+		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = TableJet/Info.plist; sourceTree = "<group>"; };
+		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = TableJet/main.m; sourceTree = "<group>"; };
+		3B2A137788833C9BCF989E7C /* Pods-TableJet-TableJetTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TableJet-TableJetTests.release.xcconfig"; path = "Target Support Files/Pods-TableJet-TableJetTests/Pods-TableJet-TableJetTests.release.xcconfig"; sourceTree = "<group>"; };
+		78D2CC4E2474503532B4BD58 /* Pods-TableJet-TableJetTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TableJet-TableJetTests.debug.xcconfig"; path = "Target Support Files/Pods-TableJet-TableJetTests/Pods-TableJet-TableJetTests.debug.xcconfig"; sourceTree = "<group>"; };
 		88656D492A8601E90077E426 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
-		886986722A82E5F1006342AE /* tbjoctosniffle.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = tbjoctosniffle.entitlements; path = tbjoctosniffle/tbjoctosniffle.entitlements; sourceTree = "<group>"; };
+		886986722A82E5F1006342AE /* TableJet.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = TableJet.entitlements; path = TableJet/TableJet.entitlements; sourceTree = "<group>"; };
 		889A8BBC299D7401001AED00 /* MaterialCommunityIcons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = MaterialCommunityIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialCommunityIcons.ttf"; sourceTree = "<group>"; };
 		889A8BBD299D7401001AED00 /* Zocial.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = Zocial.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Zocial.ttf"; sourceTree = "<group>"; };
 		889A8BBE299D7401001AED00 /* FontAwesome5_Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = FontAwesome5_Regular.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Regular.ttf"; sourceTree = "<group>"; };
@@ -74,10 +74,10 @@
 		889A8BC9299D7402001AED00 /* FontAwesome5_Brands.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = FontAwesome5_Brands.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Brands.ttf"; sourceTree = "<group>"; };
 		889A8BCA299D7402001AED00 /* Ionicons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = Ionicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Ionicons.ttf"; sourceTree = "<group>"; };
 		889A8BCB299D7402001AED00 /* FontAwesome5_Solid.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = FontAwesome5_Solid.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Solid.ttf"; sourceTree = "<group>"; };
-		907CC4EF50D63A9F5F10408C /* Pods-tbjoctosniffle.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-tbjoctosniffle.debug.xcconfig"; path = "Target Support Files/Pods-tbjoctosniffle/Pods-tbjoctosniffle.debug.xcconfig"; sourceTree = "<group>"; };
-		A80320B82153880F02DD8425 /* Pods_tbjoctosniffle_tbjoctosniffleTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_tbjoctosniffle_tbjoctosniffleTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		B82F253B16265A6F298D9A6D /* Pods-tbjoctosniffle.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-tbjoctosniffle.release.xcconfig"; path = "Target Support Files/Pods-tbjoctosniffle/Pods-tbjoctosniffle.release.xcconfig"; sourceTree = "<group>"; };
-		BF8499042B437B67001CD175 /* tbjoctosniffleDebug.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = tbjoctosniffleDebug.entitlements; path = tbjoctosniffle/tbjoctosniffleDebug.entitlements; sourceTree = "<group>"; };
+		907CC4EF50D63A9F5F10408C /* Pods-TableJet.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TableJet.debug.xcconfig"; path = "Target Support Files/Pods-TableJet/Pods-TableJet.debug.xcconfig"; sourceTree = "<group>"; };
+		A80320B82153880F02DD8425 /* Pods_TableJet_TableJetTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TableJet_TableJetTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		B82F253B16265A6F298D9A6D /* Pods-TableJet.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TableJet.release.xcconfig"; path = "Target Support Files/Pods-TableJet/Pods-TableJet.release.xcconfig"; sourceTree = "<group>"; };
+		BF8499042B437B67001CD175 /* TableJetDebug.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = TableJetDebug.entitlements; path = TableJet/TableJetDebug.entitlements; sourceTree = "<group>"; };
 		BFBCC72E2B445B9300233588 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		BFBCC7302B445BA000233588 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
@@ -88,7 +88,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				30B9FDC9AA2BB44111B80134 /* Pods_tbjoctosniffle_tbjoctosniffleTests.framework in Frameworks */,
+				30B9FDC9AA2BB44111B80134 /* Pods_TableJet_TableJetTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -96,20 +96,20 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				85E9EE643212006DB9D1683D /* Pods_tbjoctosniffle.framework in Frameworks */,
+				85E9EE643212006DB9D1683D /* Pods_TableJet.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		00E356EF1AD99517003FC87E /* tbjoctosniffleTests */ = {
+		00E356EF1AD99517003FC87E /* TableJetTests */ = {
 			isa = PBXGroup;
 			children = (
-				00E356F21AD99517003FC87E /* tbjoctosniffleTests.m */,
+				00E356F21AD99517003FC87E /* TableJetTests.m */,
 				00E356F01AD99517003FC87E /* Supporting Files */,
 			);
-			path = tbjoctosniffleTests;
+			path = TableJetTests;
 			sourceTree = "<group>";
 		};
 		00E356F01AD99517003FC87E /* Supporting Files */ = {
@@ -124,8 +124,8 @@
 			isa = PBXGroup;
 			children = (
 				BFBCC72E2B445B9300233588 /* GoogleService-Info.plist */,
-				BF8499042B437B67001CD175 /* tbjoctosniffleDebug.entitlements */,
-				886986722A82E5F1006342AE /* tbjoctosniffle.entitlements */,
+				BF8499042B437B67001CD175 /* TableJetDebug.entitlements */,
+				886986722A82E5F1006342AE /* TableJet.entitlements */,
 				889A8BBB299D73C4001AED00 /* Fonts */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.mm */,
@@ -141,8 +141,8 @@
 			isa = PBXGroup;
 			children = (
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
-				0B1723B0A13132BB5618CB09 /* Pods_tbjoctosniffle.framework */,
-				A80320B82153880F02DD8425 /* Pods_tbjoctosniffle_tbjoctosniffleTests.framework */,
+				0B1723B0A13132BB5618CB09 /* Pods_TableJet.framework */,
+				A80320B82153880F02DD8425 /* Pods_TableJet_TableJetTests.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -160,7 +160,7 @@
 				BFBCC7302B445BA000233588 /* GoogleService-Info.plist */,
 				13B07FAE1A68108700A75B9A /* TableJet */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
-				00E356EF1AD99517003FC87E /* tbjoctosniffleTests */,
+				00E356EF1AD99517003FC87E /* TableJetTests */,
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				BBD78D7AC51CEA395F1C20DB /* Pods */,
@@ -205,10 +205,10 @@
 		BBD78D7AC51CEA395F1C20DB /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				907CC4EF50D63A9F5F10408C /* Pods-tbjoctosniffle.debug.xcconfig */,
-				B82F253B16265A6F298D9A6D /* Pods-tbjoctosniffle.release.xcconfig */,
-				78D2CC4E2474503532B4BD58 /* Pods-tbjoctosniffle-tbjoctosniffleTests.debug.xcconfig */,
-				3B2A137788833C9BCF989E7C /* Pods-tbjoctosniffle-tbjoctosniffleTests.release.xcconfig */,
+				907CC4EF50D63A9F5F10408C /* Pods-TableJet.debug.xcconfig */,
+				B82F253B16265A6F298D9A6D /* Pods-TableJet.release.xcconfig */,
+				78D2CC4E2474503532B4BD58 /* Pods-TableJet-TableJetTests.debug.xcconfig */,
+				3B2A137788833C9BCF989E7C /* Pods-TableJet-TableJetTests.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -233,7 +233,7 @@
 				00E356F51AD99517003FC87E /* PBXTargetDependency */,
 			);
 			name = TableJetTests;
-			productName = tbjoctosniffleTests;
+			productName = TableJetTests;
 			productReference = 00E356EE1AD99517003FC87E /* TableJetTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
@@ -256,7 +256,7 @@
 			dependencies = (
 			);
 			name = TableJet;
-			productName = tbjoctosniffle;
+			productName = TableJet;
 			productReference = 13B07F961A680F5B00A75B9A /* TableJet.app */;
 			productType = "com.apple.product-type.application";
 		};
@@ -357,15 +357,15 @@
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-tbjoctosniffle-tbjoctosniffleTests/Pods-tbjoctosniffle-tbjoctosniffleTests-resources-${CONFIGURATION}-input-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-TableJet-TableJetTests/Pods-TableJet-TableJetTests-resources-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-tbjoctosniffle-tbjoctosniffleTests/Pods-tbjoctosniffle-tbjoctosniffleTests-resources-${CONFIGURATION}-output-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-TableJet-TableJetTests/Pods-TableJet-TableJetTests-resources-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-tbjoctosniffle-tbjoctosniffleTests/Pods-tbjoctosniffle-tbjoctosniffleTests-resources.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-TableJet-TableJetTests/Pods-TableJet-TableJetTests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		2A8A04E6EEF1D7AB7824B8AC /* [CP-User] [RNFB] Core Configuration */ = {
@@ -387,15 +387,15 @@
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-tbjoctosniffle-tbjoctosniffleTests/Pods-tbjoctosniffle-tbjoctosniffleTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-TableJet-TableJetTests/Pods-TableJet-TableJetTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-tbjoctosniffle-tbjoctosniffleTests/Pods-tbjoctosniffle-tbjoctosniffleTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-TableJet-TableJetTests/Pods-TableJet-TableJetTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-tbjoctosniffle-tbjoctosniffleTests/Pods-tbjoctosniffle-tbjoctosniffleTests-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-TableJet-TableJetTests/Pods-TableJet-TableJetTests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		7758C12A39E8E6CF1FC57518 /* [CP] Embed Pods Frameworks */ = {
@@ -404,15 +404,15 @@
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-tbjoctosniffle/Pods-tbjoctosniffle-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-TableJet/Pods-TableJet-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-tbjoctosniffle/Pods-tbjoctosniffle-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-TableJet/Pods-TableJet-frameworks-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-tbjoctosniffle/Pods-tbjoctosniffle-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-TableJet/Pods-TableJet-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		7935BB2CBDC81E1B7885542B /* [CP] Check Pods Manifest.lock */ = {
@@ -430,7 +430,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-tbjoctosniffle-tbjoctosniffleTests-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-TableJet-TableJetTests-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -452,7 +452,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-tbjoctosniffle-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-TableJet-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -465,15 +465,15 @@
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-tbjoctosniffle/Pods-tbjoctosniffle-resources-${CONFIGURATION}-input-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-TableJet/Pods-TableJet-resources-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-tbjoctosniffle/Pods-tbjoctosniffle-resources-${CONFIGURATION}-output-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-TableJet/Pods-TableJet-resources-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-tbjoctosniffle/Pods-tbjoctosniffle-resources.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-TableJet/Pods-TableJet-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		FD10A7F022414F080027D42C /* Start Packager */ = {
@@ -502,7 +502,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				00E356F31AD99517003FC87E /* tbjoctosniffleTests.m in Sources */,
+				00E356F31AD99517003FC87E /* TableJetTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -528,7 +528,7 @@
 /* Begin XCBuildConfiguration section */
 		00E356F61AD99517003FC87E /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 78D2CC4E2474503532B4BD58 /* Pods-tbjoctosniffle-tbjoctosniffleTests.debug.xcconfig */;
+			baseConfigurationReference = 78D2CC4E2474503532B4BD58 /* Pods-TableJet-TableJetTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				DEVELOPMENT_TEAM = YCJWM9D793;
@@ -536,7 +536,7 @@
 					"DEBUG=1",
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = tbjoctosniffleTests/Info.plist;
+				INFOPLIST_FILE = TableJetTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -556,12 +556,12 @@
 		};
 		00E356F71AD99517003FC87E /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 3B2A137788833C9BCF989E7C /* Pods-tbjoctosniffle-tbjoctosniffleTests.release.xcconfig */;
+			baseConfigurationReference = 3B2A137788833C9BCF989E7C /* Pods-TableJet-TableJetTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
 				DEVELOPMENT_TEAM = YCJWM9D793;
-				INFOPLIST_FILE = tbjoctosniffleTests/Info.plist;
+				INFOPLIST_FILE = TableJetTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -581,11 +581,11 @@
 		};
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 907CC4EF50D63A9F5F10408C /* Pods-tbjoctosniffle.debug.xcconfig */;
+			baseConfigurationReference = 907CC4EF50D63A9F5F10408C /* Pods-TableJet.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_ENTITLEMENTS = tbjoctosniffle/tbjoctosniffleDebug.entitlements;
+				CODE_SIGN_ENTITLEMENTS = TableJet/TableJetDebug.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
@@ -593,7 +593,7 @@
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = YCJWM9D793;
 				ENABLE_BITCODE = NO;
-				INFOPLIST_FILE = tbjoctosniffle/Info.plist;
+				INFOPLIST_FILE = TableJet/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = TableJet;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -617,18 +617,18 @@
 		};
 		13B07F951A680F5B00A75B9A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = B82F253B16265A6F298D9A6D /* Pods-tbjoctosniffle.release.xcconfig */;
+			baseConfigurationReference = B82F253B16265A6F298D9A6D /* Pods-TableJet.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_ENTITLEMENTS = tbjoctosniffle/tbjoctosniffle.entitlements;
+				CODE_SIGN_ENTITLEMENTS = TableJet/TableJet.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = YCJWM9D793;
-				INFOPLIST_FILE = tbjoctosniffle/Info.plist;
+				INFOPLIST_FILE = TableJet/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = TableJet;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

@@ -21,7 +21,7 @@ if linkage != nil
   use_frameworks! :linkage => linkage.to_sym
 end
 
-target 'tbjoctosniffle' do
+target 'TableJet' do
   config = use_native_modules!
   use_frameworks! :linkage => :static
   $RNFirebaseAsStaticFramework = true
@@ -45,7 +45,7 @@ target 'tbjoctosniffle' do
     :app_path => "#{Pod::Config.instance.installation_root}/.."
   )
 
-  target 'tbjoctosniffleTests' do
+  target 'TableJetTests' do
     inherit! :complete
     # Pods for testing
   end

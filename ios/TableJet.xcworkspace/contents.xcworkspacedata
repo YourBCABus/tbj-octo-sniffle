@@ -2,7 +2,7 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:/Users/skylercalaman/Desktop/personal/coding/School-Related/TableJet/octo-sniffle/ios/TableJet.xcodeproj">
+      location = "group:TableJet.xcodeproj">
    </FileRef>
    <FileRef
       location = "group:Pods/Pods.xcodeproj">
