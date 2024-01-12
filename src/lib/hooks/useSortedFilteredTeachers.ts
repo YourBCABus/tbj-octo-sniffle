@@ -13,7 +13,6 @@ const useSortedFilteredTeachers = (
                 ? fuse.search(search).map(result => result.item)
                 : [...teachers];
 
-        // console.log(resultedTeachers);
         // names are sorted only by last name
         const newSorted = resultedTeachers.sort((a, b) => {
             return a.name.last.localeCompare(b.name.last);

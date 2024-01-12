@@ -50,8 +50,6 @@ function getAbsenceState(
     teacher: Teacher,
     currPeriod: Period | null,
 ): AbsenceState {
-    // console.log("Teacher: ", teacher);
-    // console.log("Period: ", curPeriod);
     if (teacher.fullyAbsent) {
         return AbsenceState.ABSENT_ALL_DAY;
     }

@@ -49,10 +49,6 @@ export async function subscribeToNotification(
 ) {
     periods = await coalescePeriods(periods);
 
-    console.log(
-        'Periods:',
-        periods.map(p => p.name),
-    );
     periods.forEach((period: Period) => {
         const topic = `${period.id}.${teacherId}`;
         console.log(`Subscribing to topic: ${topic}`);
@@ -72,7 +68,6 @@ export async function unsubscribeToNotification(
     periods?: Period[],
 ) {
     periods = await coalescePeriods(periods);
-    console.log(periods);
     periods.forEach((period: Period) => {
         const topic = `${period.id}.${teacherId}`;
         console.log(`Unsubscribing from topic: ${topic}`);
@@ -81,7 +76,7 @@ export async function unsubscribeToNotification(
 
     // Subscribing to blank period for blast notifs
     const topic = `00000000-0000-0000-0000-000000000000.${teacherId}`;
-    console.log(`Subscribing to topic: ${topic}`);
+    console.log(`Unsubscribing topic: ${topic}`);
     messaging().unsubscribeFromTopic(topic);
 }
 

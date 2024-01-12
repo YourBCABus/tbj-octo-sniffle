@@ -41,14 +41,11 @@ function validateColors<T extends string>(
                 fullConfig.theme.colors[colors[i]] ??
                 fullConfig.theme.colors[defaults[i]];
 
-            // console.log(configColor);
-
             const actualConfigColor =
                 typeof configColor === 'string'
                     ? configColor
                     : (configColor['600'] as ColorValue);
 
-            console.log(actualConfigColor);
             validColors.push(actualConfigColor);
         }
     } else {
@@ -95,64 +92,80 @@ export default function TeacherEntry(props: TeacherEntryProps) {
 
     return (
         <GestureHandlerRootView className="flex-1" id={id}>
-            <View className="flex flex-row p-2 m-2 pl-0 justify-between">
-                <View className="flex flex-row space-x-3 my-auto h-10">
-                    <View className="my-auto">
-                        <AbsentIcon
-                            status={props.absent}
-                            useMinimalistIcons={useMinimalistMode}
-                        />
-                    </View>
-                    <View className="flex flex-col">
-                        <Text className="text-zinc-100 font-normal my-auto text-lg">
-                            {name}
-                        </Text>
-                        <View className="flex flex-row">
-                            <TeacherStatusSubtitle
-                                teacher={props.teacher}
+            <Pressable
+                className="my-auto"
+                hitSlop={1}
+                onPress={() => {
+                    handlePresentModalPress();
+                    if (props.hapticfeedback) {
+                        ReactNativeHapticFeedback.trigger(
+                            'impactHeavy',
+                            HAPTIC_OPTIONS,
+                        );
+                    }
+                }}>
+                <View className="flex flex-row p-2 m-2 pl-0 justify-between">
+                    <View className="flex flex-row space-x-3 my-auto h-10">
+                        <View className="my-auto">
+                            <AbsentIcon
                                 status={props.absent}
-                                periods={props.periods}/>
+                                useMinimalistIcons={useMinimalistMode}
+                            />
+                        </View>
+                        <View className="flex flex-col">
+                            <Text className="text-zinc-100 font-normal my-auto text-lg">
+                                {name}
+                            </Text>
+                            <View className="flex flex-row">
+                                <TeacherStatusSubtitle
+                                    teacher={props.teacher}
+                                    status={props.absent}
+                                    periods={props.periods}/>
+                            </View>
                         </View>
                     </View>
+                    <View className="flex flex-row space-x-2">
+                        <Pressable
+                            onPress={toggle}
+                            hitSlop={2}
+                            className="my-auto">
+                            {starred ? (
+                                <Icon
+                                    name="star"
+                                    size={STAR_SIZE}
+                                    color="#9898f5"
+                                />
+                            ) : (
+                                <Icon
+                                    name="star-outline"
+                                    size={STAR_SIZE}
+                                    color="#9898f5"
+                                />
+                            )}
+                        </Pressable>
+                        <Pressable
+                            className="my-auto"
+                            hitSlop={1}
+                            onPress={() => {
+                                handlePresentModalPress();
+                                if (props.hapticfeedback) {
+                                    ReactNativeHapticFeedback.trigger(
+                                        'impactHeavy',
+                                        HAPTIC_OPTIONS,
+                                    );
+                                }
+                            }}>
+                            <View className="pt-1">
+                                <Icon
+                                    name="chevron-forward-outline"
+                                    size={21}
+                                    color="rgb(63 63 70)"
+                                />
+                            </View>
+                        </Pressable>
+                    </View>
                 </View>
-                <View className="flex flex-row space-x-2">
-                    <Pressable onPress={toggle} hitSlop={2} className="my-auto">
-                        {starred ? (
-                            <Icon
-                                name="star"
-                                size={STAR_SIZE}
-                                color="#9898f5"
-                            />
-                        ) : (
-                            <Icon
-                                name="star-outline"
-                                size={STAR_SIZE}
-                                color="#9898f5"
-                            />
-                        )}
-                    </Pressable>
-                    <Pressable
-                        className="my-auto"
-                        hitSlop={1}
-                        onPress={() => {
-                            handlePresentModalPress();
-                            if (props.hapticfeedback) {
-                                ReactNativeHapticFeedback.trigger(
-                                    'impactHeavy',
-                                    HAPTIC_OPTIONS,
-                                );
-                            }
-                        }}>
-                        <View className="pt-1">
-                            <Icon
-                                name="chevron-forward-outline"
-                                size={21}
-                                color="rgb(63 63 70)"
-                            />
-                        </View>
-                    </Pressable>
-                </View>
-            </View>
+            </Pressable>
             <TeacherBottomModal
                 modalRef={bottomSheetModalRef}
                 teacher={props.teacher}
