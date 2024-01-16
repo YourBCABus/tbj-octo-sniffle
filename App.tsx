@@ -22,7 +22,7 @@ const Stack = createNativeStackNavigator();
 
 export default function App(): JSX.Element {
     return (
-        <GestureHandlerRootView style={{ flex: 1 }}>
+        <GestureHandlerRootView className="flex-1">
             <ApolloProvider client={client}>
                 <StatusBar barStyle="light-content" translucent={true} />
                 <NavigationContainer>

@@ -1,25 +1,28 @@
+// Make JSX happy
+import React from 'react';
+
+// Components
 import { View, Text, Pressable, ColorValue } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
-import { TeacherEntryProps } from '../../lib/types/types';
-import React, { useCallback, useMemo, useRef } from 'react';
-import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
-
-import { GestureHandlerRootView } from 'react-native-gesture-handler';
-
-import {
-    BottomSheetModal,
-    useBottomSheetModal,
-    BottomSheetBackdrop,
-} from '@gorhom/bottom-sheet';
-
-import { BottomSheetDefaultBackdropProps } from '@gorhom/bottom-sheet/lib/typescript/components/bottomSheetBackdrop/types';
-
-import resolveConfig from 'tailwindcss/resolveConfig';
-import tailwindConfig from '../../../tailwind.config';
-import { Camelize, camelize } from '../../lib/utils';
 import AbsentIcon from './AbsentIcon';
 import TeacherStatusSubtitle from './TeacherStatusSubtitle';
 import TeacherBottomModal from '../TeacherBottomModal/TeacherBottomModal';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
+
+// Types and utility functions
+import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
+import { BottomSheetModal } from '@gorhom/bottom-sheet';
+import { Camelize } from '../../lib/utils';
+import { TeacherEntryProps } from '../../lib/types/types';
+
+// Hooks
+import { useCallback, useRef } from 'react';
+import { useBottomSheetModal } from '@gorhom/bottom-sheet';
+
+// Styles
+import resolveConfig from 'tailwindcss/resolveConfig';
+import tailwindConfig from '../../../tailwind.config';
+import { camelize } from '../../lib/utils';
 
 const fullConfig = resolveConfig(tailwindConfig);
 
@@ -120,7 +123,8 @@ export default function TeacherEntry(props: TeacherEntryProps) {
                                 <TeacherStatusSubtitle
                                     teacher={props.teacher}
                                     status={props.absent}
-                                    periods={props.periods}/>
+                                    periods={props.periods}
+                                />
                             </View>
                         </View>
                     </View>

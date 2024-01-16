@@ -3,9 +3,7 @@ import messaging from '@react-native-firebase/messaging';
 import { Platform } from 'react-native';
 import { GET_ALL_TEACHERS_PERIODS } from '../graphql/Queries';
 import { client } from '../../../App';
-import { initialIdLoad } from '../storage/StarredTeacherStorage';
-import { Period, Teacher } from '../types/types';
-import { getCurrentPeriod } from '../time';
+import { Period } from '../types/types';
 
 export async function requestUserPermission() {
     const authStatus = await notifee.requestPermission();
@@ -78,35 +76,4 @@ export async function unsubscribeToNotification(
     const topic = `00000000-0000-0000-0000-000000000000.${teacherId}`;
     console.log(`Unsubscribing topic: ${topic}`);
     messaging().unsubscribeFromTopic(topic);
-}
-
-// Maybe this should return a set instead?
-async function getStarredTeachers(): Promise<Teacher[]> {
-    const { data } = await client.query({ query: GET_ALL_TEACHERS_PERIODS });
-
-    // TODO: Verify that this refetches/always returns an updated list of starred teachers
-    const StarredTeacherIDS = await initialIdLoad();
-
-    const starredTeachers = data.teachers.filter((teacher: Teacher) => {
-        if (StarredTeacherIDS.has(teacher.id)) {
-            return true;
-        }
-        return false;
-    });
-
-    return starredTeachers;
-}
-
-// If a teacher is fully absent, possibly only announce first period // have students optionally input what period they have the teacher
-async function getStarredAbsentTeachers(): Promise<Teacher[]> {
-    const { data } = await client.query({ query: GET_ALL_TEACHERS_PERIODS });
-    const currentPeriod = getCurrentPeriod(data.periods);
-
-    if (currentPeriod === null) return [];
-    return (await getStarredTeachers()).filter((teacher: Teacher) => {
-        if (teacher.fullyAbsent) return true;
-        return currentPeriod.teachersAbsent.some(
-            absentTeacher => teacher.id === absentTeacher.id,
-        );
-    });
 }

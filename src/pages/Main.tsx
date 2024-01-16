@@ -1,42 +1,47 @@
-import React, { useMemo } from 'react';
+// JSX just loves React
+import React from 'react';
 
+// Full text search
+import Fuse from 'fuse.js';
+
+// Types + Queries for GraphQL
+import { AbsenceState, Period, Teacher } from '../lib/types/types';
+import { GET_ALL_TEACHERS_PERIODS } from '../lib/graphql/Queries';
+
+// Notifs
+import messaging from '@react-native-firebase/messaging';
+import { requestUserPermission } from '../lib/notifications/Notification';
+
+// Components
+import { BottomSheetModalProvider } from '@gorhom/bottom-sheet';
+import Header from '../components/Header/Header';
+import SearchBar from '../components/SearchBar/SearchBar';
+import TeacherEntry from '../components/TeacherEntry/TeacherEntry';
 import {
     Platform,
     ActivityIndicator,
     SafeAreaView,
-    TextInput,
     Text,
     View,
-    Pressable,
     ScrollView,
     RefreshControl,
     Alert,
 } from 'react-native';
-import TeacherEntry from '../components/TeacherEntry/TeacherEntry';
-import { useState, useCallback, useEffect } from 'react';
 
-import { AbsenceState, Period, Teacher } from '../lib/types/types';
-
-import { GET_ALL_TEACHERS_PERIODS } from '../lib/graphql/Queries';
-
-import Fuse from 'fuse.js';
-import { useFocusEffect } from '@react-navigation/native';
-
-import messaging from '@react-native-firebase/messaging';
-
-import { requestUserPermission } from '../lib/notifications/Notification';
-
-import { BottomSheetModalProvider } from '@gorhom/bottom-sheet';
+// Hooks
 import useRerender from '../lib/hooks/useRerender';
 import useValidateSettings from '../lib/hooks/useValidateSettings';
 import useSetting from '../lib/hooks/useSetting';
-import { useStarredTeachers, useStarredTeacherIds } from '../lib/hooks/useStarredTeachers';
+import {
+    useStarredTeachers,
+    useStarredTeacherIds,
+} from '../lib/hooks/useStarredTeachers';
 import useSortedFilteredTeachers from '../lib/hooks/useSortedFilteredTeachers';
 import useCurrentPeriod from '../lib/hooks/useCurrentPeriod';
-import Header from '../components/Header/Header';
-import SearchBar from '../components/SearchBar/SearchBar';
 import useRefreshableQuery from '../lib/hooks/useRefreshableQuery';
 import useTeachers from '../lib/hooks/useTeachers';
+import { useState, useCallback, useEffect, useMemo } from 'react';
+import { useFocusEffect } from '@react-navigation/native';
 
 const SUBHEADER = 'text-zinc-600 font-medium pl-2 text-sm';
 
@@ -118,23 +123,16 @@ export default function Main({ navigation }: any) {
     }, [teachers]);
 
     const sortedTeachers = useSortedFilteredTeachers(teachers, fuse, search);
-    const [starredTeacherIds, toggleTeacherStarState] = useStarredTeacherIds(data);
-    const starredTeachers = useStarredTeachers(
-        sortedTeachers,
-        starredTeacherIds,
-    );
+    const [starredIds, toggleTeacherStar] = useStarredTeacherIds(data);
+    const starredTeachers = useStarredTeachers(sortedTeachers, starredIds);
 
     const curPeriod = useCurrentPeriod(data);
 
     // as of right now, if it ever fails fetching the data, this gets rendered until data successfully is returned
     if (error) {
         return (
-            <SafeAreaView className="flex-1 bg-zinc-950 justify-center align-middle">
+            <SafeAreaView className="flex-1 bg-zinc-950 justify-center align-middle flex-grow">
                 <ScrollView
-                    contentContainerStyle={{
-                        flexGrow: 1,
-                        justifyContent: 'center',
-                    }}
                     refreshControl={
                         <RefreshControl
                             colors={['white']}
@@ -197,12 +195,12 @@ export default function Main({ navigation }: any) {
                                 key={teacher.id}
                                 teacher={teacher}
                                 starred={true}
-                                setStar={toggleTeacherStarState}
+                                setStar={toggleTeacherStar}
                                 minimalist={useMinimalistIcons}
                                 absent={getAbsenceState(teacher, curPeriod)}
                                 hapticfeedback={useHapticFeedback}
                                 idx={idx}
-                                periods={data.periods ?? []}
+                                periods={data?.periods ?? []}
                             />
                         );
                     })}
@@ -227,13 +225,13 @@ export default function Main({ navigation }: any) {
                             <TeacherEntry
                                 key={teacher.id}
                                 teacher={teacher}
-                                starred={starredTeacherIds.has(teacher.id)}
-                                setStar={toggleTeacherStarState}
+                                starred={starredIds.has(teacher.id)}
+                                setStar={toggleTeacherStar}
                                 minimalist={useMinimalistIcons}
                                 absent={getAbsenceState(teacher, curPeriod)}
                                 hapticfeedback={useHapticFeedback}
                                 idx={idx}
-                                periods={data.periods ?? []}
+                                periods={data?.periods ?? []}
                             />
                         );
                     })}

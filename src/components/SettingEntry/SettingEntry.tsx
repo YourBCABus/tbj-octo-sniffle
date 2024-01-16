@@ -1,26 +1,30 @@
-import { Switch, Text, View } from "react-native";
+import React from 'react';
 
-import { SettingEntryProps } from "../../lib/types/types";
-import { useCallback } from "react";
+import { Switch, Text, View } from 'react-native';
+
+import { SettingEntryProps } from '../../lib/types/types';
+import { useCallback } from 'react';
 
 export default function SettingEntry(props: SettingEntryProps): JSX.Element {
-    const { value, description, id } = props.setting
-    const toggleSwitch = props.setValue
-    const toggle = useCallback(() => toggleSwitch(id), [props.setting]);
+    const { value, description, id } = props.setting;
+    const toggleSwitch = props.setValue;
+    const toggle = useCallback(() => toggleSwitch(id), [id, toggleSwitch]);
 
     return (
         // could maybe make it so if enabled, the text is a brighter white or something
-        <View className="flex flex-row justify-around py-2 my-3 bg-white/5 w-11/12 rounded-2xl" key={id}>
+        <View
+            className="flex flex-row justify-around py-2 my-3 bg-white/5 w-11/12 rounded-2xl"
+            key={id}>
             <Text className="text-zinc-100 text-left my-auto text-md w-2/3">
-                { description }
+                {description}
             </Text>
             <Switch
-                trackColor={{false: 'gray', true: 'green'}}
+                trackColor={{ false: 'gray', true: 'green' }}
                 thumbColor={value ? 'lime' : 'gray'}
-                onValueChange={ toggle }
-                value={ value }
+                onValueChange={toggle}
+                value={value}
                 className="scale-7 my-auto"
             />
         </View>
-    )
+    );
 }

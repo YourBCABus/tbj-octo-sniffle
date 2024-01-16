@@ -22,7 +22,7 @@ export default function Settings() {
         <View className="flex-1 items-center justify-center bg-zinc-950 space-y-5">
             {settings.map(setting => {
                 return (
-                    <SettingEntry 
+                    <SettingEntry
                         key={setting.id}
                         setting={setting}
                         setValue={toggleSettingValue}

@@ -1,10 +1,13 @@
-import AsyncStorage from '@react-native-async-storage/async-storage'
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Teacher } from '../types/types';
-import { subscribeToNotification, unsubscribeToNotification } from '../notifications/Notification';
+import {
+    subscribeToNotification,
+    unsubscribeToNotification,
+} from '../notifications/Notification';
 
 export type StarredIds = Set<string>;
 
-export const STARRED_ID_KEY = "@starred_teacher_ids";
+export const STARRED_ID_KEY = '@starred_teacher_ids';
 
 export async function initializeBlank(): Promise<StarredIds> {
     try {
@@ -23,9 +26,12 @@ async function __getItem(isInitError: boolean): Promise<string | null> {
     }
 }
 
-export async function validateIDs(setTeacherIds: (ids: StarredIds) => void, teachers: Teacher[]): Promise<boolean> {
+export async function validateIDs(
+    setTeacherIds: (ids: StarredIds) => void,
+    teachers: Teacher[],
+): Promise<boolean> {
     try {
-        const currentIds = [...await initialIdLoad()];
+        const currentIds = [...(await initialIdLoad())];
         const filteredIDs = currentIds.filter(id => teachers.some(teacher => teacher.id === id));
 
         await AsyncStorage.setItem(STARRED_ID_KEY, JSON.stringify(filteredIDs));
@@ -43,12 +49,16 @@ export async function initialIdLoad(): Promise<StarredIds> {
         return initializeBlank();
     } else {
         try {
-            return new Set(JSON.parse(jsonIds).filter((value: unknown) => typeof value === 'string'));
+            return new Set(
+                JSON.parse(jsonIds).filter(
+                    (value: unknown) => typeof value === 'string',
+                ),
+            );
         } catch (err) {
             return initializeBlank();
         }
     }
-};
+}
 
 export class StarError extends Error {
     constructor(reason: unknown, public isInitError: boolean = false) {
@@ -58,13 +68,17 @@ export class StarError extends Error {
 
 // TODO - add a way to alert users that update failed.
 // Return is whether or not the update was successful.
-export async function updateTeacherStarStorage(setTeacherIds: (ids: StarredIds) => void, id: string, value?: boolean): Promise<boolean> {
+export async function updateTeacherStarStorage(
+    setTeacherIds: (ids: StarredIds) => void,
+    id: string,
+    value?: boolean,
+): Promise<boolean> {
     try {
         let old = await initialIdLoad();
 
         if (value === undefined) {
             // old.has(id) ? old.delete(id) : old.add(id);
-            if(old.has(id)) {
+            if (old.has(id)) {
                 unsubscribeToNotification(id);
                 old.delete(id);
             } else {
@@ -86,4 +100,4 @@ export async function updateTeacherStarStorage(setTeacherIds: (ids: StarredIds) 
     } catch (e) {
         return false;
     }
-};
+}

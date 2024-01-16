@@ -96,7 +96,7 @@ export async function initialSettingsLoad(): Promise<Setting[]> {
 // Defaults to false if no data returned or if setting not found
 export async function getSettingState(id: string): Promise<boolean> {
     const settings = await initialSettingsLoad();
-    const setting = settings.find(setting => setting.id === id);
+    const setting = settings.find(settingObj => settingObj.id === id);
 
     if (setting === undefined) return false;
     return setting.value;

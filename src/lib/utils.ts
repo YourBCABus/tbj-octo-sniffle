@@ -17,14 +17,16 @@ export const camelize = <T extends string>(input: T): Camelize<T> => {
     return capitalizedParts.join('') as Camelize<T>;
 };
 
-export type PeriodGroup = {
+interface PeriodRange {
     type: 'group';
     start: Period;
     end: Period;
-} | {
-    type: "single";
+}
+interface SinglePeriod {
+    type: 'single';
     period: Period;
-};
+}
+export type PeriodGroup = PeriodRange | SinglePeriod;
 
 export const getPeriodRanges = (
     periods: [Period, boolean][],

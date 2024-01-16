@@ -34,7 +34,9 @@ export default function TeacherStatusSubtitle(
             return <Text className="text-red-500 text-sm">Absent All Day</Text>;
         case AbsenceState.PRESENT:
             if (!props.alwaysShow) return <></>;
-            return <Text className="text-lime-500 text-sm">Present All Day</Text>;
+            return (
+                <Text className="text-lime-500 text-sm">Present All Day</Text>
+            );
         case AbsenceState.NO_PERIOD:
             if (!props.alwaysShow) return <></>;
             return <Text className="text-zinc-100 text-sm">Unknown</Text>;

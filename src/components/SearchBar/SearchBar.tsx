@@ -17,11 +17,10 @@ export default function SearchBar({
                 <Icon name="search" size={25} color="rgb(82 82 91)" />
             </View>
             <TextInput
-                className="ml-2 mr-5 my-2 p-2 pr-8"
+                className="ml-2 mr-5 my-2 p-2 pr-8 text-[#e4e4e7]"
                 onChangeText={text => setSearch(text)}
                 value={search}
                 placeholderTextColor="rgb(82 82 91)"
-                style={{ color: 'rgb(228 228 231)' }}
                 placeholder="Search for a teacher"
                 autoComplete="off"
                 keyboardType="default"
