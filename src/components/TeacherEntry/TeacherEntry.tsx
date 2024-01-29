@@ -37,7 +37,7 @@ function validateColors<T extends string>(
     colors: T[],
 ): Record<Camelize<T>, ColorValue> {
     let validColors: ColorValue[] = [];
-    let defaults = ['red', 'lime', 'gray', 'black', 'yellow'];
+    let defaults = ['red', 'amber', 'lime', 'gray', 'black', 'yellow'];
     if (fullConfig && fullConfig.theme && fullConfig.theme.colors) {
         for (let i = 0; i < colors.length; i++) {
             const configColor =
@@ -64,6 +64,7 @@ function validateColors<T extends string>(
 // tailwindconfig just add to this and access its location in the array
 export const colors = validateColors([
     'absent-red',
+    'partial-orange',
     'present-green',
     'default-gray',
     'ebony',

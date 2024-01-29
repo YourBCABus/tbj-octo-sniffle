@@ -35,10 +35,11 @@ export interface TeacherName {
 }
 
 export enum AbsenceState {
-    ABSENT = 'ABSENT',
+    ABSENT_PART_PRESENT = 'ABSENT_PART_PRESENT',
+    ABSENT_PART_ABSENT = 'ABSENT_PART_ABSENT',
+    ABSENT_PART_UNSURE = 'ABSENT_PART_UNSURE',
     ABSENT_ALL_DAY = 'ABSENTALLDAY',
     PRESENT = 'PRESENT',
-    NO_PERIOD = 'NO_PERIOD',
 }
 
 export interface Period {

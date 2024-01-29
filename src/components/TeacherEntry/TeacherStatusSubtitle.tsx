@@ -3,6 +3,7 @@ import React, { useMemo } from 'react';
 import { Text } from 'react-native';
 import { AbsenceState, Period, Teacher } from '../../lib/types/types';
 import { formatPeriodRanges } from '../../lib/utils';
+import { colors } from './TeacherEntry';
 
 interface TeacherStatusSubtitleProps {
     status: AbsenceState;
@@ -24,21 +25,35 @@ export default function TeacherStatusSubtitle(
     }, [props.periods, props.teacher.absence]);
 
     switch (props.status) {
-        case AbsenceState.ABSENT:
+        case AbsenceState.ABSENT_PART_ABSENT:
+        case AbsenceState.ABSENT_PART_PRESENT:
+        case AbsenceState.ABSENT_PART_UNSURE:
             return (
-                <Text className="text-orange-500 text-sm">
-                    Absent Periods {periodRangeString}
+                <Text className="text-sm" style={{ color: colors.partialOrange }}>
+                    Absent period(s) {periodRangeString}
                 </Text>
             );
         case AbsenceState.ABSENT_ALL_DAY:
-            return <Text className="text-red-500 text-sm">Absent All Day</Text>;
+            return (
+                <Text className="text-sm" style={{ color: colors.absentRed }}>
+                    Absent All Day
+                </Text>
+            );
         case AbsenceState.PRESENT:
             if (!props.alwaysShow) return <></>;
             return (
-                <Text className="text-lime-500 text-sm">Present All Day</Text>
+                <Text
+                    className="text-sm"
+                    style={{ color: colors.presentGreen }}>
+                    Present All Day
+                </Text>
             );
         case AbsenceState.NO_PERIOD:
             if (!props.alwaysShow) return <></>;
-            return <Text className="text-zinc-100 text-sm">Unknown</Text>;
+            return (
+                <Text className="text-sm" style={{ color: colors.defaultGray }}>
+                    Unknown
+                </Text>
+            );
     }
 }

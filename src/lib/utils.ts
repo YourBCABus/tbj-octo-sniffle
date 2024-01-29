@@ -86,5 +86,5 @@ export const formatPeriodRanges = (periods: [Period, boolean][]): string => {
 };
 
 export const trimPeriodName = (name: string): string => {
-    return name.replace(/^\s+(Period)\s+/, '');
+    return name.replace(/^\s*([Pp]eriod)\s+/, '');
 };

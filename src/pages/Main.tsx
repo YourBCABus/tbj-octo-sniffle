@@ -54,16 +54,31 @@ const SUCCESSFUL_SAFE_AREA_VIEW_STYLE =
 function getAbsenceState(
     teacher: Teacher,
     currPeriod: Period | null,
+    dayIsOver: boolean,
 ): AbsenceState {
-    if (teacher.fullyAbsent) {
+    if (dayIsOver) return AbsenceState.PRESENT;
+
+    const partAbsent = teacher.absence.length > 0;
+    const fullAbsent = teacher.fullyAbsent;
+    if (fullAbsent) {
         return AbsenceState.ABSENT_ALL_DAY;
+    } else if (!fullAbsent && !partAbsent) {
+        return AbsenceState.PRESENT;
+    } else {
+        if (currPeriod === null || currPeriod === undefined) {
+            return AbsenceState.ABSENT_PART_UNSURE;
+        }
+
+        const isAbsentRightNow = teacher.absence.some(
+            periodId => periodId === currPeriod?.id,
+        );
+        if (isAbsentRightNow) {
+            return AbsenceState.ABSENT_PART_ABSENT;
+        } else {
+            return AbsenceState.ABSENT_PART_PRESENT;
+        }
     }
-    if (teacher.absence.some(periodId => periodId === currPeriod?.id)) {
-        return AbsenceState.ABSENT;
-    }
-    if (currPeriod === null || currPeriod === undefined) {
-        return AbsenceState.NO_PERIOD;
-    }
+
 
     return AbsenceState.PRESENT;
 }
@@ -126,7 +141,7 @@ export default function Main({ navigation }: any) {
     const [starredIds, toggleTeacherStar] = useStarredTeacherIds(data);
     const starredTeachers = useStarredTeachers(sortedTeachers, starredIds);
 
-    const curPeriod = useCurrentPeriod(data);
+    const [currPeriod, nextCurrPeriod] = useCurrentPeriod(data);
 
     // as of right now, if it ever fails fetching the data, this gets rendered until data successfully is returned
     if (error) {
@@ -180,7 +195,7 @@ export default function Main({ navigation }: any) {
                     <SearchBar search={search} setSearch={updateSearch} />
                     <View>
                         <Text className="text-zinc-100 text-center text-xl mx-3 my-5 font-bold">
-                            {curPeriod?.name ?? 'No Current Period'}
+                            {currPeriod?.name ?? 'No Current Period'}
                         </Text>
                     </View>
 
@@ -197,7 +212,11 @@ export default function Main({ navigation }: any) {
                                 starred={true}
                                 setStar={toggleTeacherStar}
                                 minimalist={useMinimalistIcons}
-                                absent={getAbsenceState(teacher, curPeriod)}
+                                absent={getAbsenceState(
+                                    teacher,
+                                    currPeriod,
+                                    nextCurrPeriod === null,
+                                )}
                                 hapticfeedback={useHapticFeedback}
                                 idx={idx}
                                 periods={data?.periods ?? []}
@@ -228,7 +247,11 @@ export default function Main({ navigation }: any) {
                                 starred={starredIds.has(teacher.id)}
                                 setStar={toggleTeacherStar}
                                 minimalist={useMinimalistIcons}
-                                absent={getAbsenceState(teacher, curPeriod)}
+                                absent={getAbsenceState(
+                                    teacher,
+                                    currPeriod,
+                                    nextCurrPeriod === null,
+                                )}
                                 hapticfeedback={useHapticFeedback}
                                 idx={idx}
                                 periods={data?.periods ?? []}

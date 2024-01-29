@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import { View, Text, Pressable } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { initialSettingsLoad } from '../lib/storage/SettingStorage';
 
 interface LandingProps {
     navigation: NativeStackNavigationProp<any>;
@@ -10,6 +11,19 @@ interface LandingProps {
 
 // look into navigation type, might be incorrect
 export default function Landing({ navigation }: LandingProps) {
+    useEffect(() => {
+        initialSettingsLoad()
+            .then(s => s.length > 0)
+            .then(alreadySetUp => {
+                if (alreadySetUp) {
+                    navigation.reset({
+                        index: 0,
+                        routes: [{ name: 'Main' }],
+                    });
+                }
+            });
+    }, [navigation]);
+
     return (
         <View className="flex-1 items-center justify-center">
             <LinearGradient
@@ -24,7 +38,7 @@ export default function Landing({ navigation }: LandingProps) {
                     onPress={() =>
                         navigation.reset({
                             index: 0,
-                            routes: [{ name: 'Main' }],
+                            routes: [{ name: 'InitialSettings' }],
                         })
                     }
                     className="bg-gray-800 rounded-md p-2 mt-3 active:bg-gray-700 w-1/4">

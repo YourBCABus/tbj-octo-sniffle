@@ -5,24 +5,32 @@ import { getCurrentPeriod } from '../time';
 const useCurrentPeriod = (
     data: { periods: Period[] } | undefined,
     pollingPeriod?: number,
-): Period | null => {
-    const [currPeriod, setCurrPeriod] = useState<Period | null>(null);
+): [Period | null, Period | null] => {
+    const [[currPeriod, nextCurrPeriod], setCurrPeriodInfo] = useState<
+        [Period | null, Period | null]
+    >([null, null]);
 
     useEffect(() => {
         if (!data) {
-            setCurrPeriod(null);
+            setCurrPeriodInfo([null, null]);
             return;
         }
         const interval = setInterval(() => {
-            setCurrPeriod(getCurrentPeriod(data.periods));
+            const [newCurrPeriod, newNextCurrPeriod] = getCurrentPeriod(
+                data.periods,
+            );
+            setCurrPeriodInfo([newCurrPeriod, newNextCurrPeriod]);
         }, pollingPeriod ?? 10000);
 
-        setCurrPeriod(getCurrentPeriod(data.periods));
+        const [newCurrPeriod, newNextCurrPeriod] = getCurrentPeriod(
+            data.periods,
+        );
+        setCurrPeriodInfo([newCurrPeriod, newNextCurrPeriod]);
 
         return () => clearInterval(interval);
     }, [data, pollingPeriod]);
 
-    return currPeriod;
+    return [currPeriod, nextCurrPeriod];
 };
 
 export default useCurrentPeriod;
