@@ -68,7 +68,9 @@ export function DefaultIcon({ status }: IconProps) {
         case AbsenceState.ABSENT_ALL_DAY:
             return <Icon color={colors.absentRed} size={30} name="close-circle" />;
         case AbsenceState.PRESENT:
-            return <Icon color={colors.presentGreen} size={30} name="checkmark-circle"/>;
+            return <Icon color={colors.presentGreen} size={30} name="checkmark-circle" />;
+        case AbsenceState.DAY_OVER:
+            return <Icon color={colors.defaultGray} size={30} name="ellipse" />;
     }
 }
 
@@ -81,7 +83,10 @@ export function MinimalistIcon({ status }: IconProps) {
         case AbsenceState.ABSENT_ALL_DAY:
             return <Icon color={colors.absentRed} size={30} name="ellipse-outline" />;
         case AbsenceState.PRESENT:
-            return <Icon color={colors.presentGreen} size={30} name="ellipse-outline"/>;
+            return <Icon color={colors.presentGreen} size={30} name="ellipse-outline" />;
+            case AbsenceState.DAY_OVER:
+            return <Icon color={colors.defaultGray} size={30} name="ellipse-outline" />;
+
     }
 }
 

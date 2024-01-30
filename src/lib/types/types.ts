@@ -40,6 +40,7 @@ export enum AbsenceState {
     ABSENT_PART_UNSURE = 'ABSENT_PART_UNSURE',
     ABSENT_ALL_DAY = 'ABSENTALLDAY',
     PRESENT = 'PRESENT',
+    DAY_OVER = 'DAY_OVER',
 }
 
 export interface Period {
