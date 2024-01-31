@@ -22,6 +22,11 @@ const DEFAULT_SETTINGS: Setting[] = [
         description: 'Use Haptic Feedback',
         value: true,
     },
+    {
+        id: 'setup',
+        description: 'Setup Complete',
+        value: false,
+    },
 ];
 
 export async function initializeDefaults(): Promise<Setting[]> {

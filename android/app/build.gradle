@@ -94,9 +94,9 @@ android {
 
     compileSdkVersion rootProject.ext.compileSdkVersion
 
-    namespace "com.tbjoctosniffle"
+    namespace "com.TableJet"
     defaultConfig {
-        applicationId "com.tbjoctosniffle"
+        applicationId "com.TableJet"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1

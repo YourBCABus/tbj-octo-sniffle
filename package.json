@@ -1,5 +1,5 @@
 {
-  "name": "tbjoctosniffle",
+  "name": "TableJet",
   "version": "0.0.1",
   "private": true,
   "scripts": {
@@ -24,12 +24,13 @@
     "graphql": "^16.6.0",
     "nativewind": "^2.0.11",
     "react": "18.2.0",
-    "react-native": "0.73.1",
-    "react-native-gesture-handler": "^2.9.0",
+    "react-native": "^0.73",
+    "react-native-gesture-handler": "^2.9",
+    "react-native-gradle-plugin": "^0.71.19",
     "react-native-haptic-feedback": "^1.14.0",
     "react-native-linear-gradient": "^2.6.2",
     "react-native-reanimated": "^3",
-    "react-native-safe-area-context": "^4.5.0",
+    "react-native-safe-area-context": "^4",
     "react-native-screens": "^3.20.0",
     "react-native-vector-icons": "^9.2.0"
   },

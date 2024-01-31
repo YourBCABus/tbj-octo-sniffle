@@ -1,6 +1,7 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Teacher } from '../types/types';
 import {
+    hasNotifPermission,
     subscribeToNotification,
     unsubscribeToNotification,
 } from '../notifications/Notification';
@@ -32,7 +33,9 @@ export async function validateIDs(
 ): Promise<boolean> {
     try {
         const currentIds = [...(await initialIdLoad())];
-        const filteredIDs = currentIds.filter(id => teachers.some(teacher => teacher.id === id));
+        const filteredIDs = currentIds.filter(id =>
+            teachers.some(teacher => teacher.id === id),
+        );
 
         await AsyncStorage.setItem(STARRED_ID_KEY, JSON.stringify(filteredIDs));
         setTeacherIds(new Set(filteredIDs));
@@ -76,21 +79,23 @@ export async function updateTeacherStarStorage(
     try {
         let old = await initialIdLoad();
 
-        if (value === undefined) {
-            // old.has(id) ? old.delete(id) : old.add(id);
-            if (old.has(id)) {
-                unsubscribeToNotification(id);
-                old.delete(id);
-            } else {
+        if (await hasNotifPermission()) {
+            if (value === undefined) {
+                // old.has(id) ? old.delete(id) : old.add(id);
+                if (old.has(id)) {
+                    unsubscribeToNotification(id);
+                    old.delete(id);
+                } else {
+                    subscribeToNotification(id);
+                    old.add(id);
+                }
+            } else if (value) {
                 subscribeToNotification(id);
                 old.add(id);
+            } else {
+                unsubscribeToNotification(id);
+                old.delete(id);
             }
-        } else if (value) {
-            subscribeToNotification(id);
-            old.add(id);
-        } else {
-            unsubscribeToNotification(id);
-            old.delete(id);
         }
 
         await AsyncStorage.setItem(STARRED_ID_KEY, JSON.stringify([...old]));

@@ -56,12 +56,13 @@ export function DefaultIcon({ status }: IconProps) {
                         color={colors.partialOrange}
                         size={30}
                         name="partial-bg"
+                        className="h-8"
                     />
                     <CustomIcon
                         color={colors.presentGreen}
                         size={30}
                         name="present-fg"
-                        className="absolute top-0 left-0"
+                        className="absolute top-0 left-0 h-8"
                     />
                 </View>
             );

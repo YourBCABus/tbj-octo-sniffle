@@ -9,13 +9,19 @@ import {
 
 export default function Settings() {
     const [settings, setSettingValue] = useState<Setting[]>([]);
+    const setSettingValueFilter = useCallback(
+        (newSettings: Setting[]) =>
+            setSettingValue(newSettings.filter(s => s.id !== 'setup')),
+        [setSettingValue],
+    );
+
     useEffect(() => {
-        initialSettingsLoad().then(setSettingValue);
-    }, [setSettingValue]);
+        initialSettingsLoad().then(setSettingValueFilter);
+    }, [setSettingValueFilter]);
 
     const toggleSettingValue = useCallback(
-        (id: string) => updateSettingStorage(setSettingValue, id),
-        [setSettingValue],
+        (id: string) => updateSettingStorage(setSettingValueFilter, id),
+        [setSettingValueFilter],
     );
 
     return (

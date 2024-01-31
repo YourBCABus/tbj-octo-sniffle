@@ -9,7 +9,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:251004294870:android:b392ed59fd1b4b6d87db77",
         "android_client_info": {
-          "package_name": "com.tbjoctosniffle"
+          "package_name": "com.TableJet"
         }
       },
       "oauth_client": [
@@ -17,7 +17,7 @@
           "client_id": "251004294870-7r9v5elkc49n3jg28r5gbc3d95cf80m3.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.tbjoctosniffle",
+            "package_name": "com.TableJet",
             "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
           }
         },

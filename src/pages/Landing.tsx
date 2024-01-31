@@ -13,7 +13,8 @@ interface LandingProps {
 export default function Landing({ navigation }: LandingProps) {
     useEffect(() => {
         initialSettingsLoad()
-            .then(s => s.length > 0)
+            .then(settings => settings.find(s => s.id === 'setup'))
+            .then(s => s?.value)
             .then(alreadySetUp => {
                 if (alreadySetUp) {
                     navigation.reset({

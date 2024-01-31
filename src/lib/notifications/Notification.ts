@@ -26,6 +26,12 @@ export async function requestUserPermission() {
     }
 }
 
+export async function hasNotifPermission(): Promise<boolean> {
+    const notifSettings = await notifee.getNotificationSettings();
+    const authStatus = notifSettings.authorizationStatus;
+    return authStatus === AuthorizationStatus.AUTHORIZED;
+}
+
 async function coalescePeriods(
     periods: Period[] | undefined | null,
 ): Promise<Period[]> {

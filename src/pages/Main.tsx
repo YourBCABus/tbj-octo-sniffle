@@ -10,7 +10,6 @@ import { GET_ALL_TEACHERS_PERIODS } from '../lib/graphql/Queries';
 
 // Notifs
 import messaging from '@react-native-firebase/messaging';
-import { requestUserPermission } from '../lib/notifications/Notification';
 
 // Components
 import { BottomSheetModalProvider } from '@gorhom/bottom-sheet';
@@ -40,8 +39,7 @@ import useSortedFilteredTeachers from '../lib/hooks/useSortedFilteredTeachers';
 import useCurrentPeriod from '../lib/hooks/useCurrentPeriod';
 import useRefreshableQuery from '../lib/hooks/useRefreshableQuery';
 import useTeachers from '../lib/hooks/useTeachers';
-import { useState, useCallback, useEffect, useMemo } from 'react';
-import { useFocusEffect } from '@react-navigation/native';
+import { useState, useEffect, useMemo } from 'react';
 
 const SUBHEADER = 'text-zinc-600 font-medium pl-2 text-sm';
 
@@ -84,21 +82,6 @@ export default function Main({ navigation }: any) {
     useValidateSettings();
     const useHapticFeedback = useSetting('hapticfeedback', false);
     const useMinimalistIcons = useSetting('minimalist', false);
-
-    // TODO: Prompt before asking for permissions
-    useFocusEffect(
-        useCallback(() => {
-            const reqUserPerms = async () => {
-                try {
-                    await requestUserPermission();
-                } catch (e) {
-                    console.log(e);
-                }
-            };
-
-            reqUserPerms();
-        }, []),
-    );
 
     // TODO --> Potentially tell users to keep Background App Refresh mode on for best performance on iOS
     useEffect(() => {

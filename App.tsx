@@ -17,6 +17,7 @@ import Landing from './src/pages/Landing';
 import Main from './src/pages/Main';
 import Settings from './src/pages/Settings';
 import { StatusBar } from 'react-native';
+import InitialSettings from './src/pages/InitialSettings';
 
 const Stack = createNativeStackNavigator();
 
@@ -38,6 +39,11 @@ export default function App(): JSX.Element {
                         />
 
                         <Stack.Screen name="Main" component={Main} />
+                        <Stack.Screen
+                            name="InitialSettings"
+                            component={InitialSettings as any}
+                            initialParams={{ page: 'NOTIFS' }}
+                        />
                         <Stack.Screen
                             name="Settings"
                             component={Settings}
