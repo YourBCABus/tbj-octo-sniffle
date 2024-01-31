@@ -1,9 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import notifee from '@notifee/react-native';
 
 import { View, Text, Pressable } from 'react-native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { updateSettingStorage } from '../lib/storage/SettingStorage';
+import { exampleTeachers } from '../lib/dummydata';
+import DummyTeacherEntry from '../components/TeacherEntry/DummyTeacherEntry';
+import SettingEntry from '../components/SettingEntry/SettingEntry';
 
 interface SetupProps {
     navigation: NativeStackNavigationProp<any>;
@@ -15,14 +18,24 @@ enum CurrPage {
     ICONS = 'ICONS',
 }
 
+function DummyTeacherDisplay({ minimalist }: { minimalist: boolean }) {
+    return (
+        <View className="h-1/2 w-full">
+            {exampleTeachers.map(teacher => (
+                <DummyTeacherEntry {...teacher} minimalist={minimalist} />
+            ))}
+        </View>
+    );
+}
+
 export default function InitialSettings({
     navigation,
     route: {
         params: { page: pageNullable },
     },
 }: SetupProps) {
+    const [minimalistIcons, setMinimalistIcons] = useState(false);
     const page = pageNullable ?? CurrPage.NOTIFS;
-    console.log({ page, pageNullable });
     switch (page) {
         case CurrPage.NOTIFS:
             return (
@@ -63,15 +76,50 @@ export default function InitialSettings({
                 </View>
             );
         case CurrPage.ICONS:
-            // FIXME: IMPLEMENT this
-            updateSettingStorage(() => {}, 'setup', true);
+            // updateSettingStorage(() => {}, 'setup', true);
+            return (
+                <View className="flex-1 items-center justify-center bg-zinc-950 space-y-5 px-5">
+                    <Text className="text-xl text-gray-200">Icons</Text>
 
-            setTimeout(() => {
-                navigation.reset({
-                    index: 0,
-                    routes: [{ name: 'Main' }],
-                });
-            }, 1000);
-            return <Text>TODO: Fix this pls</Text>;
+                    <Text className="italic text-md text-gray-200 px-5">
+                        Choose whether or not you want minimalist icons.
+                    </Text>
+
+                    <SettingEntry
+                        setting={{
+                            id: 'minimalist',
+                            value: minimalistIcons,
+                            description: 'Use minimalist icons',
+                        }}
+                        setValue={() => setMinimalistIcons(v => !v)}
+                    />
+
+                    <View className="mx-5 w-full border border-slate-500 opacity-80" />
+
+                    <Text className="mt-10 text-lg text-gray-200">Preview</Text>
+                    <DummyTeacherDisplay minimalist={minimalistIcons} />
+
+                    <View className="mx-5 w-full border border-slate-500 opacity-80" />
+                    <Pressable
+                        onPress={async () => {
+                            updateSettingStorage(
+                                () => {},
+                                'minimalist',
+                                minimalistIcons,
+                            );
+                            updateSettingStorage(() => {}, 'setup', true);
+
+                            navigation.reset({
+                                index: 0,
+                                routes: [{ name: 'Main' }],
+                            });
+                        }}
+                        className="bg-purple-800 rounded-md p-2 mt-2 active:bg-purple-700 w-1/2">
+                        <Text className="text-lg text-gray-200 text-center">
+                            Finish setup
+                        </Text>
+                    </Pressable>
+                </View>
+            );
     }
 }

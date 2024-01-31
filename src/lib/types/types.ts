@@ -72,6 +72,8 @@ export interface TeacherEntryProps {
     hapticfeedback: boolean;
 
     periods: Period[];
+
+    disableInteraction?: boolean;
 }
 
 export interface SettingEntryProps {

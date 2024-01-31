@@ -71,15 +71,24 @@ export const colors = validateColors([
     'starred-yellow',
 ]);
 
+function useBottomSheetModalWithCatch() {
+    try {
+        return useBottomSheetModal();
+    } catch {
+        return { dismissAll: () => {}, dismiss: () => {} };
+    }
+}
+
 export default function TeacherEntry(props: TeacherEntryProps) {
     let useMinimalistMode = props.minimalist;
 
-    const { dismissAll } = useBottomSheetModal();
+    const { dismissAll } = useBottomSheetModalWithCatch();
     const bottomSheetModalRef = useRef<BottomSheetModal>(null);
     const handlePresentModalPress = useCallback(() => {
+        if (props.disableInteraction) return;
         dismissAll();
         bottomSheetModalRef.current?.present();
-    }, [dismissAll]);
+    }, [dismissAll, props.disableInteraction]);
 
     const starred = props.starred;
     const { id } = props.teacher;
@@ -88,11 +97,13 @@ export default function TeacherEntry(props: TeacherEntryProps) {
 
     // could make haptics a little less powerful if it's too much
     const toggle = useCallback(() => {
+        if (props.disableInteraction) return;
+
         toggleStar(id);
         if (props.hapticfeedback) {
             ReactNativeHapticFeedback.trigger('impactHeavy', HAPTIC_OPTIONS);
         }
-    }, [id, props.hapticfeedback, toggleStar]);
+    }, [id, props.hapticfeedback, props.disableInteraction, toggleStar]);
 
     return (
         <GestureHandlerRootView className="flex-1" id={id}>
@@ -171,14 +182,16 @@ export default function TeacherEntry(props: TeacherEntryProps) {
                     </View>
                 </View>
             </Pressable>
-            <TeacherBottomModal
-                modalRef={bottomSheetModalRef}
-                teacher={props.teacher}
-                status={props.absent}
-                periods={props.periods}
-                starred={props.starred}
-                toggleStar={toggle}
-            />
+            {!props.disableInteraction && (
+                <TeacherBottomModal
+                    modalRef={bottomSheetModalRef}
+                    teacher={props.teacher}
+                    status={props.absent}
+                    periods={props.periods}
+                    starred={props.starred}
+                    toggleStar={toggle}
+                />
+            )}
         </GestureHandlerRootView>
     );
 }
