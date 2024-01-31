@@ -19,9 +19,9 @@ export default function DummyTeacherEntry({
     periods,
 }: DummyTeacherEntryProps) {
     const honorific = name.split(' ')[0];
-    const noHonorific = name.split(' ', 2).reverse()[0];
+    const noHonorific = name.split(' ').slice(1).join(' ');
     const first = noHonorific.split(' ')[0];
-    const last = noHonorific.split(' ', 2).reverse()[0];
+    const last = noHonorific.split(' ').slice(1).join(' ');
 
     return (
         <TeacherEntry

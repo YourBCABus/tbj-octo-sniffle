@@ -22,7 +22,11 @@ function DummyTeacherDisplay({ minimalist }: { minimalist: boolean }) {
     return (
         <View className="h-1/2 w-full">
             {exampleTeachers.map(teacher => (
-                <DummyTeacherEntry {...teacher} minimalist={minimalist} />
+                <DummyTeacherEntry
+                    {...teacher}
+                    minimalist={minimalist}
+                    key={teacher.name}
+                />
             ))}
         </View>
     );
@@ -96,7 +100,9 @@ export default function InitialSettings({
 
                     <View className="mx-5 w-full border border-slate-500 opacity-80" />
 
-                    <Text className="mt-10 text-lg text-gray-200">Preview</Text>
+                    <Text className="mt-10 text-lg text-gray-200">
+                        Period 5
+                    </Text>
                     <DummyTeacherDisplay minimalist={minimalistIcons} />
 
                     <View className="mx-5 w-full border border-slate-500 opacity-80" />

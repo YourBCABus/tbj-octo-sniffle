@@ -153,7 +153,7 @@ export const exampleTeachers: DummyTeacherEntryProps[] = [
         minimalist: false,
     },
     {
-        name: 'Mx. Alex brown',
+        name: 'Mx. Alex Brown',
         starred: true,
         absenceState: {
             state: AbsenceState.PRESENT,
