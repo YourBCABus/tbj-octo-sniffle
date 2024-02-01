@@ -9,29 +9,13 @@
 /* Begin PBXBuildFile section */
 		00E356F31AD99517003FC87E /* TableJetTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* TableJetTests.m */; };
 		13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.mm */; };
-		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
-		88656D4A2A8601E90077E426 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 88656D492A8601E90077E426 /* LaunchScreen.storyboard */; };
-		889A8BCC299D7402001AED00 /* MaterialCommunityIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 889A8BBC299D7401001AED00 /* MaterialCommunityIcons.ttf */; };
-		889A8BCD299D7402001AED00 /* Zocial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 889A8BBD299D7401001AED00 /* Zocial.ttf */; };
-		889A8BCE299D7402001AED00 /* FontAwesome5_Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 889A8BBE299D7401001AED00 /* FontAwesome5_Regular.ttf */; };
-		889A8BCF299D7402001AED00 /* SimpleLineIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 889A8BBF299D7401001AED00 /* SimpleLineIcons.ttf */; };
-		889A8BD0299D7402001AED00 /* MaterialIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 889A8BC0299D7401001AED00 /* MaterialIcons.ttf */; };
-		889A8BD1299D7402001AED00 /* Foundation.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 889A8BC1299D7401001AED00 /* Foundation.ttf */; };
-		889A8BD2299D7402001AED00 /* Entypo.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 889A8BC2299D7401001AED00 /* Entypo.ttf */; };
-		889A8BD3299D7402001AED00 /* Fontisto.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 889A8BC3299D7401001AED00 /* Fontisto.ttf */; };
-		889A8BD4299D7402001AED00 /* EvilIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 889A8BC4299D7401001AED00 /* EvilIcons.ttf */; };
-		889A8BD5299D7402001AED00 /* Feather.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 889A8BC5299D7401001AED00 /* Feather.ttf */; };
-		889A8BD6299D7402001AED00 /* FontAwesome.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 889A8BC6299D7401001AED00 /* FontAwesome.ttf */; };
-		889A8BD7299D7402001AED00 /* Octicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 889A8BC7299D7401001AED00 /* Octicons.ttf */; };
-		889A8BD8299D7402001AED00 /* AntDesign.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 889A8BC8299D7401001AED00 /* AntDesign.ttf */; };
-		889A8BD9299D7402001AED00 /* FontAwesome5_Brands.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 889A8BC9299D7402001AED00 /* FontAwesome5_Brands.ttf */; };
-		889A8BDA299D7402001AED00 /* Ionicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 889A8BCA299D7402001AED00 /* Ionicons.ttf */; };
-		889A8BDB299D7402001AED00 /* FontAwesome5_Solid.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 889A8BCB299D7402001AED00 /* FontAwesome5_Solid.ttf */; };
 		9ECBABA06C70996CC815051E /* Pods_TableJet_TableJetTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A3A6777912D4DB4DA607289 /* Pods_TableJet_TableJetTests.framework */; };
-		BFBCC72F2B445B9300233588 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = BFBCC72E2B445B9300233588 /* GoogleService-Info.plist */; };
+		BF7AE1C02B6C143100AAE7E8 /* GoogleService-Info.plist in Copy Files */ = {isa = PBXBuildFile; fileRef = BF7AE1BE2B6C13C000AAE7E8 /* GoogleService-Info.plist */; };
+		BF7AE1C62B6C173900AAE7E8 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
+		BF7AE1C72B6C174100AAE7E8 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 88656D492A8601E90077E426 /* LaunchScreen.storyboard */; };
+		BF7AE1C92B6C182A00AAE7E8 /* teacher-state-icons.ttf in Copy Files */ = {isa = PBXBuildFile; fileRef = 9B3500489F48495092DAADC5 /* teacher-state-icons.ttf */; };
 		CF7B68DEEC722338E9610FB3 /* Pods_TableJet.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AADBA44D37B999E46C2F66D9 /* Pods_TableJet.framework */; };
-		395130F552834F8F9C877452 /* teacher-state-icons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9B3500489F48495092DAADC5 /* teacher-state-icons.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -43,6 +27,21 @@
 			remoteInfo = TableJet;
 		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		BF7AE1BF2B6C141300AAE7E8 /* Copy Files */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 7;
+			files = (
+				BF7AE1C92B6C182A00AAE7E8 /* teacher-state-icons.ttf in Copy Files */,
+				BF7AE1C02B6C143100AAE7E8 /* GoogleService-Info.plist in Copy Files */,
+			);
+			name = "Copy Files";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		00E356EE1AD99517003FC87E /* TableJetTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TableJetTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -77,12 +76,11 @@
 		889A8BCA299D7402001AED00 /* Ionicons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = Ionicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Ionicons.ttf"; sourceTree = "<group>"; };
 		889A8BCB299D7402001AED00 /* FontAwesome5_Solid.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = FontAwesome5_Solid.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Solid.ttf"; sourceTree = "<group>"; };
 		89147BA6F6684C138A61A203 /* Pods-TableJet.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TableJet.release.xcconfig"; path = "Target Support Files/Pods-TableJet/Pods-TableJet.release.xcconfig"; sourceTree = "<group>"; };
+		9B3500489F48495092DAADC5 /* teacher-state-icons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "teacher-state-icons.ttf"; path = "../resources/fonts/teacher-state-icons.ttf"; sourceTree = "<group>"; };
 		AADBA44D37B999E46C2F66D9 /* Pods_TableJet.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TableJet.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		BF7AE1BE2B6C13C000AAE7E8 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		BF8499042B437B67001CD175 /* TableJetDebug.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = TableJetDebug.entitlements; path = TableJet/TableJetDebug.entitlements; sourceTree = "<group>"; };
-		BFBCC72E2B445B9300233588 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
-		BFBCC7302B445BA000233588 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
-		9B3500489F48495092DAADC5 /* teacher-state-icons.ttf */ = {isa = PBXFileReference; name = "teacher-state-icons.ttf"; path = "../resources/fonts/teacher-state-icons.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -125,7 +123,6 @@
 		13B07FAE1A68108700A75B9A /* TableJet */ = {
 			isa = PBXGroup;
 			children = (
-				BFBCC72E2B445B9300233588 /* GoogleService-Info.plist */,
 				BF8499042B437B67001CD175 /* TableJetDebug.entitlements */,
 				886986722A82E5F1006342AE /* TableJet.entitlements */,
 				889A8BBB299D73C4001AED00 /* Fonts */,
@@ -135,6 +132,7 @@
 				13B07FB61A68108700A75B9A /* Info.plist */,
 				88656D492A8601E90077E426 /* LaunchScreen.storyboard */,
 				13B07FB71A68108700A75B9A /* main.m */,
+				BF7AE1BE2B6C13C000AAE7E8 /* GoogleService-Info.plist */,
 			);
 			name = TableJet;
 			sourceTree = "<group>";
@@ -167,7 +165,6 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
-				BFBCC7302B445BA000233588 /* GoogleService-Info.plist */,
 				13B07FAE1A68108700A75B9A /* TableJet */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				00E356EF1AD99517003FC87E /* TableJetTests */,
@@ -253,10 +250,11 @@
 			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "TableJet" */;
 			buildPhases = (
 				4A493F135D5E6C47F650F293 /* [CP] Check Pods Manifest.lock */,
+				BF7AE1C52B6C172F00AAE7E8 /* Resources */,
+				BF7AE1BF2B6C141300AAE7E8 /* Copy Files */,
 				FD10A7F022414F080027D42C /* Start Packager */,
 				13B07F871A680F5B00A75B9A /* Sources */,
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
-				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
 				D146B7764CF1B5FCDB68C095 /* [CP] Embed Pods Frameworks */,
 				BFDF977A728B6B3FC077DF3A /* [CP] Copy Pods Resources */,
@@ -317,30 +315,12 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		13B07F8E1A680F5B00A75B9A /* Resources */ = {
+		BF7AE1C52B6C172F00AAE7E8 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				889A8BCD299D7402001AED00 /* Zocial.ttf in Resources */,
-				889A8BD6299D7402001AED00 /* FontAwesome.ttf in Resources */,
-				889A8BD4299D7402001AED00 /* EvilIcons.ttf in Resources */,
-				889A8BD5299D7402001AED00 /* Feather.ttf in Resources */,
-				889A8BDA299D7402001AED00 /* Ionicons.ttf in Resources */,
-				889A8BD1299D7402001AED00 /* Foundation.ttf in Resources */,
-				88656D4A2A8601E90077E426 /* LaunchScreen.storyboard in Resources */,
-				889A8BD3299D7402001AED00 /* Fontisto.ttf in Resources */,
-				889A8BCE299D7402001AED00 /* FontAwesome5_Regular.ttf in Resources */,
-				889A8BCC299D7402001AED00 /* MaterialCommunityIcons.ttf in Resources */,
-				889A8BD9299D7402001AED00 /* FontAwesome5_Brands.ttf in Resources */,
-				BFBCC72F2B445B9300233588 /* GoogleService-Info.plist in Resources */,
-				889A8BD8299D7402001AED00 /* AntDesign.ttf in Resources */,
-				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
-				889A8BD7299D7402001AED00 /* Octicons.ttf in Resources */,
-				889A8BCF299D7402001AED00 /* SimpleLineIcons.ttf in Resources */,
-				889A8BDB299D7402001AED00 /* FontAwesome5_Solid.ttf in Resources */,
-				889A8BD2299D7402001AED00 /* Entypo.ttf in Resources */,
-				889A8BD0299D7402001AED00 /* MaterialIcons.ttf in Resources */,
-				395130F552834F8F9C877452 /* teacher-state-icons.ttf in Resources */,
+				BF7AE1C72B6C174100AAE7E8 /* LaunchScreen.storyboard in Resources */,
+				BF7AE1C62B6C173900AAE7E8 /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -596,12 +576,13 @@
 			baseConfigurationReference = 641990D534ADDD8A25B1A43B /* Pods-TableJet.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = TableJet/TableJetDebug.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = YCJWM9D793;
 				ENABLE_BITCODE = NO;
@@ -611,7 +592,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.2.1;
+				MARKETING_VERSION = 0.3.0;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -632,12 +613,13 @@
 			baseConfigurationReference = 89147BA6F6684C138A61A203 /* Pods-TableJet.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = TableJet/TableJet.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = YCJWM9D793;
 				INFOPLIST_FILE = TableJet/Info.plist;
@@ -646,7 +628,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.2.1;
+				MARKETING_VERSION = 0.3.0;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
