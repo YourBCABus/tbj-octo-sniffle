@@ -114,11 +114,14 @@ export default function InitialSettings({
                                 minimalistIcons,
                             );
                             updateSettingStorage(() => {}, 'setup', true);
-
-                            navigation.reset({
-                                index: 0,
-                                routes: [{ name: 'Main' }],
-                            });
+                            setTimeout(
+                                () =>
+                                    navigation.reset({
+                                        index: 0,
+                                        routes: [{ name: 'Main' }],
+                                    }),
+                                1000,
+                            );
                         }}
                         className="bg-purple-800 rounded-md p-2 mt-2 active:bg-purple-700 w-1/2">
                         <Text className="text-lg text-gray-200 text-center">

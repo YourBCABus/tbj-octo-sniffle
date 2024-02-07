@@ -1,6 +1,6 @@
 import { useFocusEffect } from '@react-navigation/native';
 import { useCallback, useState } from 'react';
-import { getSettingState } from '../storage/SettingStorage';
+import { getSingleSetting } from '../storage/SettingStorage';
 
 const useSetting = (settingName: string, defaultValue: boolean) => {
     const [settingValue, setSettingValue] = useState(defaultValue);
@@ -11,7 +11,7 @@ const useSetting = (settingName: string, defaultValue: boolean) => {
 
             const reqSettingState = async () => {
                 try {
-                    const state = await getSettingState(settingName);
+                    const state = await getSingleSetting(settingName);
 
                     if (isActive) {
                         setSettingValue(state);

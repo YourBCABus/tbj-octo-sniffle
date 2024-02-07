@@ -71,3 +71,4 @@ ios/Podfile.lock
 
 
 ios/TableJet/Images.xcassets/AppIcon.appiconset/*.png
+android/app/src/main/res/mipmap-*dpi/ic_launcher*.png

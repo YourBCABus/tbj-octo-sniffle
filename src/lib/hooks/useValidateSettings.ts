@@ -1,16 +1,30 @@
 import { useCallback } from 'react';
 import { useFocusEffect } from '@react-navigation/native';
 
-import { validateSettings } from '../storage/SettingStorage';
+import {
+    SettingError,
+    handleSettingsError,
+    validateSettings,
+} from '../storage/SettingStorage';
 
-const useValidateSettings = () => {
+const useFixSettings = () => {
     useFocusEffect(
         useCallback(() => {
-            let isActive = true;
+            const continueValidating = new AbortController();
+            const continueValidatingSignal = continueValidating.signal;
+
             const validate = async () => {
                 try {
-                    if (isActive) {
-                        validateSettings();
+                    if (!continueValidatingSignal.aborted) {
+                        validateSettings().catch((e: unknown) => {
+                            if (e instanceof SettingError) {
+                                handleSettingsError(e);
+                            } else {
+                                console.warn(
+                                    `Unknown setting validation error: ${e}`,
+                                );
+                            }
+                        });
                     }
                 } catch (e) {
                     console.log(e);
@@ -19,11 +33,9 @@ const useValidateSettings = () => {
 
             validate();
 
-            return () => {
-                isActive = false;
-            };
+            return () => continueValidating.abort();
         }, []),
     );
 };
 
-export default useValidateSettings;
+export default useFixSettings;

@@ -29,7 +29,7 @@ import {
 
 // Hooks
 import useRerender from '../lib/hooks/useRerender';
-import useValidateSettings from '../lib/hooks/useValidateSettings';
+import useFixSettings from '../lib/hooks/useValidateSettings';
 import useSetting from '../lib/hooks/useSetting';
 import {
     useStarredTeachers,
@@ -79,7 +79,7 @@ function getAbsenceState(
 }
 
 export default function Main({ navigation }: any) {
-    useValidateSettings();
+    useFixSettings();
     const useHapticFeedback = useSetting('hapticfeedback', false);
     const useMinimalistIcons = useSetting('minimalist', false);
 

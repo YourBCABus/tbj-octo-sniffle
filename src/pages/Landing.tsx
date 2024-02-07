@@ -3,7 +3,11 @@ import React, { useEffect } from 'react';
 import { View, Text, Pressable } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { initialSettingsLoad } from '../lib/storage/SettingStorage';
+import {
+    SettingError,
+    handleSettingsError,
+    initialSettingsLoad,
+} from '../lib/storage/SettingStorage';
 
 interface LandingProps {
     navigation: NativeStackNavigationProp<any>;
@@ -11,18 +15,25 @@ interface LandingProps {
 
 // look into navigation type, might be incorrect
 export default function Landing({ navigation }: LandingProps) {
+    initialSettingsLoad();
     useEffect(() => {
-        initialSettingsLoad()
-            .then(settings => settings.find(s => s.id === 'setup'))
-            .then(s => s?.value)
-            .then(alreadySetUp => {
-                if (alreadySetUp) {
+        (async () => {
+            try {
+                const settings = await initialSettingsLoad();
+                const setupState = settings.find(s => s.id === 'setup')?.value;
+                if (setupState) {
                     navigation.reset({
                         index: 0,
                         routes: [{ name: 'Main' }],
                     });
                 }
-            });
+            } catch (e) {
+                if (e instanceof SettingError) {
+                    await handleSettingsError(e);
+                }
+                console.error(e);
+            }
+        })();
     }, [navigation]);
 
     return (
