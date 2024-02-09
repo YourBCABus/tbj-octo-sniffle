@@ -22,7 +22,10 @@ export const useStarredTeacherIds = (
     }, [setStarredTeachers]);
 
     const toggleTeacherStarState = useCallback(
-        (id: string) => updateTeacherStarStorage(setStarredTeachers, id),
+        (id: string) => {
+            console.log("ooooooooh!");
+            updateTeacherStarStorage(setStarredTeachers, id)
+        },
         [setStarredTeachers],
     );
 

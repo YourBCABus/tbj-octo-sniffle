@@ -7,6 +7,7 @@ import { updateSettingStorage } from '../lib/storage/SettingStorage';
 import { exampleTeachers } from '../lib/dummydata';
 import DummyTeacherEntry from '../components/TeacherEntry/DummyTeacherEntry';
 import SettingEntry from '../components/SettingEntry/SettingEntry';
+import { Platform } from 'react-native';
 
 interface SetupProps {
     navigation: NativeStackNavigationProp<any>;
@@ -39,8 +40,9 @@ export default function InitialSettings({
     },
 }: SetupProps) {
     const [minimalistIcons, setMinimalistIcons] = useState(false);
-    const page = pageNullable ?? CurrPage.NOTIFS;
-    switch (page) {
+    const rawPage = pageNullable ?? CurrPage.NOTIFS;
+    const webAwarePage = Platform.OS === 'web' ? CurrPage.ICONS : rawPage;
+    switch (webAwarePage) {
         case CurrPage.NOTIFS:
             return (
                 <View className="flex-1 items-center justify-center bg-zinc-950 space-y-5 px-5">

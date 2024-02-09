@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 
 import { View, Text, Pressable } from 'react-native';
-import LinearGradient from 'react-native-linear-gradient';
+import LinearGradient from '../lib/webcompat/LinearGradient/index.web';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import {
     SettingError,
@@ -15,6 +15,7 @@ interface LandingProps {
 
 // look into navigation type, might be incorrect
 export default function Landing({ navigation }: LandingProps) {
+    console.log('Landing');
     initialSettingsLoad();
     useEffect(() => {
         (async () => {
@@ -37,10 +38,10 @@ export default function Landing({ navigation }: LandingProps) {
     }, [navigation]);
 
     return (
-        <View className="flex-1 items-center justify-center">
+        <View className="flex-1 items-center justify-center h-full">
             <LinearGradient
                 colors={['#8a0d9e', 'purple', 'black']}
-                className="flex-1 items-center justify-center w-full">
+                className="flex-1 items-center justify-center w-full h-screen flex-grow">
                 <Text className="text-3xl text-white font-bold">TableJet</Text>
                 <Text className="italic text-md text-gray-200">
                     Absences Simplified

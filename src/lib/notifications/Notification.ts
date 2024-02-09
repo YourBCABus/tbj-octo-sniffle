@@ -1,9 +1,11 @@
 import notifee, { AuthorizationStatus } from '@notifee/react-native';
-import messaging from '@react-native-firebase/messaging';
 import { Platform } from 'react-native';
 import { GET_ALL_TEACHERS_PERIODS } from '../graphql/Queries';
 import { client } from '../../../App';
 import { Period } from '../types/types';
+// // import messaging from '../webcompat/firebase-messaging/index.web';
+import messaging from '../webcompat/firebase-messaging/index.web';
+// import messaging from '@react-native-firebase/messaging';
 
 export async function requestUserPermission() {
     const authStatus = await notifee.requestPermission();
@@ -26,8 +28,17 @@ export async function requestUserPermission() {
     }
 }
 
+const defaultStatus = {
+    authorizationStatus: AuthorizationStatus.DENIED,
+    ios: {},
+    android: {},
+    web: {},
+};
 export async function hasNotifPermission(): Promise<boolean> {
-    const notifSettings = await notifee.getNotificationSettings();
+    const notifSettings =
+        Platform.OS === 'web'
+            ? defaultStatus
+            : await notifee.getNotificationSettings();
     const authStatus = notifSettings.authorizationStatus;
     return authStatus === AuthorizationStatus.AUTHORIZED;
 }

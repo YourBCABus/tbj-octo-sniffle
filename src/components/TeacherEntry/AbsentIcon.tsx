@@ -90,9 +90,6 @@ export function DefaultIcon({ status }: IconProps) {
     const unknownFg = { ...unknownFgColorless, color: colors.partialOrange };
     const absentFg = { ...absentFgColorless, color: colors.absentRed };
     const presentFg = { ...presentFgColorless, color: colors.presentGreen };
-    if (Math.random() < 0.01) {
-        return <Icon color={colors.presentGreen} size={30} name="checkmark-circle" className="h-8" />;
-    }
     switch (status) {
         case AbsenceState.ABSENT_PART_UNSURE:
             return <LayeredIcon bg={partialBg} fg={unknownFg} />;

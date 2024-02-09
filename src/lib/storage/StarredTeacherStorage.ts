@@ -78,10 +78,10 @@ export async function updateTeacherStarStorage(
 ): Promise<boolean> {
     try {
         let old = await initialIdLoad();
+        old.has(id) ? old.delete(id) : old.add(id);
 
         if (await hasNotifPermission()) {
             if (value === undefined) {
-                // old.has(id) ? old.delete(id) : old.add(id);
                 if (old.has(id)) {
                     unsubscribeToNotification(id);
                     old.delete(id);

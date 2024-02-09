@@ -9,7 +9,7 @@ import { AbsenceState, Period, Teacher } from '../lib/types/types';
 import { GET_ALL_TEACHERS_PERIODS } from '../lib/graphql/Queries';
 
 // Notifs
-import messaging from '@react-native-firebase/messaging';
+import messaging from '../lib/webcompat/firebase-messaging/index.native';
 
 // Components
 import { BottomSheetModalProvider } from '@gorhom/bottom-sheet';
@@ -80,19 +80,22 @@ function getAbsenceState(
 
 export default function Main({ navigation }: any) {
     useFixSettings();
-    const useHapticFeedback = useSetting('hapticfeedback', false);
+    const useHapticFeedback =
+        useSetting('hapticfeedback', false) && Platform.OS !== 'web';
     const useMinimalistIcons = useSetting('minimalist', false);
 
     // TODO --> Potentially tell users to keep Background App Refresh mode on for best performance on iOS
     useEffect(() => {
-        const unsubscribe = messaging().onMessage(async remoteMessage => {
-            Alert.alert(
-                'A new FCM message arrived!',
-                JSON.stringify(remoteMessage),
-            );
-        });
+        if (Platform.OS !== 'web') {
+            const unsubscribe = messaging().onMessage(async remoteMessage => {
+                Alert.alert(
+                    'A new FCM message arrived!',
+                    JSON.stringify(remoteMessage),
+                );
+            });
 
-        return unsubscribe;
+            return unsubscribe;
+        }
     }, []);
 
     const rerender = useRerender();

@@ -19,11 +19,17 @@ import Settings from './src/pages/Settings';
 import { StatusBar } from 'react-native';
 import InitialSettings from './src/pages/InitialSettings';
 
+import { NativeWindStyleSheet } from 'nativewind';
+
+NativeWindStyleSheet.setOutput({
+    web: 'native',
+});
+
 const Stack = createNativeStackNavigator();
 
 export default function App(): JSX.Element {
     return (
-        <GestureHandlerRootView className="flex-1">
+        <GestureHandlerRootView className="flex-1 h-full">
             <ApolloProvider client={client}>
                 <StatusBar barStyle="light-content" translucent={true} />
                 <NavigationContainer>
