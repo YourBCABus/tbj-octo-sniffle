@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 
 import { View, Text, Pressable } from 'react-native';
-import LinearGradient from '../lib/webcompat/LinearGradient/index.web';
+import LinearGradient from '../lib/webcompat/LinearGradient/index';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import {
     SettingError,

@@ -9,7 +9,7 @@ import { AbsenceState, Period, Teacher } from '../lib/types/types';
 import { GET_ALL_TEACHERS_PERIODS } from '../lib/graphql/Queries';
 
 // Notifs
-import messaging from '../lib/webcompat/firebase-messaging/index.native';
+import messaging from '../lib/webcompat/firebase-messaging/index';
 
 // Components
 import { BottomSheetModalProvider } from '@gorhom/bottom-sheet';

@@ -3,9 +3,7 @@ import { Platform } from 'react-native';
 import { GET_ALL_TEACHERS_PERIODS } from '../graphql/Queries';
 import { client } from '../../../App';
 import { Period } from '../types/types';
-// // import messaging from '../webcompat/firebase-messaging/index.web';
-import messaging from '../webcompat/firebase-messaging/index.web';
-// import messaging from '@react-native-firebase/messaging';
+import messaging from '../webcompat/firebase-messaging/index';
 
 export async function requestUserPermission() {
     const authStatus = await notifee.requestPermission();
