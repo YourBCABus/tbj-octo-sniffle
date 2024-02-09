@@ -22,7 +22,7 @@ enum CurrPage {
 function DummyTeacherDisplay({ minimalist }: { minimalist: boolean }) {
     return (
         <View className="h-1/2 w-full">
-            {exampleTeachers.map(teacher => (
+            {exampleTeachers.slice(0, 5).map(teacher => (
                 <DummyTeacherEntry
                     {...teacher}
                     minimalist={minimalist}
