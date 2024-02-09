@@ -72,4 +72,7 @@ dist/
 
 
 ios/TableJet/Images.xcassets/AppIcon.appiconset/*.png
+
 android/app/src/main/res/mipmap-*dpi/ic_launcher*.png
+android/app/src/main/res/mipmap-*dpi/ic_launcher*.webp
+android/app/src/main/ic_launcher-playstore.png
