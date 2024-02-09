@@ -108,6 +108,7 @@ export default function TeacherEntry(props: TeacherEntryProps) {
     return (
         <GestureHandlerRootView className="flex-1" id={id}>
             <Pressable
+                disabled={props.disableInteraction}
                 className="my-auto"
                 hitSlop={1}
                 onPress={() => {

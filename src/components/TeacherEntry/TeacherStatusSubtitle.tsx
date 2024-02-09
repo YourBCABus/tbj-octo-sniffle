@@ -48,11 +48,11 @@ export default function TeacherStatusSubtitle(
                     Present All Day
                 </Text>
             );
-        case AbsenceState.NO_PERIOD:
+        case AbsenceState.DAY_OVER:
             if (!props.alwaysShow) return <></>;
             return (
                 <Text className="text-sm" style={{ color: colors.defaultGray }}>
-                    Unknown
+                    Day is over
                 </Text>
             );
     }
