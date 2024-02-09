@@ -19,14 +19,11 @@ export const useStarredTeacherIds = (
 
     useEffect(() => {
         initialIdLoad().then(value => setStarredTeachers(value));
-    }, [setStarredTeachers]);
+    }, []);
 
     const toggleTeacherStarState = useCallback(
-        (id: string) => {
-            console.log("ooooooooh!");
-            updateTeacherStarStorage(setStarredTeachers, id)
-        },
-        [setStarredTeachers],
+        (id: string) => updateTeacherStarStorage(setStarredTeachers, id),
+        [],
     );
 
     return [starredTeachers, toggleTeacherStarState];

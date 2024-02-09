@@ -78,25 +78,22 @@ export async function updateTeacherStarStorage(
 ): Promise<boolean> {
     try {
         let old = await initialIdLoad();
-        old.has(id) ? old.delete(id) : old.add(id);
 
         if (await hasNotifPermission()) {
             if (value === undefined) {
                 if (old.has(id)) {
                     unsubscribeToNotification(id);
-                    old.delete(id);
                 } else {
                     subscribeToNotification(id);
-                    old.add(id);
                 }
             } else if (value) {
                 subscribeToNotification(id);
-                old.add(id);
             } else {
                 unsubscribeToNotification(id);
-                old.delete(id);
             }
         }
+
+        old.has(id) ? old.delete(id) : old.add(id);
 
         await AsyncStorage.setItem(STARRED_ID_KEY, JSON.stringify([...old]));
 
