@@ -2,7 +2,7 @@
 import React from 'react';
 
 // Components
-import { View, Text, Pressable, ColorValue } from 'react-native';
+import { View, Text, Pressable, ColorValue, Platform } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import AbsentIcon from './AbsentIcon';
 import TeacherStatusSubtitle from './TeacherStatusSubtitle';
@@ -183,7 +183,7 @@ export default function TeacherEntry(props: TeacherEntryProps) {
                     </View>
                 </View>
             </Pressable>
-            {!props.disableInteraction && (
+            {!props.disableInteraction && Platform.OS !== 'web' && (
                 <TeacherBottomModal
                     modalRef={bottomSheetModalRef}
                     teacher={props.teacher}
