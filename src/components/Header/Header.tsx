@@ -13,8 +13,8 @@ export default function Header({ navigation }: HeaderProps): JSX.Element {
             <View>
                 <Pressable
                     onPressIn={() => navigation.navigate('Settings')}
-                    hitSlop={3}>
-                    <Icon name="cog" size={35} color="rgb(250 250 250)" />
+                    hitSlop={10}>
+                    <Icon name="cog" size={40} color="rgb(250 250 250)" />
                 </Pressable>
             </View>
         </View>

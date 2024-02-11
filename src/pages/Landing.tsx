@@ -54,7 +54,11 @@ export default function Landing({ navigation }: LandingProps) {
                             routes: [{ name: 'InitialSettings' }],
                         })
                     }
-                    className="bg-gray-800 rounded-md p-2 mt-3 active:bg-gray-700 w-1/4">
+                    className="
+                        bg-gray-800 active:bg-gray-700
+                        rounded-md p-2 mt-3 
+                        w-1/4 min-h-48dip
+                        flex items-center justify-center">
                     <Text className="text-md text-gray-200 text-center">
                         Get Started
                     </Text>

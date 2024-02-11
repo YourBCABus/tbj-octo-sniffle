@@ -143,6 +143,7 @@ export default function TeacherEntry(props: TeacherEntryProps) {
                     </View>
                     <View className="flex flex-row space-x-2">
                         <Pressable
+                            disabled={props.disableInteraction}
                             onPress={toggle}
                             hitSlop={2}
                             className="my-auto">
@@ -160,26 +161,13 @@ export default function TeacherEntry(props: TeacherEntryProps) {
                                 />
                             )}
                         </Pressable>
-                        <Pressable
-                            className="my-auto"
-                            hitSlop={1}
-                            onPress={() => {
-                                handlePresentModalPress();
-                                if (props.hapticfeedback) {
-                                    ReactNativeHapticFeedback.trigger(
-                                        'impactHeavy',
-                                        HAPTIC_OPTIONS,
-                                    );
-                                }
-                            }}>
-                            <View className="pt-1">
-                                <Icon
-                                    name="chevron-forward-outline"
-                                    size={21}
-                                    color="rgb(63 63 70)"
-                                />
-                            </View>
-                        </Pressable>
+                        <View className="my-auto">
+                            <Icon
+                                name="chevron-forward-outline"
+                                size={21}
+                                color="rgb(121 120 129)"
+                            />
+                        </View>
                     </View>
                 </View>
             </Pressable>

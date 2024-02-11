@@ -61,7 +61,11 @@ export default function InitialSettings({
                             await notifee.requestPermission();
                             navigation.setParams({ page: CurrPage.ICONS });
                         }}
-                        className="bg-purple-800 rounded-md p-2 mt-3 active:bg-purple-700 w-1/4">
+                        className="
+                            bg-purple-800 active:bg-purple-700
+                            p-2 mt-3 rounded-md
+                            w-1/4 min-h-48dip
+                            flex items-center justify-center">
                         <Text className="text-md text-gray-200 text-center">
                             Yes
                         </Text>
@@ -70,7 +74,11 @@ export default function InitialSettings({
                         onPress={() =>
                             navigation.setParams({ page: CurrPage.ICONS })
                         }
-                        className="bg-gray-800 rounded-md p-2 mt-3 active:bg-gray-700 w-1/4">
+                        className="
+                            bg-gray-800 active:bg-gray-700
+                            p-2 mt-3 rounded-md
+                            w-1/4 min-h-48dip
+                            flex items-center justify-center">
                         <Text className="text-md text-gray-200 text-center">
                             No
                         </Text>

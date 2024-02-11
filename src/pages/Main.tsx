@@ -41,7 +41,7 @@ import useRefreshableQuery from '../lib/hooks/useRefreshableQuery';
 import useTeachers from '../lib/hooks/useTeachers';
 import { useState, useEffect, useMemo } from 'react';
 
-const SUBHEADER = 'text-zinc-600 font-medium pl-2 text-sm';
+const SUBHEADER = 'text-zinc-aa-compliant font-medium pl-2 text-sm';
 
 // need to do this because of weird stuff on android devices with notches unfortunately
 const SUCCESSFUL_SAFE_AREA_VIEW_STYLE =
@@ -183,7 +183,7 @@ export default function Main({ navigation }: any) {
                     </View>
 
                     {starredTeachers.length > 0 ? (
-                        <View className="mt-1 pt-2 border-t border-zinc-600">
+                        <View className="mt-1 pt-2 border-t border-zinc-aa-compliant">
                             <Text className={SUBHEADER}>Starred Teachers</Text>
                         </View>
                     ) : null}
@@ -208,7 +208,7 @@ export default function Main({ navigation }: any) {
                     })}
 
                     {sortedTeachers.length > 0 ? (
-                        <View className="mt-1 pt-2 border-t border-zinc-600">
+                        <View className="mt-1 pt-2 border-t border-zinc-aa-compliant">
                             <Text className={SUBHEADER}> All Teachers </Text>
                         </View>
                     ) : (
