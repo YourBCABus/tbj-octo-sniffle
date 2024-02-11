@@ -10,7 +10,10 @@
     "test": "jest",
 
     "build:web": "webpack --mode=production --config ./web/webpack.config.js",
-    "dev:web": "webpack-dev-server --config ./web/webpack.config.js --mode=development --no-hot"
+    "dev:web": "webpack-dev-server --config ./web/webpack.config.js --mode=development --no-hot",
+
+    "build:android": "npx react-native build-android --mode=release",
+    "build:ios": "npx react-native build-ios --configuration Release"
   },
   "dependencies": {
     "@apollo/client": "^3.7.8",
