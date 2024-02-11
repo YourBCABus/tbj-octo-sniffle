@@ -8,6 +8,7 @@ import {
     handleSettingsError,
     initialSettingsLoad,
 } from '../lib/storage/SettingStorage';
+import useFixSettings from '../lib/hooks/useValidateSettings';
 
 interface LandingProps {
     navigation: NativeStackNavigationProp<any>;
@@ -15,8 +16,7 @@ interface LandingProps {
 
 // look into navigation type, might be incorrect
 export default function Landing({ navigation }: LandingProps) {
-    console.log('Landing');
-    initialSettingsLoad();
+    useFixSettings();
     useEffect(() => {
         (async () => {
             try {

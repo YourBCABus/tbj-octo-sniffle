@@ -30,17 +30,16 @@ const DEFAULT_SETTINGS: Setting[] = [
 ];
 
 export async function handleSettingsError(e: SettingError): Promise<Setting[]> {
-    console.warn(e.message);
-
     if (e.needsFullReinit) {
-        return e.getNewValue();
+        return await initializeDefaults();
     } else {
         try {
             const old = await initialSettingsLoad();
-            return e.getNewValue(old);
+            await __setSettingString(JSON.stringify(e.getNewValue(old)));
+            return e.getNewValue();
         } catch (err) {
             console.warn(err);
-            return e.getNewValue();
+            return await initializeDefaults();
         }
     }
 }
@@ -77,16 +76,18 @@ export async function validateSettings(): Promise<void> {
     const defaultSettings = [...DEFAULT_SETTINGS];
 
     const missingSettings = defaultSettings.filter(setting => {
-        return !currentSettings.some(
+        const currentSettingMatch = currentSettings.find(
             currentSetting => currentSetting.id === setting.id,
         );
+        return currentSettingMatch === undefined;
     });
 
     if (missingSettings.length > 0) {
         throw new SettingMissingError(missingSettings);
     }
-
-    console.warn('Extra settings found.');
+    if (currentSettings.length > defaultSettings.length) {
+        console.warn('Extra settings found:', currentSettings);
+    }
 }
 
 async function getSettings(): Promise<Setting[]> {

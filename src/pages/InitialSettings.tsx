@@ -110,12 +110,16 @@ export default function InitialSettings({
                     <View className="mx-5 w-full border border-slate-500 opacity-80" />
                     <Pressable
                         onPress={async () => {
-                            updateSettingStorage(
+                            await updateSettingStorage(
                                 () => {},
                                 'minimalist',
                                 minimalistIcons,
                             );
-                            updateSettingStorage(() => {}, 'setup', true);
+                            await updateSettingStorage(
+                                () => {},
+                                'setup',
+                                true,
+                            );
                             setTimeout(
                                 () =>
                                     navigation.reset({
