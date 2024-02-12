@@ -31,7 +31,8 @@ export default function App(): JSX.Element {
     return (
         <GestureHandlerRootView className="flex-1 h-full">
             <ApolloProvider client={client}>
-                <StatusBar barStyle="light-content" translucent={true} />
+                {/* The backgroundColor is currently a non-working hack for the web version. */}
+                <StatusBar barStyle="light-content" translucent={true} backgroundColor={"#09090b"} />
                 <NavigationContainer>
                     <Stack.Navigator
                         screenOptions={{
