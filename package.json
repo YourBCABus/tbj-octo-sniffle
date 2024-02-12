@@ -9,7 +9,7 @@
     "start": "react-native start",
     "test": "jest",
 
-    "build:web": "webpack --mode=production --config ./web/webpack.config.js",
+    "build:web": "webpack --mode=production --config ./web/webpack.config.js && zip -r dist.zip dist",
     "dev:web": "webpack-dev-server --config ./web/webpack.config.js --mode=development --no-hot",
 
     "build:android": "npx react-native build-android --mode=release",

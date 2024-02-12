@@ -65,6 +65,7 @@ yarn-error.log
 package-lock.json
 ios/Podfile.lock
 dist/
+dist.zip
 
 .env
 
