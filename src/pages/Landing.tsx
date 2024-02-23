@@ -25,7 +25,7 @@ export default function Landing({ navigation }: LandingProps) {
                 if (setupState) {
                     navigation.reset({
                         index: 0,
-                        routes: [{ name: 'Main' }],
+                        routes: [{ name: 'TableJet' }],
                     });
                 }
             } catch (e) {
@@ -51,7 +51,7 @@ export default function Landing({ navigation }: LandingProps) {
                     onPress={() =>
                         navigation.reset({
                             index: 0,
-                            routes: [{ name: 'InitialSettings' }],
+                            routes: [{ name: 'TableJet - Initial Settings' }],
                         })
                     }
                     className="

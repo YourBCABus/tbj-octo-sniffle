@@ -130,6 +130,18 @@ module.exports = {
                 },
             ],
         }),
+        new CopyWebpackPlugin({
+            patterns: [
+                {
+                    from: 'public/[!i]*',
+                    to: '[name][ext]',
+                },
+                {
+                    from: 'public/icons/homescreen192.png',
+                    to: 'apple-touch-icon.png',
+                },
+            ],
+        }),
     ],
 
     // ...the rest of your config

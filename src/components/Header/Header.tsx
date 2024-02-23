@@ -12,7 +12,7 @@ export default function Header({ navigation }: HeaderProps): JSX.Element {
             <Text className="text-[#9898f5] font-bold text-3xl">TableJet</Text>
             <View>
                 <Pressable
-                    onPressIn={() => navigation.navigate('Settings')}
+                    onPressIn={() => navigation.navigate('TableJet - Settings')}
                     hitSlop={10}>
                     <Icon name="cog" size={40} color="rgb(250 250 250)" />
                 </Pressable>

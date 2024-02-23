@@ -3,6 +3,16 @@
   <head>
     <meta charset="utf-8" />
     <link rel="icon" href="/favicon.ico" />
+    
+    <link rel=”manifest” href="/manifest.json">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  
+    <script>
+      if('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('/pwa.js', { scope: '/' });
+      }
+    </script>
+
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#000000" />
     <meta

@@ -132,7 +132,7 @@ export default function InitialSettings({
                                 () =>
                                     navigation.reset({
                                         index: 0,
-                                        routes: [{ name: 'Main' }],
+                                        routes: [{ name: 'TableJet' }],
                                     }),
                                 1000,
                             );
