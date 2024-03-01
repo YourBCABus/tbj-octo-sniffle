@@ -1,17 +1,28 @@
 import { useMemo, useState } from 'react';
 import { getClientKey } from '../storage/auth';
-import { ApolloClient, InMemoryCache } from '@apollo/client';
+import {
+    ApolloClient,
+    ApolloClientOptions,
+    InMemoryCache,
+    NormalizedCacheObject,
+} from '@apollo/client';
 import { useAsyncIntervalValue } from './useInterval';
+import { GRAPHQL_API_ENDPOINT } from '@env';
 
 const getApolloClient = (id: string, secret: string) => {
-    if (!id || !secret) return new ApolloClient({ cache: new InMemoryCache() });
-    return new ApolloClient({
-        headers: {
+    const config: ApolloClientOptions<NormalizedCacheObject> = {
+        uri: GRAPHQL_API_ENDPOINT,
+        cache: new InMemoryCache(),
+    };
+
+    if (id && secret) {
+        config.headers = {
             'Client-Id': id,
             'Client-Secret': secret,
-        },
-        cache: new InMemoryCache(),
-    });
+        };
+    }
+
+    return new ApolloClient(config);
 };
 
 const getKeyWithDefault = async () => {
@@ -29,7 +40,7 @@ const useAuthenticatedApolloClient = () => {
     const [validAuthValue, setValidAuthValue] = useState(false);
     const { id, secret } = useAsyncIntervalValue(
         getKeyWithDefault,
-        validAuthValue ? 1000 * 60 : 1000, // TODO: Slow this down
+        validAuthValue ? 60 * 1000 * 60 : 10 * 1000, // TODO: Slow this down
         { id: '', secret: '' },
     );
 
