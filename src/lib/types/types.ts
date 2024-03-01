@@ -2,35 +2,13 @@ export interface Teacher {
     id: string;
     displayName: string;
     name: TeacherName;
-    pronouns: PronounSet;
     absence: string[]; // will be an array of period ids
     fullyAbsent: boolean;
 }
 
-export interface PronounSet {
-    sub: string;
-    subject: string;
-    obj: string;
-    object: string;
-    posAdj: string;
-    possAdjective: string;
-    posPro: string;
-    possPronoun: string;
-    refx: string;
-    reflexive: string;
-    grammPlu: boolean;
-    grammaticallyPlural: boolean;
-    setStr: string;
-}
-
 export interface TeacherName {
     honorific: string;
-    first: string;
-    middles: string[];
     last: string;
-    // formatted: string
-    full: string;
-    firstLast: string;
     normal: string;
 }
 
@@ -46,9 +24,8 @@ export enum AbsenceState {
 export interface Period {
     id: string;
     name: string;
-    defaultTimeRange: TimeRange;
     timeRange: TimeRange;
-    teachersAbsent: Teacher[];
+    teachersAbsent: { id: string }[];
 }
 
 export interface TimeRange {

@@ -1,9 +1,9 @@
 import notifee, { AuthorizationStatus } from '@notifee/react-native';
 import { Platform } from 'react-native';
 import { GET_ALL_TEACHERS_PERIODS } from '../graphql/Queries';
-import { client } from '../../../App';
 import { Period } from '../types/types';
 import messaging from '../webcompat/firebase-messaging/index';
+import { getAuthenticatedApolloClient } from '../hooks/useAuthenticatedApolloClient';
 
 export async function requestUserPermission() {
     const authStatus = await notifee.requestPermission();
@@ -45,6 +45,7 @@ async function coalescePeriods(
     periods: Period[] | undefined | null,
 ): Promise<Period[]> {
     if (periods == null || typeof periods === 'undefined') {
+        const client = await getAuthenticatedApolloClient();
         const { data } = await client.query({
             query: GET_ALL_TEACHERS_PERIODS,
         });

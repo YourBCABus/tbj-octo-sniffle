@@ -20,7 +20,6 @@ export default function DummyTeacherEntry({
 }: DummyTeacherEntryProps) {
     const honorific = name.split(' ')[0];
     const noHonorific = name.split(' ').slice(1).join(' ');
-    const first = noHonorific.split(' ')[0];
     const last = noHonorific.split(' ').slice(1).join(' ');
 
     return (
@@ -30,36 +29,11 @@ export default function DummyTeacherEntry({
                 fullyAbsent: absenceState.state === AbsenceState.ABSENT_ALL_DAY,
                 absence: absenceState.periods,
                 name: {
-                    full: name,
-                    first,
                     last,
-                    firstLast: `${first} ${last}`,
                     honorific,
-                    middles: [],
                     normal: `${honorific} ${last}`,
                 },
                 displayName: `${honorific} ${last}`,
-                pronouns: {
-                    subject: 'they',
-                    sub: 'they',
-
-                    object: 'them',
-                    obj: 'them',
-
-                    possPronoun: 'their',
-                    posPro: 'their',
-
-                    possAdjective: 'theirs',
-                    posAdj: 'theirs',
-
-                    reflexive: 'themself',
-                    refx: 'themself',
-
-                    setStr: 'they;them;their;theirs;themself',
-
-                    grammaticallyPlural: true,
-                    grammPlu: true,
-                },
             }}
             starred={starred}
             setStar={() => {}}

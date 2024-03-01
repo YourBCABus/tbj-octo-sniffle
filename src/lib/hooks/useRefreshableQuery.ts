@@ -8,6 +8,7 @@ import {
     TypedDocumentNode,
     useQuery,
 } from '@apollo/client';
+import useAuthenticatedApolloClient from './useAuthenticatedApolloClient';
 
 interface RefreshableQueryResult<T, V extends OperationVariables>
     extends Omit<QueryResult<T, V>, 'refetch'> {
@@ -21,20 +22,20 @@ const useRefreshableQuery = <Q, V extends OperationVariables>(
 ): RefreshableQueryResult<Q, V> => {
     const [isRefreshing, setIsRefreshing] = useState(false);
 
-    const { refetch, ...queryReturn } = useQuery(query, options);
+    const client = useAuthenticatedApolloClient();
+    const { refetch, ...queryReturn } = useQuery(query, { ...options, client });
 
-    const refresh = useCallback(() => {
+    const refresh = useCallback(async () => {
         setIsRefreshing(true);
-        return refetch()
-            .then(v => {
-                setIsRefreshing(false);
-                return v;
-            })
-            .catch(e => {
-                setIsRefreshing(false);
-                console.log('refetch failed:', e);
-                return e;
-            });
+        try {
+            const val = await refetch();
+            setIsRefreshing(false);
+            return val;
+        } catch (e) {
+            setIsRefreshing(false);
+            console.log('refetch failed:', e);
+            return e as any;
+        }
     }, [refetch, setIsRefreshing]);
 
     return {

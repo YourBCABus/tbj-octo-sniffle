@@ -14,28 +14,9 @@ export const GET_ALL_TEACHERS_PERIODS = gql`
     query getAllData {
         teachers: allTeachers {
             id
-            pronouns {
-                sub
-                subject
-                obj
-                object
-                posAdj
-                possAdjective
-                posPro
-                possPronoun
-                refx
-                reflexive
-                grammPlu
-                grammaticallyPlural
-                setStr
-            }
             name {
                 honorific
-                first
-                middles
                 last
-                full
-                firstLast
                 normal
             }
             absence {
@@ -46,19 +27,12 @@ export const GET_ALL_TEACHERS_PERIODS = gql`
         periods: allPeriods {
             id
             name
-            defaultTimeRange {
-                start
-                end
-            }
             timeRange {
                 start
                 end
             }
             teachersAbsent {
                 id
-                name {
-                    full
-                }
             }
         }
     }
