@@ -6,6 +6,7 @@ import {
     initialSettingsLoad,
     updateSettingStorage,
 } from '../lib/storage/SettingStorage';
+import SupportFormLink from '../components/SupportFormLink';
 
 export default function Settings() {
     const [settings, setSettingValue] = useState<Setting[]>([]);
@@ -35,6 +36,7 @@ export default function Settings() {
                     />
                 );
             })}
+            <SupportFormLink />
             <Text className="text-gray-300 absolute bottom-10 text-center">
                 © Yenowa
             </Text>

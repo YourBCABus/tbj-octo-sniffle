@@ -37,3 +37,11 @@ export const GET_ALL_TEACHERS_PERIODS = gql`
         }
     }
 `;
+
+export const GET_SUPPORT_FORM = gql`
+    query GetSupportForm {
+        attribs {
+            supportFormUrl
+        }
+    }
+`;
