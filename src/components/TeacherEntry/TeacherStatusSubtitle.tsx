@@ -16,8 +16,12 @@ export default function TeacherStatusSubtitle(
     props: TeacherStatusSubtitleProps,
 ): JSX.Element {
     const periodRangeString = useMemo(() => {
+        const periods = [...props.periods].sort(
+            (a, b) => a.timeRange.start - b.timeRange.start,
+        );
+
         return formatPeriodRanges(
-            props.periods.map(period => [
+            periods.map(period => [
                 period,
                 props.teacher.absence.includes(period.id),
             ]),
