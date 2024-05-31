@@ -10,12 +10,12 @@
 		00E356F31AD99517003FC87E /* TableJetTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* TableJetTests.m */; };
 		13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.mm */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
-		8FB84146467A51A8A568AC9B /* Pods_TableJet_TableJetTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65482D72878ADC765F86F7D9 /* Pods_TableJet_TableJetTests.framework */; };
+		4A345A101BCF37448BA0D46C /* libPods-TableJet-TableJetTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CEB523971FD780877735BF34 /* libPods-TableJet-TableJetTests.a */; };
+		AD3C9B1BCEBE048BC822E545 /* libPods-TableJet.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BE4D10010F5C4E73C9531485 /* libPods-TableJet.a */; };
 		BF7AE1C02B6C143100AAE7E8 /* GoogleService-Info.plist in Copy Files */ = {isa = PBXBuildFile; fileRef = BF7AE1BE2B6C13C000AAE7E8 /* GoogleService-Info.plist */; };
 		BF7AE1C62B6C173900AAE7E8 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		BF7AE1C72B6C174100AAE7E8 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 88656D492A8601E90077E426 /* LaunchScreen.storyboard */; };
 		BF7AE1C92B6C182A00AAE7E8 /* teacher-state-icons.ttf in Copy Files */ = {isa = PBXBuildFile; fileRef = 9B3500489F48495092DAADC5 /* teacher-state-icons.ttf */; };
-		FCC93DEA855268203BC8B894 /* Pods_TableJet.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 59CB733C563C8D9C41F77160 /* Pods_TableJet.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -54,9 +54,7 @@
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = TableJet/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = TableJet/main.m; sourceTree = "<group>"; };
 		5109AD41C1B826F7FAF3A34E /* Pods-TableJet.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TableJet.debug.xcconfig"; path = "Target Support Files/Pods-TableJet/Pods-TableJet.debug.xcconfig"; sourceTree = "<group>"; };
-		59CB733C563C8D9C41F77160 /* Pods_TableJet.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TableJet.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5A3E29C7D59FFEBD640347FB /* Pods-TableJet-TableJetTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TableJet-TableJetTests.debug.xcconfig"; path = "Target Support Files/Pods-TableJet-TableJetTests/Pods-TableJet-TableJetTests.debug.xcconfig"; sourceTree = "<group>"; };
-		65482D72878ADC765F86F7D9 /* Pods_TableJet_TableJetTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TableJet_TableJetTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		88656D492A8601E90077E426 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		886986722A82E5F1006342AE /* TableJet.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = TableJet.entitlements; path = TableJet/TableJet.entitlements; sourceTree = "<group>"; };
 		889A8BBC299D7401001AED00 /* MaterialCommunityIcons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = MaterialCommunityIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialCommunityIcons.ttf"; sourceTree = "<group>"; };
@@ -76,10 +74,12 @@
 		889A8BCA299D7402001AED00 /* Ionicons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = Ionicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Ionicons.ttf"; sourceTree = "<group>"; };
 		889A8BCB299D7402001AED00 /* FontAwesome5_Solid.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = FontAwesome5_Solid.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Solid.ttf"; sourceTree = "<group>"; };
 		9B3500489F48495092DAADC5 /* teacher-state-icons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "teacher-state-icons.ttf"; path = "../resources/fonts/teacher-state-icons.ttf"; sourceTree = "<group>"; };
+		BE4D10010F5C4E73C9531485 /* libPods-TableJet.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-TableJet.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		BF7AE1BE2B6C13C000AAE7E8 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		BF8499042B437B67001CD175 /* TableJetDebug.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = TableJetDebug.entitlements; path = TableJet/TableJetDebug.entitlements; sourceTree = "<group>"; };
 		C579CB22C93EF03E5313ECBC /* Pods-TableJet.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TableJet.release.xcconfig"; path = "Target Support Files/Pods-TableJet/Pods-TableJet.release.xcconfig"; sourceTree = "<group>"; };
 		CB35563802DA2969409D413A /* Pods-TableJet-TableJetTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TableJet-TableJetTests.release.xcconfig"; path = "Target Support Files/Pods-TableJet-TableJetTests/Pods-TableJet-TableJetTests.release.xcconfig"; sourceTree = "<group>"; };
+		CEB523971FD780877735BF34 /* libPods-TableJet-TableJetTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-TableJet-TableJetTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -88,7 +88,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8FB84146467A51A8A568AC9B /* Pods_TableJet_TableJetTests.framework in Frameworks */,
+				4A345A101BCF37448BA0D46C /* libPods-TableJet-TableJetTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -96,7 +96,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FCC93DEA855268203BC8B894 /* Pods_TableJet.framework in Frameworks */,
+				AD3C9B1BCEBE048BC822E545 /* libPods-TableJet.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -149,8 +149,8 @@
 			isa = PBXGroup;
 			children = (
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
-				59CB733C563C8D9C41F77160 /* Pods_TableJet.framework */,
-				65482D72878ADC765F86F7D9 /* Pods_TableJet_TableJetTests.framework */,
+				BE4D10010F5C4E73C9531485 /* libPods-TableJet.a */,
+				CEB523971FD780877735BF34 /* libPods-TableJet-TableJetTests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -582,7 +582,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = YCJWM9D793;
 				ENABLE_BITCODE = NO;
@@ -594,7 +594,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1.0;
+				MARKETING_VERSION = 1.2.0;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -621,7 +621,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = YCJWM9D793;
 				INFOPLIST_FILE = TableJet/Info.plist;
@@ -632,7 +632,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1.0;
+				MARKETING_VERSION = 1.2.0;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",

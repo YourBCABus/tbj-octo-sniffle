@@ -61,7 +61,6 @@ const babelLoaderConfiguration = {
             plugins: [
                 ['nativewind/babel'],
                 ['module:react-native-dotenv', { allowUndefined: false }],
-                '@babel/plugin-proposal-export-namespace-from',
                 'react-native-reanimated/plugin',
                 'react-native-web',
                 '@babel/plugin-transform-react-jsx',

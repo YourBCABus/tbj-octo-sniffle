@@ -23,7 +23,8 @@ end
 
 target 'TableJet' do
   config = use_native_modules!
-  use_frameworks! :linkage => :static
+  # use_frameworks! :linkage => :static
+  use_modular_headers!
   $RNFirebaseAsStaticFramework = true
 
   # Flags change depending on the env values.
