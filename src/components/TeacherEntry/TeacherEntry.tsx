@@ -85,7 +85,10 @@ export default function TeacherEntry(props: TeacherEntryProps) {
     const { dismissAll } = useBottomSheetModalWithCatch();
     const bottomSheetModalRef = useRef<BottomSheetModal>(null);
     const handlePresentModalPress = useCallback(() => {
-        if (props.disableInteraction) return;
+        if (props.disableInteraction) {
+            return;
+        }
+
         dismissAll();
         bottomSheetModalRef.current?.present();
     }, [dismissAll, props.disableInteraction]);
@@ -97,7 +100,9 @@ export default function TeacherEntry(props: TeacherEntryProps) {
 
     // could make haptics a little less powerful if it's too much
     const toggle = useCallback(() => {
-        if (props.disableInteraction) return;
+        if (props.disableInteraction) {
+            return;
+        }
 
         toggleStar(id);
         if (props.hapticfeedback) {

@@ -22,6 +22,7 @@ export const GET_ALL_TEACHERS_PERIODS = gql`
             absence {
                 id
             }
+            comments
             fullyAbsent
         }
         periods: allPeriods {

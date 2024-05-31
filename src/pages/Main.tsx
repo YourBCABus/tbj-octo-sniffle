@@ -54,7 +54,9 @@ function getAbsenceState(
     currPeriod: Period | null,
     dayIsOver: boolean,
 ): AbsenceState {
-    if (dayIsOver) return AbsenceState.DAY_OVER;
+    if (dayIsOver) {
+        return AbsenceState.DAY_OVER;
+    }
 
     const partAbsent = teacher.absence.length > 0;
     const fullAbsent = teacher.fullyAbsent;

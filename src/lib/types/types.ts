@@ -3,6 +3,7 @@ export interface Teacher {
     displayName: string;
     name: TeacherName;
     absence: string[]; // will be an array of period ids
+    comments?: string | null;
     fullyAbsent: boolean;
 }
 

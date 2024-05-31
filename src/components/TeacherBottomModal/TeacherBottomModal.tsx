@@ -21,6 +21,15 @@ interface TeacherBottomModalProps {
     toggleStar: () => void;
 }
 
+function CommentsBody({ comments }: { comments: string }) {
+    return (
+        <View className="flex flex-col items-center mt-5">
+            <Text className="text-lg text-slate-400">Teacher Comments:</Text>
+            <Text className="text-white">{comments}</Text>
+        </View>
+    );
+}
+
 export default function TeacherBottomModal(props: TeacherBottomModalProps) {
     const snapPoints = useMemo(() => ['45%'], []);
 
@@ -58,6 +67,11 @@ export default function TeacherBottomModal(props: TeacherBottomModalProps) {
                     teacher={props.teacher}
                     alwaysShow={true}
                 />
+
+                {props.teacher.comments && (
+                    <CommentsBody comments={props.teacher.comments} />
+                )}
+                {/* <Text className="text-white">{props.teacher.comments}</Text> */}
                 {/* { renderModalBody(props) } */}
             </View>
         </BottomSheetModal>

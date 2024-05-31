@@ -20,6 +20,7 @@ const useTeachers = (data: { teachers: Teacher[] } | undefined): Teacher[] => {
                         (absenceResult: any) => absenceResult.id,
                     ) ?? [],
                 fullyAbsent: teacher.fullyAbsent,
+                comments: teacher.comments,
             };
         });
     }, [data]);
