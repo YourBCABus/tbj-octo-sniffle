@@ -1,0 +1,15 @@
+diff --git a/node_modules/@gorhom/bottom-sheet/package.json b/node_modules/@gorhom/bottom-sheet/package.json
+index 673b787..2a22633 100644
+--- a/node_modules/@gorhom/bottom-sheet/package.json
++++ b/node_modules/@gorhom/bottom-sheet/package.json
+@@ -58,8 +58,8 @@
+     "husky": "^4.3.8",
+     "lint-staged": "^11.1.2",
+     "prettier": "^2.3.2",
+-    "react": "~16.9.0",
+-    "react-native": "^0.62.2",
++    "react": "^18",
++    "react-native": "^0.74",
+     "react-native-builder-bob": "^0.18.1",
+     "react-native-gesture-handler": "^1.10.3",
+     "react-native-reanimated": "^2.8.0",

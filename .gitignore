@@ -82,3 +82,7 @@ android/app/src/main/ic_launcher-playstore.png
 android/app/*-keystore.zip
 
 public/icons/*.png
+
+# Because of iCloud Bad™
+node_modules
+node_modules.tmp
