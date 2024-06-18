@@ -3,11 +3,7 @@ import {
     User,
     statusCodes,
 } from '@react-native-google-signin/google-signin';
-import {
-    expireServerAuthCode,
-    getServerAuthCode,
-    setServerAuthCode,
-} from './storage/auth';
+import { expireIdToken, setIdToken } from './storage/auth';
 
 export interface SignInState {
     userInfo: User | null;
@@ -26,7 +22,7 @@ export const signIn = async (
 
     try {
         const userInfo = await GoogleSignin.signIn();
-        const augmented = await augmentWithServerAuthCode(userInfo);
+        const augmented = await updateIdToken(userInfo);
         console.info(augmented.user);
         console.debug(augmented);
         return augmented;
@@ -60,7 +56,7 @@ export const trySilentSignIn = async (
 
     try {
         const userInfo = await GoogleSignin.signInSilently();
-        const augmented = await augmentWithServerAuthCode(userInfo);
+        const augmented = await updateIdToken(userInfo);
         console.info(augmented.user);
         console.debug(augmented);
         return augmented;
@@ -74,7 +70,7 @@ export const configure = () => {
     GoogleSignin.configure({
         webClientId:
             '272982920556-82qhftjei4mhs0sm5g91dutu655tkdd0.apps.googleusercontent.com',
-        offlineAccess: true,
+        // offlineAccess: true,
     });
 };
 
@@ -89,31 +85,21 @@ export const ensurePlayServices = async () => {
     console.info('Google Play Services are available');
 };
 
-export const augmentWithServerAuthCode = async (
-    userInfo: User,
-): Promise<User & { serverAuthCode: {} }> => {
-    if (userInfo.serverAuthCode) {
-        const serverAuthCode = userInfo.serverAuthCode;
-        await setServerAuthCode(serverAuthCode);
+export const updateIdToken = async (userInfo: User): Promise<User> => {
+    if (userInfo.idToken) {
+        const idToken = userInfo.idToken;
+        await setIdToken(idToken);
         return {
             ...userInfo,
-            serverAuthCode,
+            idToken,
         };
     } else {
-        const cachedServerAuthCode = await getServerAuthCode();
-        if (!cachedServerAuthCode?.serverAuthCode) {
-            await GoogleSignin.signOut();
-            throw new Error('Server Auth Code not found');
-        }
-
-        return {
-            ...userInfo,
-            serverAuthCode: cachedServerAuthCode.serverAuthCode,
-        };
+        await signOut();
+        throw new Error('ID Token not found');
     }
 };
 
 export const signOut = async () => {
     await GoogleSignin.signOut();
-    await expireServerAuthCode();
+    await expireIdToken();
 };

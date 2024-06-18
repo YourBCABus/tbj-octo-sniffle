@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Context } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
@@ -19,7 +19,13 @@ NativeWindStyleSheet.setOutput({
 
 const Stack = createNativeStackNavigator();
 
+export const IdTokenContext: Context<
+    [string | null, (value: string | null) => void]
+> = React.createContext([null, () => {}] as any);
+
 export default function App(): JSX.Element {
+    const [idToken, setIdToken] = React.useState<string | null>(null);
+
     return (
         <GestureHandlerRootView className="flex-1 h-full">
             {/* The backgroundColor is currently a non-working hack for the web version. */}
@@ -28,45 +34,47 @@ export default function App(): JSX.Element {
                 translucent={true}
                 backgroundColor="#09090b"
             />
-            <NavigationContainer>
-                <Stack.Navigator
-                    screenOptions={{
-                        headerShown: false,
-                        orientation: 'portrait',
-                    }}>
-                    <Stack.Screen
-                        name="TableJet - Landing"
-                        component={Landing}
-                        options={{ title: 'Landing' }}
-                    />
-                    <Stack.Screen
-                        name="TableJet - Error"
-                        component={Error}
-                        options={{ title: 'Error' }}
-                    />
-                    <Stack.Screen
-                        name="TableJet - Sign In"
-                        component={SignIn}
-                        options={{ title: 'SignIn' }}
-                    />
+            <IdTokenContext.Provider value={[idToken, setIdToken]}>
+                <NavigationContainer>
+                    <Stack.Navigator
+                        screenOptions={{
+                            headerShown: false,
+                            orientation: 'portrait',
+                        }}>
+                        <Stack.Screen
+                            name="TableJet - Landing"
+                            component={Landing}
+                            options={{ title: 'Landing' }}
+                        />
+                        <Stack.Screen
+                            name="TableJet - Error"
+                            component={Error}
+                            options={{ title: 'Error' }}
+                        />
+                        <Stack.Screen
+                            name="TableJet - Sign In"
+                            component={SignIn}
+                            options={{ title: 'SignIn' }}
+                        />
 
-                    <Stack.Screen name="TableJet" component={Main} />
-                    <Stack.Screen
-                        name="TableJet - Initial Settings"
-                        component={InitialSettings as any}
-                        initialParams={{ page: 'NOTIFS' }}
-                    />
-                    <Stack.Screen
-                        name="TableJet - Settings"
-                        component={Settings}
-                        options={{
-                            headerShown: true,
-                            headerTransparent: true,
-                            headerTintColor: 'white',
-                        }}
-                    />
-                </Stack.Navigator>
-            </NavigationContainer>
+                        <Stack.Screen name="TableJet" component={Main} />
+                        <Stack.Screen
+                            name="TableJet - Initial Settings"
+                            component={InitialSettings as any}
+                            initialParams={{ page: 'NOTIFS' }}
+                        />
+                        <Stack.Screen
+                            name="TableJet - Settings"
+                            component={Settings}
+                            options={{
+                                headerShown: true,
+                                headerTransparent: true,
+                                headerTintColor: 'white',
+                            }}
+                        />
+                    </Stack.Navigator>
+                </NavigationContainer>
+            </IdTokenContext.Provider>
         </GestureHandlerRootView>
     );
 }

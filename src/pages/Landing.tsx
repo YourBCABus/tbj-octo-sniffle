@@ -10,6 +10,7 @@ import {
 } from '../lib/storage/SettingStorage';
 import useFixSettings from '../lib/hooks/useValidateSettings';
 import { trySilentSignIn } from '../lib/google';
+import { IdTokenContext } from '../../App';
 
 interface LandingProps {
     navigation: NativeStackNavigationProp<any>;
@@ -17,6 +18,8 @@ interface LandingProps {
 
 // look into navigation type, might be incorrect
 export default function Landing({ navigation }: LandingProps) {
+    const [, setIdToken] = React.useContext(IdTokenContext);
+
     useFixSettings();
     useEffect(() => {
         (async () => {
@@ -25,14 +28,15 @@ export default function Landing({ navigation }: LandingProps) {
                 const setupState = settings.find(s => s.id === 'setup')?.value;
                 if (setupState) {
                     try {
-                        if (
-                            await trySilentSignIn(() => {
-                                navigation.reset({
-                                    index: 0,
-                                    routes: [{ name: 'TableJet - Error' }],
-                                });
-                            })
-                        ) {
+                        const silentSignInUser = await trySilentSignIn(() => {
+                            navigation.reset({
+                                index: 0,
+                                routes: [{ name: 'TableJet - Error' }],
+                            });
+                        });
+
+                        if (silentSignInUser) {
+                            setIdToken(silentSignInUser.idToken);
                             navigation.reset({
                                 index: 0,
                                 routes: [{ name: 'TableJet' }],
@@ -40,10 +44,6 @@ export default function Landing({ navigation }: LandingProps) {
                         }
                     } catch (e) {
                         console.warn(e);
-                        navigation.reset({
-                            index: 0,
-                            routes: [{ name: 'TableJet - Sign In' }],
-                        });
                     }
                 }
             } catch (e) {
@@ -53,7 +53,7 @@ export default function Landing({ navigation }: LandingProps) {
                 console.error(e);
             }
         })();
-    }, [navigation]);
+    }, [navigation, setIdToken]);
 
     return (
         <View className="flex-1 items-center justify-center h-full">
@@ -66,13 +66,21 @@ export default function Landing({ navigation }: LandingProps) {
                 </Text>
 
                 <Pressable
-                    onPress={() =>
+                    onPress={async () => {
+                        const settings = await initialSettingsLoad();
+                        const setupState = settings.find(
+                            s => s.id === 'setup',
+                        )?.value;
+
+                        const target = setupState
+                            ? 'TableJet - Sign In'
+                            : 'TableJet - Initial Settings';
+
                         navigation.reset({
                             index: 0,
-                            // routes: [{ name: 'TableJet - Initial Settings' }],
-                            routes: [{ name: 'TableJet - Sign In' }],
-                        })
-                    }
+                            routes: [{ name: target }],
+                        });
+                    }}
                     className="
                         bg-gray-800 active:bg-gray-700
                         rounded-md p-2 mt-3

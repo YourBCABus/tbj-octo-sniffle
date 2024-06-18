@@ -1,55 +1,46 @@
-import { useMemo, useState } from 'react';
-import { getServerAuthCode } from '../storage/auth';
+import { useMemo } from 'react';
+import { getIdToken } from '../storage/auth';
 import {
     ApolloClient,
     ApolloClientOptions,
     InMemoryCache,
     NormalizedCacheObject,
 } from '@apollo/client';
-import { useAsyncIntervalValue } from './useInterval';
 import { GRAPHQL_API_ENDPOINT } from '@env';
 
-const getApolloClient = (serverAuthCode: string) => {
+const getApolloClient = (idToken: string) => {
     const config: ApolloClientOptions<NormalizedCacheObject> = {
         uri: GRAPHQL_API_ENDPOINT,
         cache: new InMemoryCache(),
     };
 
-    if (serverAuthCode) {
+    if (idToken) {
         config.headers = {
-            'Server-Auth-Code': serverAuthCode,
+            'Id-Token': idToken,
         };
     }
 
     return new ApolloClient(config);
 };
 
-const getServerAuthCodeWithDefault = async () => {
-    const code = await getServerAuthCode();
-    if (code?.serverAuthCode) {
-        return { serverAuthCode: code?.serverAuthCode };
+const getIdTokenWithDefault = async () => {
+    const idToken = await getIdToken();
+    if (idToken?.idToken) {
+        return { idToken: idToken?.idToken };
     } else {
-        return { serverAuthCode: '' };
+        return { idToken: '' };
     }
 };
 
 export const getAuthenticatedApolloClient = async () => {
-    const { serverAuthCode } = await getServerAuthCodeWithDefault();
-    return getApolloClient(serverAuthCode);
+    const { idToken } = await getIdTokenWithDefault();
+    return getApolloClient(idToken);
 };
 
-const useAuthenticatedApolloClient = () => {
-    const [validAuthValue, setValidAuthValue] = useState(false);
-    const { serverAuthCode } = useAsyncIntervalValue(
-        getServerAuthCodeWithDefault,
-        validAuthValue ? 60 * 1000 * 60 : 10 * 1000, // TODO: Slow this down
-        { serverAuthCode: '' },
-    );
-
+const useAuthenticatedApolloClient = (idToken: string | null) => {
     const client = useMemo(() => {
-        setValidAuthValue(!!serverAuthCode);
-        return getApolloClient(serverAuthCode);
-    }, [serverAuthCode]);
+        return getApolloClient(idToken ?? '');
+    }, [idToken]);
 
     return client;
 };

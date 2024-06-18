@@ -1,4 +1,4 @@
-import { useCallback, useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import {
     ApolloQueryResult,
     DocumentNode,
@@ -9,6 +9,7 @@ import {
     useQuery,
 } from '@apollo/client';
 import useAuthenticatedApolloClient from './useAuthenticatedApolloClient';
+import { IdTokenContext } from '../../../App';
 
 interface RefreshableQueryResult<T, V extends OperationVariables>
     extends Omit<QueryResult<T, V>, 'refetch'> {
@@ -21,8 +22,9 @@ const useRefreshableQuery = <Q, V extends OperationVariables>(
     options?: QueryHookOptions<Q, V>,
 ): RefreshableQueryResult<Q, V> => {
     const [isRefreshing, setIsRefreshing] = useState(false);
+    const [idToken] = React.useContext(IdTokenContext);
 
-    const client = useAuthenticatedApolloClient();
+    const client = useAuthenticatedApolloClient(idToken);
     const { refetch, ...queryReturn } = useQuery(query, { ...options, client });
 
     const refresh = useCallback(async () => {

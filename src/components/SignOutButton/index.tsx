@@ -16,7 +16,7 @@ const SignOutButton = ({ navigation }: SignOutButtonProps) => {
                 await signOut();
                 navigation.reset({
                     index: 0,
-                    routes: [{ name: 'TableJet - Sign In' }],
+                    routes: [{ name: 'TableJet - Landing' }],
                 });
             }}
             className="

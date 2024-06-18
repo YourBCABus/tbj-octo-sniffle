@@ -128,7 +128,9 @@ export default function InitialSettings({
                                 () =>
                                     navigation.reset({
                                         index: 0,
-                                        routes: [{ name: 'TableJet' }],
+                                        routes: [
+                                            { name: 'TableJet - Sign In' },
+                                        ],
                                     }),
                                 1000,
                             );

@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { IdTokenContext } from '../../App';
+
 import {
     GoogleSignin,
     GoogleSigninButton,
@@ -20,6 +22,7 @@ interface SignInProps {
 export default function SignIn({ navigation }: SignInProps) {
     useFixSettings();
     const [isInProgress, setIsInProgress] = React.useState(false);
+    const [, setIdToken] = React.useContext(IdTokenContext);
 
     return (
         <View className="flex-1 items-center justify-center h-full">
@@ -59,6 +62,7 @@ export default function SignIn({ navigation }: SignInProps) {
                         if (userInfo) {
                             setIsInProgress(false);
                             if (userInfo) {
+                                setIdToken(userInfo.idToken);
                                 navigation.reset({
                                     index: 0,
                                     routes: [{ name: 'TableJet' }],
