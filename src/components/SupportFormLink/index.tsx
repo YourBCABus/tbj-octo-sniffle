@@ -31,16 +31,18 @@ const OpenURLButton = ({ url, children }: OpenURLButtonProps) => {
 
 const SupportFormLink = () => {
     const supportFormUrl = useSupportFormLink();
-    if (!supportFormUrl) return null;
+    if (!supportFormUrl) {
+        return null;
+    }
 
     return (
-        <View className="flex flex-col justify-center bg-slate-800 p-2 rounded-lg w-11/12 mt-8">
+        <View className="flex flex-col justify-center bg-slate-850 p-2 rounded-lg w-11/12 mt-8">
             <Text className="text-zinc-200 text-center text-lg">
                 Have feedback? Want to report a bug?
             </Text>
             <OpenURLButton url={supportFormUrl}>
-                <View className="flex-row items-center justify-center text-blue-600">
-                    <Text className="text-center text-lg mr-2 text-blue-600">
+                <View className="flex-row items-center justify-center text-blue-500">
+                    <Text className="text-center text-lg mr-2 text-blue-500">
                         Go to our Support Form!
                     </Text>
                     <Icon name="open-outline" size={20} color="#2564eb" />

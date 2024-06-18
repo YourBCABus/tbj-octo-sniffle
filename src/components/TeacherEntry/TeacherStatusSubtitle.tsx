@@ -33,7 +33,9 @@ export default function TeacherStatusSubtitle(
         case AbsenceState.ABSENT_PART_PRESENT:
         case AbsenceState.ABSENT_PART_UNSURE:
             return (
-                <Text className="text-sm" style={{ color: colors.partialOrange }}>
+                <Text
+                    className="text-sm"
+                    style={{ color: colors.partialOrange }}>
                     Absent period(s) {periodRangeString}
                 </Text>
             );
@@ -44,7 +46,9 @@ export default function TeacherStatusSubtitle(
                 </Text>
             );
         case AbsenceState.PRESENT:
-            if (!props.alwaysShow) return <></>;
+            if (!props.alwaysShow) {
+                return <></>;
+            }
             return (
                 <Text
                     className="text-sm"
@@ -53,7 +57,9 @@ export default function TeacherStatusSubtitle(
                 </Text>
             );
         case AbsenceState.DAY_OVER:
-            if (!props.alwaysShow) return <></>;
+            if (!props.alwaysShow) {
+                return <></>;
+            }
             return (
                 <Text className="text-sm" style={{ color: colors.defaultGray }}>
                     Day is over

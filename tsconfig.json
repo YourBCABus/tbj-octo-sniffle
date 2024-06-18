@@ -1,7 +1,9 @@
 {
   "extends": "@tsconfig/react-native/tsconfig.json",
   "compilerOptions": {
-    "typeRoots": ["src/lib/types"],
+    "typeRoots": ["src/lib/types", "node_modules/@types"],
+    "esModuleInterop": true,
   },
-  "exclude": ["node_modules.tmp"]
+  "exclude": ["node_modules.tmp"],
+  "include": ["src"],
 }

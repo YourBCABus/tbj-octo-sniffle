@@ -21,6 +21,7 @@ module.exports = {
                 'ebony': colors.slate['950'],
                 'starred-yellow': colors.amber['300'],
                 'partial-orange': '#fbb824',
+                'slate-850': '#162032',
             },
             width: {
                 '48dip': '48px',
