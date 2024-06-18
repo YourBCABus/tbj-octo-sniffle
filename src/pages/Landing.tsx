@@ -9,6 +9,7 @@ import {
     initialSettingsLoad,
 } from '../lib/storage/SettingStorage';
 import useFixSettings from '../lib/hooks/useValidateSettings';
+import { trySilentSignIn } from '../lib/google';
 
 interface LandingProps {
     navigation: NativeStackNavigationProp<any>;
@@ -23,10 +24,27 @@ export default function Landing({ navigation }: LandingProps) {
                 const settings = await initialSettingsLoad();
                 const setupState = settings.find(s => s.id === 'setup')?.value;
                 if (setupState) {
-                    navigation.reset({
-                        index: 0,
-                        routes: [{ name: 'TableJet' }],
-                    });
+                    try {
+                        if (
+                            await trySilentSignIn(() => {
+                                navigation.reset({
+                                    index: 0,
+                                    routes: [{ name: 'TableJet - Error' }],
+                                });
+                            })
+                        ) {
+                            navigation.reset({
+                                index: 0,
+                                routes: [{ name: 'TableJet' }],
+                            });
+                        }
+                    } catch (e) {
+                        console.warn(e);
+                        navigation.reset({
+                            index: 0,
+                            routes: [{ name: 'TableJet - Sign In' }],
+                        });
+                    }
                 }
             } catch (e) {
                 if (e instanceof SettingError) {
@@ -51,12 +69,13 @@ export default function Landing({ navigation }: LandingProps) {
                     onPress={() =>
                         navigation.reset({
                             index: 0,
-                            routes: [{ name: 'TableJet - Initial Settings' }],
+                            // routes: [{ name: 'TableJet - Initial Settings' }],
+                            routes: [{ name: 'TableJet - Sign In' }],
                         })
                     }
                     className="
                         bg-gray-800 active:bg-gray-700
-                        rounded-md p-2 mt-3 
+                        rounded-md p-2 mt-3
                         w-1/4 min-h-48dip
                         flex items-center justify-center">
                     <Text className="text-md text-gray-200 text-center">

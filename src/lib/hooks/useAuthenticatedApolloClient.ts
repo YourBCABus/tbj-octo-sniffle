@@ -1,5 +1,5 @@
 import { useMemo, useState } from 'react';
-import { getClientKey } from '../storage/auth';
+import { getServerAuthCode } from '../storage/auth';
 import {
     ApolloClient,
     ApolloClientOptions,
@@ -9,46 +9,47 @@ import {
 import { useAsyncIntervalValue } from './useInterval';
 import { GRAPHQL_API_ENDPOINT } from '@env';
 
-const getApolloClient = (id: string, secret: string) => {
+const getApolloClient = (serverAuthCode: string) => {
     const config: ApolloClientOptions<NormalizedCacheObject> = {
         uri: GRAPHQL_API_ENDPOINT,
         cache: new InMemoryCache(),
     };
 
-    if (id && secret) {
+    if (serverAuthCode) {
         config.headers = {
-            'Client-Id': id,
-            'Client-Secret': secret,
+            'Server-Auth-Code': serverAuthCode,
         };
     }
 
     return new ApolloClient(config);
 };
 
-const getKeyWithDefault = async () => {
-    const key = await getClientKey();
-    if (!key) return { id: '', secret: '' };
-    return key;
+const getServerAuthCodeWithDefault = async () => {
+    const code = await getServerAuthCode();
+    if (code?.serverAuthCode) {
+        return { serverAuthCode: code?.serverAuthCode };
+    } else {
+        return { serverAuthCode: '' };
+    }
 };
 
 export const getAuthenticatedApolloClient = async () => {
-    const { id, secret } = await getKeyWithDefault();
-    return getApolloClient(id, secret);
+    const { serverAuthCode } = await getServerAuthCodeWithDefault();
+    return getApolloClient(serverAuthCode);
 };
 
 const useAuthenticatedApolloClient = () => {
     const [validAuthValue, setValidAuthValue] = useState(false);
-    const { id, secret } = useAsyncIntervalValue(
-        getKeyWithDefault,
+    const { serverAuthCode } = useAsyncIntervalValue(
+        getServerAuthCodeWithDefault,
         validAuthValue ? 60 * 1000 * 60 : 10 * 1000, // TODO: Slow this down
-        { id: '', secret: '' },
+        { serverAuthCode: '' },
     );
 
     const client = useMemo(() => {
-        if (id && secret) setValidAuthValue(true);
-        else setValidAuthValue(false);
-        return getApolloClient(id, secret);
-    }, [id, secret]);
+        setValidAuthValue(!!serverAuthCode);
+        return getApolloClient(serverAuthCode);
+    }, [serverAuthCode]);
 
     return client;
 };

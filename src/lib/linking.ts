@@ -3,8 +3,7 @@ import InitialSettings from '../pages/InitialSettings';
 
 import Main from '../pages/Main';
 import Settings from '../pages/Settings';
-
-import ClientKeySetup from '../pages/ClientKeySetup';
+import SignIn from '../pages/SignIn';
 
 export enum Pages {
     LANDING = 'TableJet - Landing',
@@ -14,6 +13,7 @@ export enum Pages {
     SETTINGS = 'TableJet - Settings',
 
     CLIENT_KEY_SETUP = 'TableJet - Please Wait...',
+    SIGN_IN = 'TableJet - Sign In',
 }
 
 export const urls = {
@@ -21,6 +21,7 @@ export const urls = {
     [Pages.INITIAL_SETTINGS]: '/setup',
     [Pages.MAIN]: '/',
     [Pages.SETTINGS]: '/settings',
+    [Pages.SIGN_IN]: '/signin',
     [Pages.CLIENT_KEY_SETUP]: '/client-key-setup/:id/:secret',
 };
 
@@ -36,5 +37,5 @@ export const Components = {
     [Pages.INITIAL_SETTINGS]: InitialSettings,
     [Pages.MAIN]: Main,
     [Pages.SETTINGS]: Settings,
-    [Pages.CLIENT_KEY_SETUP]: ClientKeySetup,
+    [Pages.SIGN_IN]: SignIn,
 };

@@ -1,31 +1,35 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-interface ClientKey {
-    id: string;
-    secret: string;
+interface AuthCode {
+    serverAuthCode: string | null;
 }
 
-export async function getClientKey(): Promise<ClientKey | null> {
+const KEY = '@server_auth_code';
+
+export async function getServerAuthCode(): Promise<AuthCode | null> {
     try {
-        const key = await AsyncStorage.getItem('@auth');
-        if (!key) return null;
-
-        const parsed = JSON.parse(key);
-        if (typeof parsed !== 'object' || parsed === null) return null;
-
-        const { id, secret } = parsed;
-        if (typeof id !== 'string' || typeof secret !== 'string') return null;
-
-        return { id, secret };
+        const serverAuthCode = await AsyncStorage.getItem(KEY);
+        if (!serverAuthCode) {
+            return null;
+        }
+        return { serverAuthCode };
     } catch (e) {
         console.warn(e);
     }
     return null;
 }
 
-export async function setClientKey(id: string, secret: string): Promise<void> {
+export async function setServerAuthCode(serverAuthCode: string): Promise<void> {
     try {
-        await AsyncStorage.setItem('@auth', JSON.stringify({ id, secret }));
+        await AsyncStorage.setItem(KEY, serverAuthCode);
+    } catch (e) {
+        console.warn(e);
+    }
+}
+
+export async function expireServerAuthCode(): Promise<void> {
+    try {
+        await AsyncStorage.removeItem(KEY);
     } catch (e) {
         console.warn(e);
     }

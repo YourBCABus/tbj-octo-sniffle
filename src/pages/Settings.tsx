@@ -7,8 +7,14 @@ import {
     updateSettingStorage,
 } from '../lib/storage/SettingStorage';
 import SupportFormLink from '../components/SupportFormLink';
+import SignOutButton from '../components/SignOutButton';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
-export default function Settings() {
+interface SettingsProps {
+    navigation: NativeStackNavigationProp<any>;
+}
+
+export default function Settings({ navigation }: SettingsProps) {
     const [settings, setSettingValue] = useState<Setting[]>([]);
     const setSettingValueFilter = useCallback(
         (newSettings: Setting[]) =>
@@ -37,6 +43,7 @@ export default function Settings() {
                 );
             })}
             <SupportFormLink />
+            <SignOutButton navigation={navigation} />
             <Text className="text-gray-300 absolute bottom-10 text-center">
                 © Yenowa
             </Text>

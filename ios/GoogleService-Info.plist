@@ -8,6 +8,12 @@
 	<string>272982920556</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
+	<key>GIDServerClientID</key>
+	<string>272982920556-82qhftjei4mhs0sm5g91dutu655tkdd0.apps.googleusercontent.com</string>
+	<key>CLIENT_ID</key>
+	<string>272982920556-erujjqbvuiu4880bvtg7q0vdrpc84chq.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.272982920556-erujjqbvuiu4880bvtg7q0vdrpc84chq</string>
 	<key>BUNDLE_ID</key>
 	<string>com.yourbcabus.tbj.ios-app</string>
 	<key>PROJECT_ID</key>

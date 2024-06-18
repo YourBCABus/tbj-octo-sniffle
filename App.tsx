@@ -6,9 +6,11 @@ import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import Landing from './src/pages/Landing';
 import Main from './src/pages/Main';
 import Settings from './src/pages/Settings';
-import { StatusBar } from 'react-native';
+import SignIn from './src/pages/SignIn';
 import InitialSettings from './src/pages/InitialSettings';
+import Error from './src/pages/Error';
 
+import { StatusBar } from 'react-native';
 import { NativeWindStyleSheet } from 'nativewind';
 
 NativeWindStyleSheet.setOutput({
@@ -36,6 +38,16 @@ export default function App(): JSX.Element {
                         name="TableJet - Landing"
                         component={Landing}
                         options={{ title: 'Landing' }}
+                    />
+                    <Stack.Screen
+                        name="TableJet - Error"
+                        component={Error}
+                        options={{ title: 'Error' }}
+                    />
+                    <Stack.Screen
+                        name="TableJet - Sign In"
+                        component={SignIn}
+                        options={{ title: 'SignIn' }}
                     />
 
                     <Stack.Screen name="TableJet" component={Main} />

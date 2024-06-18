@@ -80,6 +80,8 @@ function getAbsenceState(
     }
 }
 
+// await signOut
+
 export default function Main({ navigation }: any) {
     useFixSettings();
     const useHapticFeedback =

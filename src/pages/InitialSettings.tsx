@@ -123,11 +123,7 @@ export default function InitialSettings({
                                 'minimalist',
                                 minimalistIcons,
                             );
-                            await updateSettingStorage(
-                                () => {},
-                                'setup',
-                                true,
-                            );
+                            await updateSettingStorage(() => {}, 'setup', true);
                             setTimeout(
                                 () =>
                                     navigation.reset({
