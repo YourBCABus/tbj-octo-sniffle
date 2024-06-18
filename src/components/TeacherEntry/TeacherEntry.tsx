@@ -145,7 +145,7 @@ export default function TeacherEntry(props: TeacherEntryProps) {
                         </View>
                     </View>
                     <RightIconBar
-                        hasComments={true}
+                        hasComments={!!props.teacher.comments}
                         starred={starred}
                         toggleStar={toggle}
                         disableInteraction={!!props.disableInteraction}
