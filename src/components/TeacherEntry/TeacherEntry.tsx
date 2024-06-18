@@ -3,11 +3,11 @@ import React from 'react';
 
 // Components
 import { View, Text, Pressable, ColorValue, Platform } from 'react-native';
-import Icon from 'react-native-vector-icons/Ionicons';
 import AbsentIcon from './AbsentIcon';
 import TeacherStatusSubtitle from './TeacherStatusSubtitle';
 import TeacherBottomModal from '../TeacherBottomModal/TeacherBottomModal';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import { RightIconBar } from './Icons';
 
 // Types and utility functions
 import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
@@ -25,8 +25,6 @@ import tailwindConfig from '../../../tailwind.config';
 import { camelize } from '../../lib/utils';
 
 const fullConfig = resolveConfig(tailwindConfig);
-
-const STAR_SIZE = 30;
 
 const HAPTIC_OPTIONS = {
     enableVibrateFallback: true,
@@ -146,34 +144,12 @@ export default function TeacherEntry(props: TeacherEntryProps) {
                             </View>
                         </View>
                     </View>
-                    <View className="flex flex-row space-x-2">
-                        <Pressable
-                            disabled={props.disableInteraction}
-                            onPress={toggle}
-                            hitSlop={2}
-                            className="my-auto">
-                            {starred ? (
-                                <Icon
-                                    name="star"
-                                    size={STAR_SIZE}
-                                    color="#9898f5"
-                                />
-                            ) : (
-                                <Icon
-                                    name="star-outline"
-                                    size={STAR_SIZE}
-                                    color="#9898f5"
-                                />
-                            )}
-                        </Pressable>
-                        <View className="my-auto">
-                            <Icon
-                                name="chevron-forward-outline"
-                                size={21}
-                                color="rgb(121 120 129)"
-                            />
-                        </View>
-                    </View>
+                    <RightIconBar
+                        hasComments={true}
+                        starred={starred}
+                        toggleStar={toggle}
+                        disableInteraction={!!props.disableInteraction}
+                    />
                 </View>
             </Pressable>
             {!props.disableInteraction && Platform.OS !== 'web' && (
