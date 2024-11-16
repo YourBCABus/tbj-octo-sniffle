@@ -1,48 +1,77 @@
 {
   "project_info": {
-    "project_number": "251004294870",
-    "project_id": "tablejet-35006",
-    "storage_bucket": "tablejet-35006.appspot.com"
+    "project_number": "272982920556",
+    "firebase_url": "https://yourbcabus.firebaseio.com",
+    "project_id": "yourbcabus",
+    "storage_bucket": "yourbcabus.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:251004294870:android:b392ed59fd1b4b6d87db77",
+        "mobilesdk_app_id": "1:272982920556:android:90128f3957b091eace7749",
         "android_client_info": {
           "package_name": "com.TableJet"
         }
       },
       "oauth_client": [
         {
-          "client_id": "251004294870-7r9v5elkc49n3jg28r5gbc3d95cf80m3.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.TableJet",
-            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
-          }
-        },
-        {
-          "client_id": "251004294870-0qn1m9h56nb8jdi1l3atnig5nvk1jf9b.apps.googleusercontent.com",
+          "client_id": "272982920556-a46t6cvu3mkv0hpgpb29locbip7ijpaa.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyB-cgs3YX9gaQD3rOumbmM3ORSRJ5gPuBM"
+          "current_key": "AIzaSyCNSNQdEIgrzsgqPJjBKCchnhZtEdCunM0"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "251004294870-0qn1m9h56nb8jdi1l3atnig5nvk1jf9b.apps.googleusercontent.com",
+              "client_id": "272982920556-5g5tgb679ivj1bfjqemb8a2f70aho02b.apps.googleusercontent.com",
               "client_type": 3
             },
             {
-              "client_id": "251004294870-k3stbgdh41fi7is2c26uj9p1lctuvvao.apps.googleusercontent.com",
+              "client_id": "272982920556-cvnqm87odojngrorvej6k37lim14v2hd.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "com.yourbcabus.tbj.android"
+                "bundle_id": "com.yourbcabus.yourbcabus-ios"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:272982920556:android:efca7e3442938abc",
+        "android_client_info": {
+          "package_name": "com.yourbcabus.android.yourbcabus"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "272982920556-a46t6cvu3mkv0hpgpb29locbip7ijpaa.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCNSNQdEIgrzsgqPJjBKCchnhZtEdCunM0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "272982920556-5g5tgb679ivj1bfjqemb8a2f70aho02b.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "272982920556-cvnqm87odojngrorvej6k37lim14v2hd.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.yourbcabus.yourbcabus-ios"
               }
             }
           ]

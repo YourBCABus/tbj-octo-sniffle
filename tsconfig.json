@@ -1,5 +1,5 @@
 {
-  "extends": "@tsconfig/react-native/tsconfig.json",
+  "extends": "@react-native/typescript-config/tsconfig.json",
   "compilerOptions": {
     "typeRoots": ["src/lib/types", "node_modules/@types"],
     "esModuleInterop": true,

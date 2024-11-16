@@ -1,4 +1,5 @@
-import React, { Context } from 'react';
+import * as React from 'react';
+import { Context } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';

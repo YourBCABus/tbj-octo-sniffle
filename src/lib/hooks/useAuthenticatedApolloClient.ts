@@ -16,7 +16,7 @@ const getApolloClient = (idToken: string) => {
 
     if (idToken) {
         config.headers = {
-            'Id-Token': idToken,
+            'id-token': idToken,
         };
     }
 

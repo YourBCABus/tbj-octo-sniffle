@@ -28,6 +28,7 @@ export const signIn = async (
         return augmented;
     } catch (error) {
         console.error("Couldn't sign in", error);
+        console.error("Couldn't sign in", (error as Error).message);
         if (isErrorWithCode(error)) {
             switch (error.code) {
                 case statusCodes.IN_PROGRESS:
@@ -70,6 +71,7 @@ export const configure = () => {
     GoogleSignin.configure({
         webClientId:
             '272982920556-82qhftjei4mhs0sm5g91dutu655tkdd0.apps.googleusercontent.com',
+        hostedDomain: __DEV__ ? undefined : 'bergen.org',
         // offlineAccess: true,
     });
 };

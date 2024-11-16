@@ -1,5 +1,6 @@
 import React, { useCallback, useState } from 'react';
 import {
+    ApolloError,
     ApolloQueryResult,
     DocumentNode,
     OperationVariables,
@@ -20,6 +21,7 @@ interface RefreshableQueryResult<T, V extends OperationVariables>
 const useRefreshableQuery = <Q, V extends OperationVariables>(
     query: DocumentNode | TypedDocumentNode<Q, V>,
     options?: QueryHookOptions<Q, V>,
+    authFailed?: () => void,
 ): RefreshableQueryResult<Q, V> => {
     const [isRefreshing, setIsRefreshing] = useState(false);
     const [idToken] = React.useContext(IdTokenContext);
@@ -39,6 +41,13 @@ const useRefreshableQuery = <Q, V extends OperationVariables>(
             return e as any;
         }
     }, [refetch, setIsRefreshing]);
+
+    if (queryReturn.error && queryReturn.error instanceof ApolloError) {
+        const [graphQlError] = queryReturn.error.graphQLErrors;
+        if (graphQlError && graphQlError.message === 'Unauthorized') {
+            authFailed?.();
+        }
+    }
 
     return {
         ...queryReturn,

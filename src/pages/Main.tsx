@@ -40,6 +40,7 @@ import useCurrentPeriod from '../lib/hooks/useCurrentPeriod';
 import useRefreshableQuery from '../lib/hooks/useRefreshableQuery';
 import useTeachers from '../lib/hooks/useTeachers';
 import { useState, useEffect, useMemo } from 'react';
+import { signOut } from '../lib/google';
 
 const SUBHEADER = 'text-zinc-aa-compliant font-medium pl-2 text-sm';
 
@@ -104,14 +105,29 @@ export default function Main({ navigation }: any) {
 
     const rerender = useRerender();
 
+    const signOutAndDropOntoHomepage = useMemo(
+        () => async () => {
+            await signOut();
+            navigation.reset({
+                index: 0,
+                routes: [{ name: 'TableJet - Sign In' }],
+            });
+        },
+        [navigation],
+    );
+
     const { data, loading, error, refresh, refreshing } = useRefreshableQuery<
         { teachers: Teacher[]; periods: Period[] },
         {}
-    >(GET_ALL_TEACHERS_PERIODS, {
-        pollInterval: 30000,
-        onError: e => console.log(e),
-        onCompleted: () => setTimeout(() => rerender(), 10),
-    });
+    >(
+        GET_ALL_TEACHERS_PERIODS,
+        {
+            pollInterval: 30000,
+            onError: e => console.log(e),
+            onCompleted: () => setTimeout(() => rerender(), 10),
+        },
+        signOutAndDropOntoHomepage,
+    );
 
     const teachers = useTeachers(data);
 
@@ -134,6 +150,7 @@ export default function Main({ navigation }: any) {
     if (error) {
         return (
             <SafeAreaView className="flex-1 bg-zinc-950 justify-center align-middle flex-grow">
+                <Header navigation={navigation} />
                 <ScrollView
                     refreshControl={
                         <RefreshControl

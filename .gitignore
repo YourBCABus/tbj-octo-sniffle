@@ -83,6 +83,10 @@ android/app/*-keystore.zip
 
 public/icons/*.png
 
+# Work in progress, will probablly be unignored later
+sign-in-button
+
 # Because of iCloud Bad™
 node_modules
 node_modules.tmp
+node_modules.nosync
