@@ -214,7 +214,7 @@ export default function Main({ navigation }: any) {
                                 key={teacher.id}
                                 teacher={teacher}
                                 starred={true}
-                                setStar={toggleTeacherStar}
+                                toggleStar={toggleTeacherStar}
                                 minimalist={useMinimalistIcons}
                                 absent={getAbsenceState(
                                     teacher,
@@ -248,8 +248,8 @@ export default function Main({ navigation }: any) {
                             <TeacherEntry
                                 key={teacher.id}
                                 teacher={teacher}
-                                starred={starredIds.has(teacher.id)}
-                                setStar={toggleTeacherStar}
+                                starred={starredIds.includes(teacher.id)}
+                                toggleStar={toggleTeacherStar}
                                 minimalist={useMinimalistIcons}
                                 absent={getAbsenceState(
                                     teacher,

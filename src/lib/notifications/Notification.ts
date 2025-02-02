@@ -62,17 +62,16 @@ export async function subscribeToNotification(
     periods?: Period[],
 ) {
     periods = await coalescePeriods(periods);
+    const fbMessaging = messaging();
 
-    periods.forEach((period: Period) => {
-        const topic = `${period.id}.${teacherId}`;
-        console.log(`Subscribing to topic: ${topic}`);
-        messaging().subscribeToTopic(topic);
-    });
+    const topics = [
+        ...periods.map(p => `${p.id}.${teacherId}`),
+        `00000000-0000-0000-0000-000000000000.${teacherId}`,
+    ];
 
-    // Subscribing to blank period for blast notifs
-    const topic = `00000000-0000-0000-0000-000000000000.${teacherId}`;
-    console.log(`Subscribing to topic: ${topic}`);
-    messaging().subscribeToTopic(topic);
+    console.log(`Subscribing to topics: ${topics.join(', ')}`);
+
+    return Promise.all(topics.map(t => fbMessaging.subscribeToTopic(t)));
 }
 
 // Unsubscribes to a topic with the format of `period-id.teacher-id`
@@ -82,14 +81,14 @@ export async function unsubscribeToNotification(
     periods?: Period[],
 ) {
     periods = await coalescePeriods(periods);
-    periods.forEach((period: Period) => {
-        const topic = `${period.id}.${teacherId}`;
-        console.log(`Unsubscribing from topic: ${topic}`);
-        messaging().unsubscribeFromTopic(topic);
-    });
+    const fbMessaging = messaging();
 
-    // Subscribing to blank period for blast notifs
-    const topic = `00000000-0000-0000-0000-000000000000.${teacherId}`;
-    console.log(`Unsubscribing topic: ${topic}`);
-    messaging().unsubscribeFromTopic(topic);
+    const topics = [
+        ...periods.map(p => `${p.id}.${teacherId}`),
+        `00000000-0000-0000-0000-000000000000.${teacherId}`,
+    ];
+
+    console.log(`Unsubscribing from topics: ${topics.join(', ')}`);
+
+    return Promise.all(topics.map(t => fbMessaging.unsubscribeFromTopic(t)));
 }

@@ -43,7 +43,7 @@ export interface Setting {
 export interface TeacherEntryProps {
     teacher: Teacher;
     idx: Number;
-    setStar: (id: string) => void;
+    toggleStar: (id: string) => void;
     starred: boolean;
     absent: AbsenceState;
     minimalist: boolean;

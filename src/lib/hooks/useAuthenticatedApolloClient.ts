@@ -8,19 +8,31 @@ import {
 } from '@apollo/client';
 import { GRAPHQL_API_ENDPOINT } from '@env';
 
+let apolloClient: {
+    client: ApolloClient<NormalizedCacheObject>;
+    token: string;
+} | null = null;
+
 const getApolloClient = (idToken: string) => {
-    const config: ApolloClientOptions<NormalizedCacheObject> = {
-        uri: GRAPHQL_API_ENDPOINT,
-        cache: new InMemoryCache(),
-    };
-
-    if (idToken) {
-        config.headers = {
-            'id-token': idToken,
+    if (apolloClient && apolloClient.token === idToken) {
+        return apolloClient.client;
+    } else {
+        console.log('Building new ApolloClient');
+        const config: ApolloClientOptions<NormalizedCacheObject> = {
+            uri: GRAPHQL_API_ENDPOINT,
+            cache: new InMemoryCache(),
         };
-    }
 
-    return new ApolloClient(config);
+        if (idToken) {
+            config.headers = { 'id-token': idToken };
+        }
+
+        apolloClient = {
+            client: new ApolloClient(config),
+            token: idToken,
+        };
+        return apolloClient.client;
+    }
 };
 
 const getIdTokenWithDefault = async () => {

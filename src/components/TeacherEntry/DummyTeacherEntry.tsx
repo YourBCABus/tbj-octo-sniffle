@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import TeacherEntry from './TeacherEntry';
 import { AbsenceState, Period } from '../../lib/types/types';
 
@@ -11,6 +11,8 @@ export interface DummyTeacherEntryProps {
     periods: Period[];
 }
 
+function blankFn() {}
+
 export default function DummyTeacherEntry({
     name,
     starred,
@@ -22,21 +24,26 @@ export default function DummyTeacherEntry({
     const noHonorific = name.split(' ').slice(1).join(' ');
     const last = noHonorific.split(' ').slice(1).join(' ');
 
+    const teacher = useMemo(
+        () => ({
+            id: name,
+            fullyAbsent: absenceState.state === AbsenceState.ABSENT_ALL_DAY,
+            absence: absenceState.periods,
+            name: {
+                last,
+                honorific,
+                normal: `${honorific} ${last}`,
+            },
+            displayName: `${honorific} ${last}`,
+        }),
+        [name, absenceState, honorific, last],
+    );
+
     return (
         <TeacherEntry
-            teacher={{
-                id: name,
-                fullyAbsent: absenceState.state === AbsenceState.ABSENT_ALL_DAY,
-                absence: absenceState.periods,
-                name: {
-                    last,
-                    honorific,
-                    normal: `${honorific} ${last}`,
-                },
-                displayName: `${honorific} ${last}`,
-            }}
+            teacher={teacher}
             starred={starred}
-            setStar={() => {}}
+            toggleStar={blankFn}
             minimalist={minimalist}
             absent={absenceState.state}
             hapticfeedback={false}

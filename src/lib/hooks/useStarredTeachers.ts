@@ -8,8 +8,8 @@ import { Teacher } from '../types/types';
 
 export const useStarredTeacherIds = (
     data: { teachers: Teacher[] } | undefined,
-): [Set<string>, (id: string) => void] => {
-    const [starredTeachers, setStarredTeachers] = useState(new Set<string>());
+): [string[], (id: string) => void] => {
+    const [starredTeachers, setStarredTeachers] = useState<string[]>([]);
 
     useEffect(() => {
         if (data !== undefined) {
@@ -23,15 +23,15 @@ export const useStarredTeacherIds = (
 
     const toggleTeacherStarState = useCallback(
         (id: string) => updateTeacherStarStorage(setStarredTeachers, id),
-        [],
+        [setStarredTeachers],
     );
 
     return [starredTeachers, toggleTeacherStarState];
 };
 
-export const useStarredTeachers = (teachers: Teacher[], stars: Set<string>) => {
-    return useMemo(
-        () => teachers.filter(teacher => stars.has(teacher.id)),
-        [teachers, stars],
+export const useStarredTeachers = (teachers: Teacher[], stars: string[]) => {
+    const lut = Object.fromEntries(
+        teachers.map(teacher => [teacher.id, teacher]),
     );
+    return useMemo(() => stars.map(id => lut[id]), [lut, stars]);
 };

@@ -77,58 +77,62 @@ function useBottomSheetModalWithCatch() {
     }
 }
 
-export default function TeacherEntry(props: TeacherEntryProps) {
-    let useMinimalistMode = props.minimalist;
-
+const TeacherEntry = React.memo(function TeacherEntry({
+    absent,
+    teacher,
+    periods,
+    toggleStar,
+    starred,
+    minimalist,
+    hapticfeedback,
+    disableInteraction,
+}: TeacherEntryProps) {
     const { dismissAll } = useBottomSheetModalWithCatch();
     const bottomSheetModalRef = useRef<BottomSheetModal>(null);
     const handlePresentModalPress = useCallback(() => {
-        if (props.disableInteraction) {
+        if (disableInteraction) {
             return;
         }
 
         dismissAll();
         bottomSheetModalRef.current?.present();
-    }, [dismissAll, props.disableInteraction]);
+    }, [dismissAll, disableInteraction]);
 
-    const starred = props.starred;
-    const { id } = props.teacher;
-    let name = props.teacher.displayName;
-    const toggleStar = props.setStar;
+    const { id } = teacher;
+    let name = teacher.displayName;
 
     // could make haptics a little less powerful if it's too much
     const toggle = useCallback(() => {
-        if (props.disableInteraction) {
+        if (disableInteraction) {
             return;
         }
 
         toggleStar(id);
-        if (props.hapticfeedback) {
+        if (hapticfeedback) {
             ReactNativeHapticFeedback.trigger('impactHeavy', HAPTIC_OPTIONS);
         }
-    }, [id, props.hapticfeedback, props.disableInteraction, toggleStar]);
+    }, [id, hapticfeedback, disableInteraction, toggleStar]);
+
+    const presentModalPress = useCallback(() => {
+        handlePresentModalPress();
+        if (hapticfeedback) {
+            ReactNativeHapticFeedback.trigger('impactHeavy', HAPTIC_OPTIONS);
+        }
+    }, [handlePresentModalPress, hapticfeedback]);
 
     return (
         <GestureHandlerRootView className="flex-1" id={id}>
             <Pressable
-                disabled={props.disableInteraction}
+                disabled={disableInteraction}
                 className="my-auto"
                 hitSlop={1}
-                onPress={() => {
-                    handlePresentModalPress();
-                    if (props.hapticfeedback) {
-                        ReactNativeHapticFeedback.trigger(
-                            'impactHeavy',
-                            HAPTIC_OPTIONS,
-                        );
-                    }
-                }}>
+                onPress={presentModalPress}>
                 <View className="flex flex-row p-2 m-2 pl-0 justify-between">
                     <View className="flex flex-row space-x-3 my-auto h-10">
                         <View className="my-auto">
                             <AbsentIcon
-                                status={props.absent}
-                                useMinimalistIcons={useMinimalistMode}
+                                status={absent}
+                                useMinimalistIcons={minimalist}
                             />
                         </View>
                         <View className="flex flex-col">
@@ -137,31 +141,33 @@ export default function TeacherEntry(props: TeacherEntryProps) {
                             </Text>
                             <View className="flex flex-row">
                                 <TeacherStatusSubtitle
-                                    teacher={props.teacher}
-                                    status={props.absent}
-                                    periods={props.periods}
+                                    teacher={teacher}
+                                    status={absent}
+                                    periods={periods}
                                 />
                             </View>
                         </View>
                     </View>
                     <RightIconBar
-                        hasComments={!!props.teacher.comments}
+                        hasComments={!!teacher.comments}
                         starred={starred}
                         toggleStar={toggle}
-                        disableInteraction={!!props.disableInteraction}
+                        disableInteraction={!!disableInteraction}
                     />
                 </View>
             </Pressable>
-            {!props.disableInteraction && Platform.OS !== 'web' && (
+            {!disableInteraction && Platform.OS !== 'web' && (
                 <TeacherBottomModal
                     modalRef={bottomSheetModalRef}
-                    teacher={props.teacher}
-                    status={props.absent}
-                    periods={props.periods}
-                    starred={props.starred}
+                    teacher={teacher}
+                    status={absent}
+                    periods={periods}
+                    starred={starred}
                     toggleStar={toggle}
                 />
             )}
         </GestureHandlerRootView>
     );
-}
+});
+
+export default TeacherEntry;

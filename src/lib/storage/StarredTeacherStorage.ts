@@ -6,14 +6,14 @@ import {
     unsubscribeToNotification,
 } from '../notifications/Notification';
 
-export type StarredIds = Set<string>;
+export type StarredIds = string[];
 
 export const STARRED_ID_KEY = '@starred_teacher_ids';
 
 export async function initializeBlank(): Promise<StarredIds> {
     try {
         await AsyncStorage.setItem(STARRED_ID_KEY, JSON.stringify([]));
-        return new Set();
+        return [];
     } catch (e) {
         throw new StarError(e, true);
     }
@@ -28,17 +28,17 @@ async function __getItem(isInitError: boolean): Promise<string | null> {
 }
 
 export async function validateIDs(
-    setTeacherIds: (ids: StarredIds) => void,
+    setStarredIds: (ids: StarredIds) => void,
     teachers: Teacher[],
 ): Promise<boolean> {
     try {
-        const currentIds = [...(await initialIdLoad())];
+        const currentIds = await initialIdLoad();
         const filteredIDs = currentIds.filter(id =>
             teachers.some(teacher => teacher.id === id),
         );
 
         await AsyncStorage.setItem(STARRED_ID_KEY, JSON.stringify(filteredIDs));
-        setTeacherIds(new Set(filteredIDs));
+        setStarredIds(filteredIDs);
         return true;
     } catch (e) {
         return false;
@@ -52,10 +52,8 @@ export async function initialIdLoad(): Promise<StarredIds> {
         return initializeBlank();
     } else {
         try {
-            return new Set(
-                JSON.parse(jsonIds).filter(
-                    (value: unknown) => typeof value === 'string',
-                ),
+            return JSON.parse(jsonIds).filter(
+                (value: unknown) => typeof value === 'string',
             );
         } catch (err) {
             return initializeBlank();
@@ -78,26 +76,23 @@ export async function updateTeacherStarStorage(
 ): Promise<boolean> {
     try {
         let old = await initialIdLoad();
+        let willAdd = value || !old.includes(id);
 
         if (await hasNotifPermission()) {
-            if (value === undefined) {
-                if (old.has(id)) {
-                    unsubscribeToNotification(id);
-                } else {
-                    subscribeToNotification(id);
-                }
-            } else if (value) {
+            if (willAdd) {
                 subscribeToNotification(id);
             } else {
                 unsubscribeToNotification(id);
             }
         }
 
-        old.has(id) ? old.delete(id) : old.add(id);
+        const newStarred = willAdd
+            ? [...old, id]
+            : old.filter(cid => cid !== id);
 
-        await AsyncStorage.setItem(STARRED_ID_KEY, JSON.stringify([...old]));
+        await AsyncStorage.setItem(STARRED_ID_KEY, JSON.stringify(newStarred));
 
-        setTeacherIds(old);
+        setTeacherIds(newStarred);
         return true;
     } catch (e) {
         return false;
