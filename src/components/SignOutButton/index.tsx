@@ -14,10 +14,7 @@ const SignOutButton = ({ navigation }: SignOutButtonProps) => {
         <Pressable
             onPress={async () => {
                 await signOut();
-                navigation.reset({
-                    index: 0,
-                    routes: [{ name: 'TableJet - Landing' }],
-                });
+                navigation.replace('TableJet - Landing');
             }}
             className="
                 bg-gray-800 active:bg-gray-700

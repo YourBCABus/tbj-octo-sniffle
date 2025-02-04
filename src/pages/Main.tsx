@@ -5,27 +5,27 @@ import React from 'react';
 import Fuse from 'fuse.js';
 
 // Types + Queries for GraphQL
-import { AbsenceState, Period, Teacher } from '../lib/types/types';
+import { Period, Teacher } from '../lib/types/types';
 import { GET_ALL_TEACHERS_PERIODS } from '../lib/graphql/Queries';
-
-// Notifs
-import messaging from '../lib/webcompat/firebase-messaging/index';
 
 // Components
 import { BottomSheetModalProvider } from '@gorhom/bottom-sheet';
 import Header from '../components/Header/Header';
 import SearchBar from '../components/SearchBar/SearchBar';
-import TeacherEntry from '../components/TeacherEntry/TeacherEntry';
 import {
     Platform,
     ActivityIndicator,
     SafeAreaView,
     Text,
     View,
-    ScrollView,
     RefreshControl,
-    Alert,
 } from 'react-native';
+import TeacherList from '../components/TeacherEntry/TeacherList';
+
+// @ts-expect-error
+import _ScrollViewContainer from '../components/reordering/ScrollViewContainer';
+const ScrollViewContainer: typeof import('../components/reordering/ScrollViewContainer.d')['default'] =
+    _ScrollViewContainer;
 
 // Hooks
 import useRerender from '../lib/hooks/useRerender';
@@ -39,10 +39,9 @@ import useSortedFilteredTeachers from '../lib/hooks/useSortedFilteredTeachers';
 import useCurrentPeriod from '../lib/hooks/useCurrentPeriod';
 import useRefreshableQuery from '../lib/hooks/useRefreshableQuery';
 import useTeachers from '../lib/hooks/useTeachers';
-import { useState, useEffect, useMemo } from 'react';
-import { signOut } from '../lib/google';
-
-const SUBHEADER = 'text-zinc-aa-compliant font-medium pl-2 text-sm';
+import { useState, useMemo } from 'react';
+import useKickToSignIn from '../lib/hooks/useKickToSignIn';
+import useAuthGate from '../lib/hooks/useAuthGate';
 
 // need to do this because of weird stuff on android devices with notches unfortunately
 const SUCCESSFUL_SAFE_AREA_VIEW_STYLE =
@@ -50,71 +49,16 @@ const SUCCESSFUL_SAFE_AREA_VIEW_STYLE =
         ? 'flex-1 bg-[#0b0b0e] pt-8'
         : 'flex-1 bg-[#0b0b0e]';
 
-function getAbsenceState(
-    teacher: Teacher,
-    currPeriod: Period | null,
-    dayIsOver: boolean,
-): AbsenceState {
-    if (dayIsOver) {
-        return AbsenceState.DAY_OVER;
-    }
-
-    const partAbsent = teacher.absence.length > 0;
-    const fullAbsent = teacher.fullyAbsent;
-    if (fullAbsent) {
-        return AbsenceState.ABSENT_ALL_DAY;
-    } else if (!fullAbsent && !partAbsent) {
-        return AbsenceState.PRESENT;
-    } else {
-        if (currPeriod === null || currPeriod === undefined) {
-            return AbsenceState.ABSENT_PART_UNSURE;
-        }
-
-        const isAbsentRightNow = teacher.absence.some(
-            periodId => periodId === currPeriod?.id,
-        );
-        if (isAbsentRightNow) {
-            return AbsenceState.ABSENT_PART_ABSENT;
-        } else {
-            return AbsenceState.ABSENT_PART_PRESENT;
-        }
-    }
-}
-
-// await signOut
-
 export default function Main({ navigation }: any) {
     useFixSettings();
     const useHapticFeedback =
         useSetting('hapticfeedback', false) && Platform.OS !== 'web';
     const useMinimalistIcons = useSetting('minimalist', false);
 
-    // TODO --> Potentially tell users to keep Background App Refresh mode on for best performance on iOS
-    useEffect(() => {
-        if (Platform.OS !== 'web') {
-            const unsubscribe = messaging().onMessage(async remoteMessage => {
-                Alert.alert(
-                    'A new FCM message arrived!',
-                    JSON.stringify(remoteMessage),
-                );
-            });
-
-            return unsubscribe;
-        }
-    }, []);
+    useAuthGate(navigation);
 
     const rerender = useRerender();
-
-    const signOutAndDropOntoHomepage = useMemo(
-        () => async () => {
-            await signOut();
-            navigation.reset({
-                index: 0,
-                routes: [{ name: 'TableJet - Sign In' }],
-            });
-        },
-        [navigation],
-    );
+    const kickToSignIn = useKickToSignIn(navigation);
 
     const { data, loading, error, refresh, refreshing } = useRefreshableQuery<
         { teachers: Teacher[]; periods: Period[] },
@@ -126,7 +70,7 @@ export default function Main({ navigation }: any) {
             onError: e => console.log(e),
             onCompleted: () => setTimeout(() => rerender(), 10),
         },
-        signOutAndDropOntoHomepage,
+        kickToSignIn,
     );
 
     const teachers = useTeachers(data);
@@ -141,7 +85,8 @@ export default function Main({ navigation }: any) {
     }, [teachers]);
 
     const sortedTeachers = useSortedFilteredTeachers(teachers, fuse, search);
-    const [starredIds, toggleTeacherStar] = useStarredTeacherIds(data);
+    const [starredIds, toggleTeacherStar, reorderStarredTeachers] =
+        useStarredTeacherIds(data);
     const starredTeachers = useStarredTeachers(sortedTeachers, starredIds);
 
     const [currPeriod, nextCurrPeriod] = useCurrentPeriod(data);
@@ -151,7 +96,7 @@ export default function Main({ navigation }: any) {
         return (
             <SafeAreaView className="flex-1 bg-zinc-950 justify-center align-middle flex-grow">
                 <Header navigation={navigation} />
-                <ScrollView
+                <ScrollViewContainer
                     refreshControl={
                         <RefreshControl
                             colors={['white']}
@@ -168,7 +113,7 @@ export default function Main({ navigation }: any) {
                             Please check your internet connection.
                         </Text>
                     </View>
-                </ScrollView>
+                </ScrollViewContainer>
             </SafeAreaView>
         );
     }
@@ -187,7 +132,7 @@ export default function Main({ navigation }: any) {
                 <Header navigation={navigation} />
 
                 {/* TODO - add popup at bottom to indicate failed to load if request failed but there are already things in cache */}
-                <ScrollView
+                <ScrollViewContainer
                     refreshControl={
                         <RefreshControl
                             colors={['rgb(250 250 250)']}
@@ -195,7 +140,8 @@ export default function Main({ navigation }: any) {
                             refreshing={refreshing}
                             onRefresh={refresh}
                         />
-                    }>
+                    }
+                    className="flex">
                     <SearchBar search={search} setSearch={updateSearch} />
                     <View>
                         <Text className="text-zinc-100 text-center text-xl mx-3 my-5 font-bold">
@@ -203,36 +149,34 @@ export default function Main({ navigation }: any) {
                         </Text>
                     </View>
 
-                    {starredTeachers.length > 0 ? (
-                        <View className="mt-1 pt-2 border-t border-zinc-aa-compliant">
-                            <Text className={SUBHEADER}>Starred Teachers</Text>
-                        </View>
-                    ) : null}
-                    {starredTeachers.map((teacher, idx) => {
-                        return (
-                            <TeacherEntry
-                                key={teacher.id}
-                                teacher={teacher}
-                                starred={true}
-                                toggleStar={toggleTeacherStar}
-                                minimalist={useMinimalistIcons}
-                                absent={getAbsenceState(
-                                    teacher,
-                                    currPeriod,
-                                    nextCurrPeriod === null,
-                                )}
-                                hapticfeedback={useHapticFeedback}
-                                idx={idx}
-                                periods={data?.periods ?? []}
-                            />
-                        );
-                    })}
+                    <TeacherList
+                        listTitle="Starred Teachers"
+                        teachers={starredTeachers}
+                        // teachers={sortedTeachers}
+                        periods={data?.periods ?? []}
+                        currPeriod={currPeriod}
+                        dayIsOver={nextCurrPeriod === null}
+                        starred={starredIds}
+                        toggleStar={toggleTeacherStar}
+                        minimalist={useMinimalistIcons}
+                        hapticFeedback={useHapticFeedback}
+                        reorderable
+                        reorder={reorderStarredTeachers}
+                    />
 
-                    {sortedTeachers.length > 0 ? (
-                        <View className="mt-1 pt-2 border-t border-zinc-aa-compliant">
-                            <Text className={SUBHEADER}> All Teachers </Text>
-                        </View>
-                    ) : (
+                    <TeacherList
+                        listTitle="All Teachers"
+                        teachers={sortedTeachers}
+                        periods={data?.periods ?? []}
+                        currPeriod={currPeriod}
+                        dayIsOver={nextCurrPeriod === null}
+                        starred={starredIds}
+                        toggleStar={toggleTeacherStar}
+                        minimalist={useMinimalistIcons}
+                        hapticFeedback={useHapticFeedback}
+                    />
+
+                    {sortedTeachers.length === 0 && (
                         <View className="flex-1 justify-center align-middle mt-44">
                             <Text className="text-red-500 text-center text-xl mx-3 mt-6 mb-3 font-bold">
                                 No Teachers Found :&#x28;
@@ -242,27 +186,7 @@ export default function Main({ navigation }: any) {
                             </Text>
                         </View>
                     )}
-
-                    {sortedTeachers.map((teacher, idx) => {
-                        return (
-                            <TeacherEntry
-                                key={teacher.id}
-                                teacher={teacher}
-                                starred={starredIds.includes(teacher.id)}
-                                toggleStar={toggleTeacherStar}
-                                minimalist={useMinimalistIcons}
-                                absent={getAbsenceState(
-                                    teacher,
-                                    currPeriod,
-                                    nextCurrPeriod === null,
-                                )}
-                                hapticfeedback={useHapticFeedback}
-                                idx={idx}
-                                periods={data?.periods ?? []}
-                            />
-                        );
-                    })}
-                </ScrollView>
+                </ScrollViewContainer>
             </BottomSheetModalProvider>
         </SafeAreaView>
     );

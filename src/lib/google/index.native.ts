@@ -3,7 +3,8 @@ import {
     User,
     statusCodes,
 } from '@react-native-google-signin/google-signin';
-import { expireIdToken, setIdToken } from './storage/auth';
+import { expireIdToken, setIdToken } from '../storage/auth';
+import { Alert } from 'react-native';
 
 export interface SignInState {
     userInfo: User | null;
@@ -12,20 +13,28 @@ export interface SignInState {
 export const signIn = async (
     onCancelled: () => void,
     onError: () => void,
+    canBypass: boolean,
 ): Promise<User | null> => {
     const isErrorWithCode = (error: unknown): error is { code: string } => {
         return typeof error === 'object' && error !== null && 'code' in error;
     };
 
-    configure();
+    configure(!canBypass);
     await ensurePlayServices();
 
     try {
         const userInfo = await GoogleSignin.signIn();
         const augmented = await updateIdToken(userInfo);
-        console.info(augmented.user);
-        console.debug(augmented);
-        return augmented;
+        if (canBypass || augmented.user.email.match(/^.+@bergen\.org$/)) {
+            console.info(augmented.user);
+            console.debug(augmented);
+            return augmented;
+        } else {
+            Alert.alert('Please sign in with an @bergen.org email address');
+            await signOut();
+            onError();
+            return null;
+        }
     } catch (error) {
         console.error("Couldn't sign in", error);
         console.error("Couldn't sign in", (error as Error).message);
@@ -47,7 +56,7 @@ export const trySilentSignIn = async (
     onError: () => void,
 ): Promise<User | null> => {
     try {
-        configure();
+        configure(false);
         await ensurePlayServices();
     } catch (error) {
         console.error("Couldn't configure/set up Google Sign-In", error);
@@ -67,11 +76,11 @@ export const trySilentSignIn = async (
     }
 };
 
-export const configure = () => {
+export const configure = (lockToDomain: boolean) => {
     GoogleSignin.configure({
         webClientId:
             '272982920556-82qhftjei4mhs0sm5g91dutu655tkdd0.apps.googleusercontent.com',
-        hostedDomain: __DEV__ ? undefined : 'bergen.org',
+        hostedDomain: lockToDomain ? 'bergen.org' : undefined,
         // offlineAccess: true,
     });
 };

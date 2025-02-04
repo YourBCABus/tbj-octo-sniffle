@@ -7,7 +7,11 @@ module.exports = {
     content: [
         './App.{js,jsx,ts,tsx}',
         './src/components/**/*.{js,jsx,ts,tsx}',
+        './src/components/**/*.web.{js,jsx,ts,tsx}',
+        './src/components/**/*.native.{js,jsx,ts,tsx}',
         './src/pages/**/*.{js,jsx,ts,tsx}',
+        './src/pages/**/*.web.{js,jsx,ts,tsx}',
+        './src/pages/**/*.native.{js,jsx,ts,tsx}',
     ],
     theme: {
         extend: {

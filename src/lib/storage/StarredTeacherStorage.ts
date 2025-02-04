@@ -98,3 +98,7 @@ export async function updateTeacherStarStorage(
         return false;
     }
 }
+
+export async function updateTeacherStarOrder(newOrder: string[]) {
+    await AsyncStorage.setItem(STARRED_ID_KEY, JSON.stringify(newOrder));
+}

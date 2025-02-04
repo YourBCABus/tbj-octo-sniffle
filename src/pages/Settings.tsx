@@ -9,12 +9,15 @@ import {
 import SupportFormLink from '../components/SupportFormLink';
 import SignOutButton from '../components/SignOutButton';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import useAuthGate from '../lib/hooks/useAuthGate';
 
 interface SettingsProps {
     navigation: NativeStackNavigationProp<any>;
 }
 
 export default function Settings({ navigation }: SettingsProps) {
+    useAuthGate(navigation);
+
     const [settings, setSettingValue] = useState<Setting[]>([]);
     const setSettingValueFilter = useCallback(
         (newSettings: Setting[]) =>

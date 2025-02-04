@@ -23,6 +23,7 @@ import { useBottomSheetModal } from '@gorhom/bottom-sheet';
 import resolveConfig from 'tailwindcss/resolveConfig';
 import tailwindConfig from '../../../tailwind.config';
 import { camelize } from '../../lib/utils';
+import useActivateDrag from '../reordering/util';
 
 const fullConfig = resolveConfig(tailwindConfig);
 
@@ -86,6 +87,7 @@ const TeacherEntry = React.memo(function TeacherEntry({
     minimalist,
     hapticfeedback,
     disableInteraction,
+    draggable,
 }: TeacherEntryProps) {
     const { dismissAll } = useBottomSheetModalWithCatch();
     const bottomSheetModalRef = useRef<BottomSheetModal>(null);
@@ -97,6 +99,8 @@ const TeacherEntry = React.memo(function TeacherEntry({
         dismissAll();
         bottomSheetModalRef.current?.present();
     }, [dismissAll, disableInteraction]);
+
+    const onLongPress = useActivateDrag(!!draggable);
 
     const { id } = teacher;
     let name = teacher.displayName;
@@ -126,7 +130,8 @@ const TeacherEntry = React.memo(function TeacherEntry({
                 disabled={disableInteraction}
                 className="my-auto"
                 hitSlop={1}
-                onPress={presentModalPress}>
+                onPress={presentModalPress}
+                onLongPress={onLongPress}>
                 <View className="flex flex-row p-2 m-2 pl-0 justify-between">
                     <View className="flex flex-row space-x-3 my-auto h-10">
                         <View className="my-auto">

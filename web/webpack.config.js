@@ -110,7 +110,7 @@ module.exports = {
 
     plugins: [
         new HtmlWebpackPlugin({
-            title: 'My Web App',
+            title: 'TableJet',
             template: 'public/index.html',
             // this is a workaround for the injection of the code from the output file into the .html
             // the injection will be handled in the template file
@@ -173,9 +173,18 @@ module.exports = {
 
             '.web.tsx',
             '.tsx',
+
+            '.svg',
         ],
     },
     devServer: {
         liveReload: false,
+        proxy: [
+            {
+                context: ['/error', '/signin', '/dashboard', '/setup', '/settings', '/main'],
+                target: 'http://localhost:8080',
+                pathRewrite: { '^.+': '/' },
+            },
+        ],
     },
 };

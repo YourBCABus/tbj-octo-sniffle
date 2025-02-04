@@ -1,26 +1,45 @@
-import React from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 
-import { IdTokenContext } from '../../App';
+import {
+    CanBypassFrontendDomainRestrictionsContext,
+    IdTokenContext,
+} from '../../App';
 
-import { GoogleSignin } from '@react-native-google-signin/google-signin';
-GoogleSignin.configure();
-
-import { View, Text } from 'react-native';
+import { View, Text, Alert } from 'react-native';
 import LinearGradient from '../lib/webcompat/LinearGradient/index';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import useFixSettings from '../lib/hooks/useValidateSettings';
 
-import SignInButton from '../components/SignIn/Button';
+// @ts-expect-error
+import _SignInButton from '../components/SignIn/Button';
+const SignInButton: typeof import('../components/SignIn/Button.d')['default'] =
+    _SignInButton;
+
+import { configure } from '../lib/google';
+import { setUserData } from '../lib/storage/auth';
+configure();
 
 interface SignInProps {
     navigation: NativeStackNavigationProp<any>;
 }
 
 // look into navigation type, might be incorrect
-export default function SignIn({ navigation }: SignInProps) {
+const SignInUnmemoized = ({ navigation }: SignInProps) => {
     useFixSettings();
     const [isInProgress, setIsInProgress] = React.useState(false);
     const [, setIdToken] = React.useContext(IdTokenContext);
+
+    const [canBypass, setCanBypass] = useContext(
+        CanBypassFrontendDomainRestrictionsContext,
+    );
+    const [atTouchedCount, setAtTouchedCount] = useState(0);
+    useEffect(() => {
+        console.log({ atTouchedCount, canBypass });
+        if (atTouchedCount === 5 && !canBypass) {
+            Alert.alert('Sign in is unlocked from only @bergen.org');
+            setCanBypass(true);
+        }
+    }, [atTouchedCount, canBypass, setCanBypass]);
 
     return (
         <View className="flex-1 items-center justify-center h-full">
@@ -34,51 +53,23 @@ export default function SignIn({ navigation }: SignInProps) {
                     Please sign in with your
                 </Text>
                 <Text className="text-3xl text-white font-bold">
-                    @bergen.org
+                    <Text
+                        onPress={() => setAtTouchedCount(c => c + 1)}
+                        suppressHighlighting={true}>
+                        @
+                    </Text>
+                    bergen.org
                 </Text>
                 <Text className="text-xl text-white">email</Text>
 
                 <View className="flex-grow" />
-
-                {/* <Pressable
-                    onPress={async () => {
-                        setIsInProgress(true);
-                        const userInfo = await signIn(
-                            () =>
-                                navigation.reset({
-                                    index: 0,
-                                    routes: [{ name: 'TableJet - Landing' }],
-                                }),
-                            () =>
-                                navigation.reset({
-                                    index: 0,
-                                    routes: [{ name: 'TableJet - Error' }],
-                                }),
-                        );
-                        if (userInfo) {
-                            setIsInProgress(false);
-                            if (userInfo) {
-                                setIdToken(userInfo.idToken);
-                                navigation.reset({
-                                    index: 0,
-                                    routes: [{ name: 'TableJet' }],
-                                });
-                            }
-                        }
-                    }}
-                    disabled={isInProgress}>
-                    <View className="px-9 py-2 bg-black flex flex-row ">
-                        <Text className="text-purple-200 text-lg">
-                            Sign in With Google
-                        </Text>
-                    </View>
-                </Pressable> */}
 
                 <SignInButton
                     inProgress={isInProgress}
                     setInProgress={setIsInProgress}
                     onSuccess={userInfo => {
                         setIdToken(userInfo.idToken);
+                        setUserData(userInfo);
                         navigation.reset({
                             index: 0,
                             routes: [{ name: 'TableJet' }],
@@ -86,12 +77,7 @@ export default function SignIn({ navigation }: SignInProps) {
                     }}
                     onSuccessNull={() => {}}
                     onCancel={() => {}}
-                    onError={() =>
-                        navigation.reset({
-                            index: 0,
-                            routes: [{ name: 'TableJet - Error' }],
-                        })
-                    }
+                    onError={() => {}}
                 />
 
                 <View className="flex-grow" />
@@ -103,4 +89,6 @@ export default function SignIn({ navigation }: SignInProps) {
             </LinearGradient>
         </View>
     );
-}
+};
+const SignIn = React.memo(SignInUnmemoized);
+export default SignIn;
