@@ -39,7 +39,7 @@ export async function getUserData(): Promise<User | null> {
         const [, data] = userParsed.idToken.split('.');
         const json = decode(data);
         const exp = JSON.parse(json).exp;
-        if (exp < Date.now() / 1000) {
+        if (Date.now() / 1000 < exp) {
             return userParsed;
         } else {
             expireUserData();

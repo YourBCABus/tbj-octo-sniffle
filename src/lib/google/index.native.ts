@@ -4,7 +4,7 @@ import {
     statusCodes,
 } from '@react-native-google-signin/google-signin';
 import { expireIdToken, setIdToken } from '../storage/auth';
-import { Alert } from 'react-native';
+import { alert } from '../webcompat/alerts';
 
 export interface SignInState {
     userInfo: User | null;
@@ -30,7 +30,7 @@ export const signIn = async (
             console.debug(augmented);
             return augmented;
         } else {
-            Alert.alert('Please sign in with an @bergen.org email address');
+            alert('Please sign in with an @bergen.org email address');
             await signOut();
             onError();
             return null;

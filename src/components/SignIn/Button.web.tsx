@@ -3,7 +3,7 @@ import GoogleLogo from './google-logo.svg';
 import { ButtonProps } from './Button.d';
 import type { User } from '@react-native-google-signin/google-signin';
 import { CanBypassFrontendDomainRestrictionsContext } from '../../../App';
-import { Alert } from 'react-native';
+import { alert } from '../../lib/webcompat/alerts';
 
 const Button: FC<ButtonProps> = ({ onSuccess, onError }) => {
     const [bypass] = useContext(CanBypassFrontendDomainRestrictionsContext);
@@ -36,9 +36,7 @@ const Button: FC<ButtonProps> = ({ onSuccess, onError }) => {
                 if (canBypass || user.user.email.match(/^.+@bergen\.org$/)) {
                     onSuccess(user);
                 } else {
-                    Alert.alert(
-                        'Please sign in with an @bergen.org email address',
-                    );
+                    alert('Please sign in with an @bergen.org email address');
                     onError();
                 }
             } catch (e) {

@@ -5,7 +5,7 @@ import {
     IdTokenContext,
 } from '../../App';
 
-import { View, Text, Alert } from 'react-native';
+import { View, Text } from 'react-native';
 import LinearGradient from '../lib/webcompat/LinearGradient/index';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import useFixSettings from '../lib/hooks/useValidateSettings';
@@ -17,6 +17,7 @@ const SignInButton: typeof import('../components/SignIn/Button.d')['default'] =
 
 import { configure } from '../lib/google';
 import { setUserData } from '../lib/storage/auth';
+import { alert } from '../lib/webcompat/alerts';
 configure();
 
 interface SignInProps {
@@ -34,9 +35,8 @@ const SignInUnmemoized = ({ navigation }: SignInProps) => {
     );
     const [atTouchedCount, setAtTouchedCount] = useState(0);
     useEffect(() => {
-        console.log({ atTouchedCount, canBypass });
         if (atTouchedCount === 5 && !canBypass) {
-            Alert.alert('Sign in is unlocked from only @bergen.org');
+            alert('Sign in is unlocked from only @bergen.org');
             setCanBypass(true);
         }
     }, [atTouchedCount, canBypass, setCanBypass]);
