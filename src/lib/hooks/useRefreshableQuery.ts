@@ -25,9 +25,14 @@ const useRefreshableQuery = <Q, V extends OperationVariables>(
 ): RefreshableQueryResult<Q, V> => {
     const [isRefreshing, setIsRefreshing] = useState(false);
     const [idToken] = React.useContext(IdTokenContext);
+    const skip = !idToken;
 
     const client = useAuthenticatedApolloClient(idToken);
-    const { refetch, ...queryReturn } = useQuery(query, { ...options, client });
+    const { refetch, ...queryReturn } = useQuery(query, {
+        ...options,
+        client,
+        skip,
+    });
 
     const refresh = useCallback(async () => {
         setIsRefreshing(true);
@@ -51,6 +56,7 @@ const useRefreshableQuery = <Q, V extends OperationVariables>(
 
     return {
         ...queryReturn,
+        loading: queryReturn.loading || skip,
         refresh,
         refreshing: isRefreshing,
     };

@@ -1,18 +1,29 @@
-import { useCallback } from 'react';
+import { useCallback, useContext } from 'react';
 
 import useKickToSignIn from './useKickToSignIn';
 import useTrySilentSignIn from './useTrySilentSignIn';
 
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { signOut } from '../google';
+import { signOut, User } from '../google';
+import { IdTokenContext } from '../../../App';
 
-const voidFn = () => {};
 const useAuthGate = (navigation: NativeStackNavigationProp<any>) => {
     const kick = useKickToSignIn(navigation);
     const onError = useCallback(() => {
         signOut().then(() => navigation.replace('TableJet - Error'));
     }, [navigation]);
-    useTrySilentSignIn(voidFn, kick, onError);
+    const [, setIdToken] = useContext(IdTokenContext);
+    const onSignedIn = useCallback(
+        (user: User) => {
+            if (user.idToken) {
+                setIdToken(user.idToken);
+            } else {
+                kick();
+            }
+        },
+        [setIdToken, kick],
+    );
+    useTrySilentSignIn(onSignedIn, kick, onError);
 };
 
 export default useAuthGate;
