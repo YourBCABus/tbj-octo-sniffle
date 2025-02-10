@@ -1,3 +1,12 @@
+export interface UnprocessedTeacher {
+    id: string;
+    displayName: string;
+    name: TeacherName;
+    absence: { id: string }[];
+    comments?: string | null;
+    fullyAbsent: boolean;
+}
+
 export interface Teacher {
     id: string;
     displayName: string;
@@ -53,6 +62,8 @@ export interface TeacherEntryProps {
     periods: Period[];
 
     disableInteraction?: boolean;
+
+    useActivateDrag: (enabled: boolean) => () => void;
 }
 
 export interface SettingEntryProps {

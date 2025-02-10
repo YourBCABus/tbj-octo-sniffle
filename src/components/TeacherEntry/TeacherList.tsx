@@ -9,6 +9,7 @@ import TeacherEntry from './TeacherEntry';
 import { ListRenderItemInfo, Text, View } from 'react-native';
 import { ReorderTeachers } from '../../lib/hooks/useStarredTeachers';
 import NestedReorderableList from '../reordering/NestedReorderableList';
+import useActivateDrag from '../reordering/util';
 
 const SUBHEADER = 'text-zinc-aa-compliant font-medium pl-2 text-sm';
 
@@ -105,6 +106,7 @@ export default function TeacherList(props: TeacherListProps) {
                     idx={index}
                     periods={periods}
                     draggable={reorderable}
+                    useActivateDrag={useActivateDrag}
                 />
             );
         },

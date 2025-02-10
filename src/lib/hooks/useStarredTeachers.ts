@@ -5,7 +5,7 @@ import {
     updateTeacherStarOrder,
     validateIDs,
 } from '../storage/StarredTeacherStorage';
-import { Teacher } from '../types/types';
+import { Teacher, UnprocessedTeacher } from '../types/types';
 import { ReorderableListReorderEvent } from '../../components/reordering/util';
 import { reorderItems } from '../../components/reordering/util';
 // import {
@@ -17,7 +17,7 @@ export type ToggleTeacher = (id: string) => void;
 export type ReorderTeachers = (event: ReorderableListReorderEvent) => void;
 
 export const useStarredTeacherIds = (
-    data: { teachers: Teacher[] } | undefined,
+    data: { teachers: UnprocessedTeacher[] } | undefined,
 ): [string[], ToggleTeacher, ReorderTeachers] => {
     const [starredTeachers, setStarredTeachers] = useState<string[]>([]);
 

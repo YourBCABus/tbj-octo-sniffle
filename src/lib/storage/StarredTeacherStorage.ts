@@ -1,5 +1,5 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { Teacher } from '../types/types';
+import { UnprocessedTeacher } from '../types/types';
 import {
     hasNotifPermission,
     subscribeToNotification,
@@ -29,7 +29,7 @@ async function __getItem(isInitError: boolean): Promise<string | null> {
 
 export async function validateIDs(
     setStarredIds: (ids: StarredIds) => void,
-    teachers: Teacher[],
+    teachers: UnprocessedTeacher[],
 ): Promise<boolean> {
     try {
         const currentIds = await initialIdLoad();

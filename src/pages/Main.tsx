@@ -5,7 +5,7 @@ import React from 'react';
 import Fuse from 'fuse.js';
 
 // Types + Queries for GraphQL
-import { Period, Teacher } from '../lib/types/types';
+import { Period, UnprocessedTeacher } from '../lib/types/types';
 import { GET_ALL_TEACHERS_PERIODS } from '../lib/graphql/Queries';
 
 // Components
@@ -42,6 +42,9 @@ import useTeachers from '../lib/hooks/useTeachers';
 import { useState, useMemo } from 'react';
 import useKickToSignIn from '../lib/hooks/useKickToSignIn';
 import useAuthGate from '../lib/hooks/useAuthGate';
+import { exampleGraphqlData } from '../lib/dummydata';
+
+const USE_DUMMY_DATA = false;
 
 // need to do this because of weird stuff on android devices with notches unfortunately
 const SUCCESSFUL_SAFE_AREA_VIEW_STYLE =
@@ -60,8 +63,14 @@ export default function Main({ navigation }: any) {
     const rerender = useRerender();
     const kickToSignIn = useKickToSignIn(navigation);
 
-    const { data, loading, error, refresh, refreshing } = useRefreshableQuery<
-        { teachers: Teacher[]; periods: Period[] },
+    const {
+        data: graphqlData,
+        loading,
+        error,
+        refresh,
+        refreshing,
+    } = useRefreshableQuery<
+        { teachers: UnprocessedTeacher[]; periods: Period[] },
         {}
     >(
         GET_ALL_TEACHERS_PERIODS,
@@ -72,6 +81,7 @@ export default function Main({ navigation }: any) {
         },
         kickToSignIn,
     );
+    const data = USE_DUMMY_DATA ? exampleGraphqlData : graphqlData;
 
     const teachers = useTeachers(data);
 

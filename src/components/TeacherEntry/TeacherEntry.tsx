@@ -23,7 +23,6 @@ import { useBottomSheetModal } from '@gorhom/bottom-sheet';
 import resolveConfig from 'tailwindcss/resolveConfig';
 import tailwindConfig from '../../../tailwind.config';
 import { camelize } from '../../lib/utils';
-import useActivateDrag from '../reordering/util';
 
 const fullConfig = resolveConfig(tailwindConfig);
 
@@ -88,6 +87,7 @@ const TeacherEntry = React.memo(function TeacherEntry({
     hapticfeedback,
     disableInteraction,
     draggable,
+    useActivateDrag,
 }: TeacherEntryProps) {
     const { dismissAll } = useBottomSheetModalWithCatch();
     const bottomSheetModalRef = useRef<BottomSheetModal>(null);

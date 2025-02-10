@@ -1,12 +1,14 @@
 import { useMemo } from 'react';
-import { Teacher } from '../types/types';
+import { Teacher, UnprocessedTeacher } from '../types/types';
 
-const useTeachers = (data: { teachers: Teacher[] } | undefined): Teacher[] => {
+const useTeachers = (
+    data: { teachers: UnprocessedTeacher[] } | undefined,
+): Teacher[] => {
     return useMemo(() => {
         if (!data) {
             return [];
         }
-        return data.teachers.map((teacher: Teacher) => {
+        return data.teachers.map(teacher => {
             return {
                 id: teacher.id,
                 displayName: teacher.name.normal,
@@ -16,9 +18,8 @@ const useTeachers = (data: { teachers: Teacher[] } | undefined): Teacher[] => {
                     normal: teacher.name.normal,
                 },
                 absence:
-                    teacher.absence.map(
-                        (absenceResult: any) => absenceResult.id,
-                    ) ?? [],
+                    teacher.absence.map(absenceResult => absenceResult.id) ??
+                    [],
                 fullyAbsent: teacher.fullyAbsent,
                 comments: teacher.comments,
             };

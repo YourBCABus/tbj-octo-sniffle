@@ -11,7 +11,11 @@ export interface DummyTeacherEntryProps {
     periods: Period[];
 }
 
-function blankFn() {}
+function useActivateDragDummy() {
+    function dragHandle() {}
+    return dragHandle;
+}
+function toggleStarDummy() {}
 
 export default function DummyTeacherEntry({
     name,
@@ -43,13 +47,14 @@ export default function DummyTeacherEntry({
         <TeacherEntry
             teacher={teacher}
             starred={starred}
-            toggleStar={blankFn}
+            toggleStar={toggleStarDummy}
             minimalist={minimalist}
             absent={absenceState.state}
             hapticfeedback={false}
             idx={0}
             periods={periods}
             disableInteraction={true}
+            useActivateDrag={useActivateDragDummy}
         />
     );
 }

@@ -150,47 +150,67 @@ export const exampleTeachers: DummyTeacherEntryProps[] = [
         name: 'Ms. Rachel Sanders',
         starred: false,
         absenceState: {
-            state: AbsenceState.ABSENT_PART_PRESENT,
-            periods: ['8', '9'],
+            state: AbsenceState.PRESENT,
+            periods: [],
+        },
+        periods: examplePeriods,
+        minimalist: false,
+    },
+    {
+        name: 'Mr. Darragh Decker',
+        starred: false,
+        absenceState: {
+            state: AbsenceState.PRESENT,
+            periods: [],
+        },
+        periods: examplePeriods,
+        minimalist: false,
+    },
+    {
+        name: 'Dr. Athena Hill',
+        starred: false,
+        absenceState: {
+            state: AbsenceState.PRESENT,
+            periods: [],
         },
         periods: examplePeriods,
         minimalist: false,
     },
 ];
 
-// const defaultPronouns = {
-//     sub: 'they',
-//     subject: 'they',
-//     obj: 'them',
-//     object: 'them',
-//     posAdj: 'their',
-//     possAdjective: 'their',
-//     posPro: 'theirs',
-//     possPronoun: 'theirs',
-//     refx: 'themself',
-//     reflexive: 'themself',
-//     grammPlu: true,
-//     grammaticallyPlural: true,
-//     setStr: 'they;them;their;theirs;themself',
-// };
+const defaultPronouns = {
+    sub: 'they',
+    subject: 'they',
+    obj: 'them',
+    object: 'them',
+    posAdj: 'their',
+    possAdjective: 'their',
+    posPro: 'theirs',
+    possPronoun: 'theirs',
+    refx: 'themself',
+    reflexive: 'themself',
+    grammPlu: true,
+    grammaticallyPlural: true,
+    setStr: 'they;them;their;theirs;themself',
+};
 
-// const parseName = (name: string) => {
-//     const [honorific, first, ...rest] = name.split(' ');
-//     const last = rest.pop() ?? first;
-//     const middles = rest;
-//     const full = name;
-//     const firstLast = `${first} ${last}`;
-//     const normal = `${honorific} ${last}`;
-//     return {
-//         honorific,
-//         first,
-//         middles,
-//         last,
-//         full,
-//         firstLast,
-//         normal,
-//     };
-// };
+const parseName = (name: string) => {
+    const [honorific, first, ...rest] = name.split(' ');
+    const last = rest.pop() ?? first;
+    const middles = rest;
+    const full = name;
+    const firstLast = `${first} ${last}`;
+    const normal = `${honorific} ${last}`;
+    return {
+        honorific,
+        first,
+        middles,
+        last,
+        full,
+        firstLast,
+        normal,
+    };
+};
 
 // const lookupPeriodIds = (periods: string[]) => {
 //     return examplePeriods
@@ -198,17 +218,17 @@ export const exampleTeachers: DummyTeacherEntryProps[] = [
 //         .map(period => period.id);
 // };
 
-// export const exampleGraphqlData = {
-//     teachers: exampleTeachers.map((teacher, idx) => {
-//         return {
-//             id: `00000000-0000-0000-0000-${idx.toString(16).padStart(12, '0')}`,
-//             pronouns: defaultPronouns,
-//             name: parseName(teacher.name),
-//             displayName: parseName(teacher.name).normal,
-//             absence: teacher.absenceState.periods.map(id => ({ id })),
-//             fullyAbsent:
-//                 teacher.absenceState.state === AbsenceState.ABSENT_ALL_DAY,
-//         };
-//     }),
-//     periods: examplePeriods,
-// };
+export const exampleGraphqlData = {
+    teachers: exampleTeachers.map((teacher, idx) => {
+        return {
+            id: `00000000-0000-0000-0000-${idx.toString(16).padStart(12, '0')}`,
+            pronouns: defaultPronouns,
+            name: parseName(teacher.name),
+            displayName: parseName(teacher.name).normal,
+            absence: teacher.absenceState.periods.map(id => ({ id })),
+            fullyAbsent:
+                teacher.absenceState.state === AbsenceState.ABSENT_ALL_DAY,
+        };
+    }),
+    periods: examplePeriods,
+};
